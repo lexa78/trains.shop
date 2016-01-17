@@ -64,6 +64,14 @@ class ProductCartController extends Controller {
 	public function store(ProductCart $productCart, Request $request)
 	{
 		if(Auth::user()->id == $request->user_id) {
+			//Товаров в наличии
+			$price = Price::with('product')->where('id',$request->price_id)->first();
+			$productAmount = $price->amount;
+			$productName = $price->product[0]->name;
+			if($productAmount < (int)$request->amount) {
+				return redirect()->back()->with('alert-danger', 'Товар '.$productName.' не может быть добавлен в корзину, т.к. его количество в депо '.$productAmount.'шт., а вы хотите добавить в корзину'.$request->amount.' шт.');
+			}
+			//Есть ли уже в корзине этот товар (который только что добавили)
 			$presentProducts = $productCart->where('product_id',$request->product_id)->where('price_id',$request->price_id)->get();
 			if(count($presentProducts)) {
 				$presentProducts[0]->product_count += (int) $request->amount;

@@ -43,7 +43,7 @@
                                     <td>({{ $product['factory_code'] }})   {{ $product['factory_name'] }}</td>
                                     <td>{{$product['year']}}</td>
                                     <td>{{$product['price']}}</td>
-                                    <td>{{$product['amount']}}</td>
+                                    <td class="prod{{ $product['product_id'] }}">{{$product['amount']}}</td>
                                     <td>
                                         @if($userID)
                                             <form method="POST" action="{!! action('ProductCartController@store',[
@@ -52,7 +52,7 @@
                                                                                                                     'priceID'=>$product['price_id'],
                                             ])!!}" accept-charset="UTF-8" role="form">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                                                    <input type="number" name="amount" class="addToCartAmount" value="1" size="4"/>
+                                                    <input type="number" id="prod{{ $product['product_id'] }}" name="amount" class="addToCartAmount" value="1" size="4"/>
                                                     <input type="submit" value="В корзину">
                                             </form>
                                         @endif
