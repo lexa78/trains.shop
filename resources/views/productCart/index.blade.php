@@ -33,7 +33,7 @@
                                             <td>{{  $key +1 }}</td>
                                             <td>{{$item['name']}}</td>
                                             <td id="price_{{ $item['id'] }}">{{$item['price']}}</td>
-                                            <td>
+                                            <td class="parent{{ $item['id'] }}">
                                                 <input type="number" name="{{ $item['id'] }}" value="{{ $item['amount'] }}" class="productCartAmount" size="4"/>
                                             </td>
                                             <td id="sum_{{ $item['id'] }}" class="sum">{{ $item['price'] * $item['amount'] }}</td>
