@@ -85,8 +85,8 @@ class ProductCartController extends Controller {
 					$productCart->product_count = (int) $request->amount;
 					$productCart->save();
 				}
-				$price->amount -= (int) $request->amount;
-				$price->save();
+//				$price->amount -= (int) $request->amount;
+//				$price->save();
 			});
 		} else {
 			return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
@@ -141,9 +141,9 @@ class ProductCartController extends Controller {
 			return redirect('fatalError');
 		}
 		DB::transaction(function() use($id, $price, $productCartItem, $request, &$currentAmount) {
-			if($currentAmount >= $request->value) {
-				$price->amount -= (int) $request->value;
-				$price->save();
+			if((int)$currentAmount >= (int)$request->value) {
+//				$price->amount -= (int) $request->value;
+//				$price->save();
 				$productCartItem->product_count = $request->value;
 				$productCartItem->save();
 				$currentAmount = 0;
@@ -160,17 +160,18 @@ class ProductCartController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$price = null;
-		DB::transaction(function() use($id, &$price) {
-			$productCart = ProductCart::find($id);
-			$price = Price::with('product')->where('id',$productCart->price_id)->first();
-			$price->amount += $productCart->product_count;
-			$price->save();
-			$productCart->delete();
-		});
+//		$price = null;
+//		DB::transaction(function() use($id, &$price) {
+//			$productCart = ProductCart::find($id);
+//			$price = Price::with('product')->where('id',$productCart->price_id)->first();
+//			$price->amount += $productCart->product_count;
+//			$price->save();
+//			$productCart->delete();
+//		});
 
-//		ProductCart::destroy($id);
-		return back()->with('alert-success','Товар '.$price->product[0]->name.' удален');
+		ProductCart::destroy($id);
+//		return back()->with('alert-success','Товар '.$price->product[0]->name.' удален');
+		return back()->with('alert-success','Товар удален');
 	}
 
 }

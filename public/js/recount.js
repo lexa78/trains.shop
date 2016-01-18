@@ -25,7 +25,7 @@ function sendAjax(valWithId, value) {
         type: 'PUT',
         data: {id:valWithId, value:value},
         success: function (data) {
-            if( ! data) {
+            if( ! (data * 1)) {
                 var price = $('#price_' + valWithId).html();
                 var sum = price * value;
                 $('#sum_' + valWithId).html(sum);
@@ -35,9 +35,6 @@ function sendAjax(valWithId, value) {
                 $('p.totalSum b').html(totalSum);
             } else {
                 $('input[name = '+valWithId+']').val(data);
-                //var htmlFromParent = $('.parent'+valWithId).html();
-                //htmlFromParent += '<p class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>';
-                //alert();
             }
         }
     });
