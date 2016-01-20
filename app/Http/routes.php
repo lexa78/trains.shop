@@ -59,4 +59,4 @@ Route::put('firmUpdate', ['as'=>'firm.update', 'uses'=>'FirmController@update'])
 Route::post('confirmOrder/{user_id}', ['as'=>'confirmOrder', 'uses'=>'OrderController@confirm']);
 Route::get('storeOrder/{user_id}', ['as'=>'storeOrder', 'uses'=>'OrderController@store']);
 
-Route::get('invoice/{order_id}/{look}', ['as'=>'invoice', 'uses'=>'OrderController@invoice']);
+Route::get('invoice/{order_id}/{depo_name}/{look}', ['as'=>'invoice', 'uses'=>'OrderController@invoice']);

@@ -89,7 +89,7 @@
                 <td valign="top">{{ $selfFirm->ks }}</td>
             </tr>
         </table>
-        <h3>СЧЕТ № {{ $orderNumber }} от {{ $orderDate }} г.</h3>
+        <h3>СЧЕТ № {{ $orderNumber.' - '.$depoName }} от {{ $orderDate }} г.</h3>
         <div style="height: 3px; background-color: black; width: 93%;"></div>
         <table>
             <tr>
@@ -121,7 +121,7 @@
                 $productCount = 0;
             ?>
             @foreach($products as $stKey=>$stationsArr)
-                <tr align="center"><td colspan="6"><hr><b>Заказанные товары в депо {{$stKey}}</b><hr></td></tr>
+                {{--<tr align="center"><td colspan="6"><hr><b>Заказанные товары в депо {{$stKey}}</b><hr></td></tr>--}}
                 <?
                     $sumInDepo = 0;
                     $totalSumInDepo = 0;
@@ -140,7 +140,7 @@
                         $productCount++;
                     ?>
                 @endforeach
-                <tr align="right"><td colspan="6"><b>Сумма по депо {{ $totalSumInDepo }} руб.</b></td></tr>
+                {{--<tr align="right"><td colspan="6"><b>Сумма по депо {{ $totalSumInDepo }} руб.</b></td></tr>--}}
                 <? $totalSum += $totalSumInDepo; ?>
             @endforeach
 
@@ -159,7 +159,7 @@
             </tr>
         </table>
         Всего наименований {{ $productCount }}, на сумму {{ $totalSum }} руб.            <br>
-        <b>Ноль рублей 00 копеек</b>
+        <b>{{ \App\Models\Order::num2str($totalSum) }}</b>
         {{--<div class="signBlock">--}}
             {{--<div class="signTitle">Руководитель предприятия</div> <div class="stamp">_______________</div> <div class="signTitle">({{ $selfFirm->face_fio }})</div>--}}
             {{--<div class="clear"><div class="signTitle">Главный бухгалтер</div> <div class="signTitle">_______________</div> <div class="signTitle">({{ $selfFirm->face_fio }})</div></div>--}}

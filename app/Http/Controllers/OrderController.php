@@ -10,6 +10,7 @@ use App\Models\ProductCart;
 use App\Models\Status;
 use App\Models\User;
 use DateTime;
+use DB;
 use Illuminate\Http\Request;
 use Auth;
 use Session;
@@ -36,7 +37,6 @@ class OrderController extends Controller {
 	{
 		if(Auth::user()->id == (int) $userID) {
 			$products = ProductCart::with('product','price.stantion')->where('user_id',$userID)->get();
-			dd($products->toArray());
 		} else {
 			return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
 		}
@@ -55,9 +55,6 @@ class OrderController extends Controller {
 
 		$nextOrderId = Order::max('id') + 1;
 
-		Session::put('products', $products);
-		Session::push('company', $userCompany[0]->firm);
-
 		return view('orders.confirmOrder', ['userID'=>$userID, 'products'=>$productsArr, 'firm'=>$userCompany[0]->firm, 'nextOrderId'=>$nextOrderId]);
 	}
 
@@ -66,33 +63,42 @@ class OrderController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(ProductCart $products, Firm $firm, Order $order, $userID)
+	public function store(Firm $firm, Order $order, $userID)
 	{
-		/*
-		 * todo Не очищается сессия. Не срабатывает Session::forget('products');
-		 * временно поставил $firm[0]
-		 */
-
 		if(Auth::user()->id == (int) $userID) {
-			$products = Session::get('products');
-			$firm = Session::get('company');
-			Session::forget('products');
-			Session::forget('company');
 
-			$status = Status::where('is_first',1)->first();
+            $deposArr = [];
 
-			$order->status_id = $status->id;
-			$order->products = serialize($products);
-			$order->user_id = $userID;
-			$order->firm = $firm[0]->organisation_name;
-			$order->contact_face = $firm[0]->contact_face_fio;
-			$order->phone = $firm[0]->phone;
-			$order->email = Auth::user()->email;
-			$order->save();
+			DB::transaction(function()
+				use($order, $userID, &$deposArr)
+			{
+                $products = ProductCart::with('product','price.stantion')->where('user_id',$userID)->get();
 
-			ProductCart::where('user_id',$userID)->delete();
+                foreach($products as $productCart) {
+                    if(in_array($productCart->price->stantion[0]->stantion_name, $deposArr)) {
+                        continue;
+                    }
+                    $deposArr[] = $productCart->price->stantion[0]->stantion_name;
+                    dd($productCart->price);
+                }
 
-			return view('orders.success', ['orderNumber'=>$order->id]);
+                $userCompany = User::with('firm')->where('id',$userID)->first();
+
+				$status = Status::where('is_first',1)->first();
+
+				$order->status_id = $status->id;
+				$order->products = serialize($products);
+				$order->user_id = $userID;
+				$order->firm = $userCompany->firm->organisation_name;
+				$order->contact_face = $userCompany->firm->contact_face_fio;
+				$order->phone = $userCompany->firm->phone;
+				$order->email = Auth::user()->email;
+				$order->save();
+
+				ProductCart::where('user_id',$userID)->delete();
+			});
+
+			return view('orders.success', ['orderNumber'=>$order->id, 'deposArr'=>$deposArr]);
 		} else {
 			return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
 		}
@@ -104,7 +110,7 @@ class OrderController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function invoice($orderNumber,$look)
+	public function invoice($orderNumber, $depoName, $look)
 	{
 		$selfFirmUser = User::with('firm')->where('role_id',1)->first();
 
@@ -116,18 +122,27 @@ class OrderController extends Controller {
 
 		$productsArr = [];
 		foreach($products as $productCart) {
-			$productsArr[$productCart->price->stantion[0]->stantion_name][] = [
-				'product_name' => $productCart->product->name,
-				'product_amount' => $productCart->product_count,
-				'product_price' => $productCart->price->price
-			];
+            if($depoName == $productCart->price->stantion[0]->stantion_name) {
+                $productsArr[$depoName][] = [
+                    'product_name' => $productCart->product->name,
+                    'product_amount' => $productCart->product_count,
+                    'product_price' => $productCart->price->price
+                ];
+            }
 		}
 
 		$date = DateTime::createFromFormat('Y-m-d H:i:s', $order->updated_at);
 		$date = strtotime($date->format('d F Y'));
 
 		$pdf = App::make('dompdf.wrapper');
-		$pdf->loadView('test',['orderNumber'=>$order->id, 'orderDate'=>date('d.m.Y',$date), 'firm'=>$firm, 'selfFirm'=>$selfFirmUser->firm, 'products'=>$productsArr]);
+		$pdf->loadView('test',[
+            'orderNumber'=>$order->id,
+            'orderDate'=>date('d.m.Y',$date),
+            'firm'=>$firm,
+            'selfFirm'=>$selfFirmUser->firm,
+            'products'=>$productsArr,
+            'depoName'=>$depoName
+        ]);
 		//$pdf->save('invoices/invoice.pdf');
 		if($look) {
 			return $pdf->stream();
