@@ -11,10 +11,11 @@ class Stantion extends Model {
         return $this->belongsTo('App\Models\TrainRoad');
     }
 
-//    public function price()
-//    {
-//        return $this->hasMany('App\Models\Price');
-//    }
+    public function products_in_order()
+    {
+        return $this->hasOne('App\Models\ProductsInOrder');
+    }
+
     public function price()
     {
         return $this->belongsToMany('App\Models\Price');

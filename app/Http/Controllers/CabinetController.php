@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Firm;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -18,7 +19,8 @@ class CabinetController extends Controller {
 	{
 		$user = Auth::user();
 		$firmName = $user->firm->organisation_name;
-		return view('cabinet.index', ['userId' => $user->id, 'firmName' => $firmName]);
+		$countOfOrders = Order::count();
+		return view('cabinet.index', ['userId' => $user->id, 'firmName' => $firmName, 'countOfOrders'=>$countOfOrders]);
 	}
 
 	/**

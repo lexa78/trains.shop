@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Firm;
 use App\Models\Order;
 use App\Models\ProductCart;
+use App\Models\ProductsInOrder;
 use App\Models\Status;
 use App\Models\User;
 use DateTime;
@@ -53,9 +54,7 @@ class OrderController extends Controller {
 
 		$userCompany = User::with('firm')->where('id',$userID)->get();
 
-		$nextOrderId = Order::max('id') + 1;
-
-		return view('orders.confirmOrder', ['userID'=>$userID, 'products'=>$productsArr, 'firm'=>$userCompany[0]->firm, 'nextOrderId'=>$nextOrderId]);
+		return view('orders.confirmOrder', ['userID'=>$userID, 'products'=>$productsArr, 'firm'=>$userCompany[0]->firm]);
 	}
 
 	/**
@@ -63,42 +62,59 @@ class OrderController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Firm $firm, Order $order, $userID)
+	public function store($userID)
 	{
 		if(Auth::user()->id == (int) $userID) {
 
-            $deposArr = [];
+            $productsByDepoArr = [];
 
 			DB::transaction(function()
-				use($order, $userID, &$deposArr)
+				use($userID, &$productsByDepoArr)
 			{
-                $products = ProductCart::with('product','price.stantion')->where('user_id',$userID)->get();
+                $products = ProductCart::with('product.year','product.condition','product.factory','price.stantion')->where('user_id',$userID)->get();
 
                 foreach($products as $productCart) {
-                    if(in_array($productCart->price->stantion[0]->stantion_name, $deposArr)) {
-                        continue;
-                    }
-                    $deposArr[] = $productCart->price->stantion[0]->stantion_name;
-                    dd($productCart->price);
+                    $productsByDepoArr[$productCart->price->stantion[0]->id][] = [
+                        $productCart->product->name.'( состояние - '.$productCart->product->condition->condition
+                        .', завод - ('.$productCart->product->factory->factory_code.')'
+                        .$productCart->product->factory->factory_name
+                        .', год выпуска - '.$productCart->product->year->year.')',
+                        $productCart->product_count,
+                        $productCart->price->price
+                    ];
+                    $productCart->price->amount -= $productCart->product_count;
+                    $productCart->price->save();
                 }
-
                 $userCompany = User::with('firm')->where('id',$userID)->first();
 
 				$status = Status::where('is_first',1)->first();
 
-				$order->status_id = $status->id;
-				$order->products = serialize($products);
-				$order->user_id = $userID;
-				$order->firm = $userCompany->firm->organisation_name;
-				$order->contact_face = $userCompany->firm->contact_face_fio;
-				$order->phone = $userCompany->firm->phone;
-				$order->email = Auth::user()->email;
-				$order->save();
+                foreach($productsByDepoArr as $depoID => $productsArr) {
+                    $order = new Order();
+                    $order->status_id = $status->id;
+                    $order->user_id = $userID;
+                    $order->firm_id = $userCompany->firm->id;
+                    $order->email = Auth::user()->email;
+                    $order->save();
+                    foreach($productsArr as $product) {
+                        $productsInOrder = new ProductsInOrder();
+                        $productsInOrder->order_id = $order->id;
+                        $productsInOrder->product_name = $product[0];
+                        $productsInOrder->product_price = $product[2];
+                        $productsInOrder->product_amount = $product[1];
+                        $productsInOrder->stantion_id = $depoID;
+                        $productsInOrder->save();
+                    }
+                }
 
 				ProductCart::where('user_id',$userID)->delete();
 			});
 
-			return view('orders.success', ['orderNumber'=>$order->id, 'deposArr'=>$deposArr]);
+            /*
+             * todo Поставить в очередь создание счетов по заказам
+             * todo Поставить в очередь на отправку письмо заказчику с созданными счетами
+             */
+			return view('orders.success',['ordersAmount'=>count($productsByDepoArr)]);
 		} else {
 			return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
 		}
@@ -167,6 +183,21 @@ class OrderController extends Controller {
 //	//	dd($view);
 	}
 
+    public function showOrders()
+    {
+        $orders = Order::latest('created_at')->with('products_in_order.stantion', 'status')->where('user_id',Auth::user()->id)->get();
+        return view('orders.showOrders',['orders'=>$orders]);
+    }
+
+    public function showSpecificOrder($orderId, $userId)
+    {
+        if(Auth::user()->id == (int) $userId) {
+            $order = Order::with('products_in_order.stantion', 'status')->where('id',$orderId)->first();
+            return view('orders.showSpecificOrder',['order'=>$order]);
+        } else {
+            return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
+        }
+    }
 	/**
 	 * Show the form for editing the specified resource.
 	 *

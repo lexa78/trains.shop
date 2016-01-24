@@ -8,7 +8,7 @@
                     <div class="panel-heading">Подтверждение заказа</div>
 
                     <div class="panel-body">
-                        <h2>Подтверждение заказа № {{ $nextOrderId }}</h2>
+                        <h2>Подтверждение заказа</h2>
                         <p><b>Компания - заказчик:</b> {{ $firm->organisation_name }}</p>
                         <p><b>Контактное лицо:</b> {{ $firm->contact_face_fio }}</p>
                         <p><b>Его телефон:</b> {{ $firm->phone }}</p>

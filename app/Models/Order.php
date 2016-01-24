@@ -11,6 +11,25 @@ class Order extends Model {
         return $this->belongsTo('App\Models\Status');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function products_in_order() {
+        return $this->hasMany('App\Models\ProductsInOrder');
+    }
+
+    public static function formatDate($date, $withTime = false)
+    {
+        $newDate = strtotime($date);
+        if($withTime) {
+            return date('d.m.Y  H:i:s', $newDate);
+        } else {
+            return date('d.m.Y', $newDate);
+        }
+    }
+
     public static function num2str($num) {
         $nul='ноль';
         $ten=array(
