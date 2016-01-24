@@ -60,5 +60,8 @@ Route::post('confirmOrder/{user_id}', ['as'=>'confirmOrder', 'uses'=>'OrderContr
 Route::get('storeOrder/{user_id}', ['as'=>'storeOrder', 'uses'=>'OrderController@store']);
 Route::get('showMyOrders', ['as'=>'showMyOrders', 'uses'=>'OrderController@showOrders']);
 Route::get('showSpecificOrder/{order_id}/{user_id}', ['as'=>'showSpecificOrder', 'uses'=>'OrderController@showSpecificOrder']);
+Route::get('showOrdersToAdmin/{newOnly?}', ['as'=>'showOrdersToAdmin', 'uses'=>'OrderController@showOrdersToAdmin']);
+Route::get('showSpecificOrderToAdmin/{order_id}', ['as'=>'showSpecificOrderToAdmin', 'uses'=>'OrderController@showSpecificOrderToAdmin']);
+Route::post('changeStatus/{status_id}/{order_id}', ['as'=>'changeStatus', 'uses'=>'OrderController@changeStatus']);
 
 Route::get('invoice/{order_id}/{depo_name}/{look}', ['as'=>'invoice', 'uses'=>'OrderController@invoice']);

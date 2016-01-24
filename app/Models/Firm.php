@@ -11,4 +11,9 @@ class Firm extends Model {
 		return $this->hasOne('App\Models\User');
 	}
 
+    public function order()
+	{
+		return $this->hasMany('App\Models\Order');
+	}
+
 }

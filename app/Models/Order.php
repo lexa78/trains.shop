@@ -16,6 +16,11 @@ class Order extends Model {
         return $this->belongsTo('App\Models\User');
     }
 
+    public function firm()
+    {
+        return $this->belongsTo('App\Models\Firm');
+    }
+
     public function products_in_order() {
         return $this->hasMany('App\Models\ProductsInOrder');
     }

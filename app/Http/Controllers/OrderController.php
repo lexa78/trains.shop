@@ -14,6 +14,7 @@ use DateTime;
 use DB;
 use Illuminate\Http\Request;
 use Auth;
+use PhpSpec\Exception\Exception;
 use Session;
 use View;
 
@@ -183,10 +184,32 @@ class OrderController extends Controller {
 //	//	dd($view);
 	}
 
+    public function showOrdersToAdmin($newOnly=false)
+    {
+        if($newOnly) {
+            $orders = Order::with('products_in_order.stantion','status','firm')->where('is_new',1)->get();
+            return view('orders.showOrdersToAdmin',['orders'=>$orders]);
+        } else {
+            $orders = Order::latest('created_at')->with('products_in_order.stantion','status','firm')->get();
+            return view('orders.showOrdersToAdmin',['orders'=>$orders]);
+        }
+    }
+
     public function showOrders()
     {
         $orders = Order::latest('created_at')->with('products_in_order.stantion', 'status')->where('user_id',Auth::user()->id)->get();
         return view('orders.showOrders',['orders'=>$orders]);
+    }
+
+    public function showSpecificOrderToAdmin($orderId)
+    {
+        $order = Order::with('products_in_order.stantion', 'status', 'firm')->where('id',$orderId)->first();
+        $statuses = Status::all();
+        if($order->is_new == 1) {
+            $order->is_new = 0;
+            $order->save();
+        }
+        return view('orders.showSpecificOrderToAdmin',['order'=>$order, 'statuses'=>$statuses]);
     }
 
     public function showSpecificOrder($orderId, $userId)
@@ -196,6 +219,18 @@ class OrderController extends Controller {
             return view('orders.showSpecificOrder',['order'=>$order]);
         } else {
             return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
+        }
+    }
+
+    public function changeStatus($statusId, $orderId)
+    {
+        try {
+            $order = Order::where('id',$orderId)->first();
+            $order->status_id = $statusId;
+            $order->save();
+            echo 1;
+        } catch(Exception $e) {
+            echo 0;
         }
     }
 	/**

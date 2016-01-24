@@ -5,6 +5,21 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
+                    <div class="panel-heading">Заказы</div>
+
+                    <div class="panel-body">
+                        @if($newOrdersCount)
+                            <p><b>{{ $newOrdersCount }} новых заказов.</b></p>
+                            <p>{!! link_to_route('showOrdersToAdmin', 'Посмотреть', ['new_only'=>1]) !!}</p>
+                        @else
+                            <p>Новых заказов нет.</p>
+                            <p>{!! link_to_route('showOrdersToAdmin', 'Посмотреть все заказы') !!}</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
                     <div class="panel-heading">Пункты назначения</div>
 
                     <div class="panel-body">

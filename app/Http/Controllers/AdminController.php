@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Factory;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Region;
 use App\Models\Service;
@@ -24,23 +25,26 @@ class AdminController extends Controller {
 	 */
 	public function index(Region $region, TrainRoad $trainRoad, Stantion $stantion)
 	{
-		$regionsCount = $region->all()->count();
-		$tRoadsCount = $trainRoad->all()->count();
-		$stationsCount = $stantion->all()->count();
+		$regionsCount = $region->count();
+		$tRoadsCount = $trainRoad->count();
+		$stationsCount = $stantion->count();
 
-		$yearsCount = Year::all()->count();
-		$condCount = Condition::all()->count();
-		$factoriesCount = Factory::all()->count();
-		$productsCount = Product::all()->count();
-		$servicesCount = Service::all()->count();
+		$yearsCount = Year::count();
+		$condCount = Condition::count();
+		$factoriesCount = Factory::count();
+		$productsCount = Product::count();
+		$servicesCount = Service::count();
 
-		$catCount = Category::all()->count();
+		$catCount = Category::count();
 
-		$statusesCount = Status::all()->count();
+		$statusesCount = Status::count();
+
+		$newOrdersCount = Order::where('is_new',1)->count();
 
 		return view('admin.adminArea',['regionsCount'=>$regionsCount, 'tRoadsCount'=>$tRoadsCount, 'stationsCount'=>$stationsCount,
 					'yearsCount'=>$yearsCount, 'condCount'=>$condCount, 'factoriesCount'=>$factoriesCount, 'catCount'=>$catCount,
-					'productsCount'=>$productsCount, 'servicesCount'=>$servicesCount, 'statusesCount'=>$statusesCount]);
+					'productsCount'=>$productsCount, 'servicesCount'=>$servicesCount, 'statusesCount'=>$statusesCount,
+					'newOrdersCount'=>$newOrdersCount]);
 	}
 
 	/**
