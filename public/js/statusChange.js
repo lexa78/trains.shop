@@ -17,25 +17,16 @@ function sendAjax(statusId, orderId) {
     $.ajax({
         url: '/changeStatus/' + statusId + '/' + orderId,
         type: 'POST',
-//        data: {id:valWithId, value:value},
         success: function (data) {
             if(data) {
+                $('div.buttons_to_create').html('');
                 $('div.answerOnChange').html('<p class="alert alert-success">Статус заказа изменен <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>');
+                if(data == 5) {
+                    $('div.buttons_to_create').html('<a href="http://trains.shop/purchases" class="btn btn-success">Создать Торг-12</a><a href="http://trains.shop/purchases" class="btn btn-success">Создать Счет-фактуру</a>');
+                }
             } else {
                 $('div.answerOnChange').html('<p class="alert alert-danger">Изменение статуса заказа прошло неудачно, статус НЕ изменен <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>');
             }
-            //alert('Status changed');
-            //if( ! (data * 1)) {
-            //    var price = $('#price_' + valWithId).html();
-            //    var sum = price * value;
-            //    $('#sum_' + valWithId).html(sum);
-            //    $('td.sum').each(function (indx, element) {
-            //        totalSum += $(element).html() * 1;
-            //    });
-            //    $('p.totalSum b').html(totalSum);
-            //} else {
-            //    $('input[name = '+valWithId+']').val(data);
-            //}
         }
     });
 }

@@ -6,6 +6,10 @@ class Order extends Model {
 
     protected $guarded = ['id'];
 
+    const IS_FIRST = 1;
+    const CANCELED = 2;
+    const COMPLETED = 5;
+
     public function status()
     {
         return $this->belongsTo('App\Models\Status');

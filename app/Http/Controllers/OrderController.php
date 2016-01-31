@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Firm;
 use App\Models\Order;
+use App\Models\Price;
 use App\Models\ProductCart;
 use App\Models\ProductsInOrder;
 use App\Models\Status;
@@ -81,14 +82,16 @@ class OrderController extends Controller {
                         .$productCart->product->factory->factory_name
                         .', год выпуска - '.$productCart->product->year->year.')',
                         $productCart->product_count,
-                        $productCart->price->price
+                        $productCart->price->price,
+                        $productCart->price->id,
+                        $productCart->product->id,
                     ];
                     $productCart->price->amount -= $productCart->product_count;
                     $productCart->price->save();
                 }
                 $userCompany = User::with('firm')->where('id',$userID)->first();
 
-				$status = Status::where('is_first',1)->first();
+				$status = Status::where('is_first',Order::IS_FIRST)->first();
 
                 foreach($productsByDepoArr as $depoID => $productsArr) {
                     $order = new Order();
@@ -104,6 +107,8 @@ class OrderController extends Controller {
                         $productsInOrder->product_price = $product[2];
                         $productsInOrder->product_amount = $product[1];
                         $productsInOrder->stantion_id = $depoID;
+                        $productsInOrder->price_id = $product[3];
+                        $productsInOrder->product_id = $product[4];
                         $productsInOrder->save();
                     }
                 }
@@ -224,14 +229,32 @@ class OrderController extends Controller {
 
     public function changeStatus($statusId, $orderId)
     {
+        $response = 0;
         try {
-            $order = Order::where('id',$orderId)->first();
-            $order->status_id = $statusId;
-            $order->save();
-            echo 1;
+            DB::transaction(function()
+            use($statusId, $orderId, &$response) {
+                if($statusId == Order::CANCELED) {
+                    $order = Order::with('products_in_order.price')->where('id', $orderId)->first();
+                    foreach($order->products_in_order as $product) {
+                        $product->price->amount += $product->product_amount;
+                        $product->price->save();
+                    }
+                    $response = Order::CANCELED;
+                } else {
+                    $order = Order::where('id', $orderId)->first();
+                    if($statusId == Order::COMPLETED) {
+                        $response = Order::COMPLETED;
+                    } else {
+                        $response = 1;
+                    }
+                }
+                $order->status_id = $statusId;
+                $order->save();
+            });
         } catch(Exception $e) {
-            echo 0;
+            $response = 0;
         }
+        echo $response;
     }
 	/**
 	 * Show the form for editing the specified resource.

@@ -16,11 +16,11 @@ class Price extends Model {
         return $this->belongsToMany('App\Models\Product');
     }
 
-//    public function services()
-//    {
-//        return $this->hasOne('App\Models\Service');
-//    }
-//
+    public function products_in_order()
+    {
+        return $this->hasMany('App\Models\ProductsInOrder');
+    }
+
     public function product_cart()
     {
         return $this->hasOne('App\Models\ProductCart');

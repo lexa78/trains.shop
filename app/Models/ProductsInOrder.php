@@ -16,4 +16,14 @@ class ProductsInOrder extends Model {
         return $this->belongsTo('App\Models\Stantion');
     }
 
+    public function price()
+    {
+        return $this->belongsTo('App\Models\Price');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+    }
+
 }

@@ -76,6 +76,9 @@ class ProductCartController extends Controller {
 				//Есть ли уже в корзине этот товар (который только что добавили)
 				$presentProducts = $productCart->where('product_id',$request->product_id)->where('price_id',$request->price_id)->get();
 				if(count($presentProducts)) {
+					if($productAmount < (int)$request->amount + $presentProducts[0]->product_count) {
+						return redirect()->back()->with('alert-danger', 'Товар '.$productName.' не может быть добавлен в корзину, т.к. его количество в депо '.$productAmount.'шт., в корзине '.$presentProducts[0]->product_count.'шт., и вы хотите добавить в корзину еще '.$request->amount.'шт.');
+					}
 					$presentProducts[0]->product_count += (int) $request->amount;
 					$presentProducts[0]->save();
 				} else {

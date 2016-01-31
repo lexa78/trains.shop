@@ -189,6 +189,19 @@
         </div>
     </div>
 
+    @if(Auth::user()->role->id == \App\Models\User::ADMIN)
+        <div class="form-group">
+            <label class="col-md-4 control-label">ФИО бухгалтера</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" name="accountant_fio" value="{{ $firm->accountant_fio }}" placeholder="Счетоводова Клавдия Вседалавовна">
+                <p>допускается вводить только буквы и пробел</p>
+                @if($errors->has('accountant_fio'))
+                    <div class="alert-danger alert">{!! $errors->first('accountant_fio') !!}</div>
+                @endif
+            </div>
+        </div>
+    @endif
+
     <div class="form-group">
         <div class="col-md-6 col-md-offset-4">
             {!! Form::submit('Изменить', ['class'=>'btn btn-success']) !!}

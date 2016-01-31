@@ -36,4 +36,9 @@ class Product extends Model {
         return $this->hasMany('App\Models\ProductCart');
     }
 
+    public function products_in_order()
+    {
+        return $this->hasMany('App\Models\ProductsInOrder');
+    }
+
 }

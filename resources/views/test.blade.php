@@ -166,7 +166,7 @@
         {{--</div>--}}
         <div class="signBlock">
             <div>Руководитель предприятия_______________({{ $selfFirm->face_fio }})</div>
-            <div>Главный бухгалтер_______________({{ $selfFirm->face_fio }})</div>
+            <div>Главный бухгалтер_______________({{ $selfFirm->accountant_fio }})</div>
             <div class="stamp qwe"></div>
         </div>
 </div>

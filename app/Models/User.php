@@ -10,6 +10,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	use Authenticatable, CanResetPassword;
 
+	const ADMIN = 1;
 	/**
 	 * The database table used by the model.
 	 *
@@ -40,6 +41,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function firm()
     {
         return $this->belongsTo('App\Models\Firm');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Role');
     }
 
 }
