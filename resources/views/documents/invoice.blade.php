@@ -89,7 +89,7 @@
                 <td valign="top">{{ $selfFirm->ks }}</td>
             </tr>
         </table>
-        <h3>СЧЕТ № {{ $orderNumber.' - '.$depoName }} от {{ $orderDate }} г.</h3>
+        <h3>СЧЕТ № {{ $orderNumber.' - '.$depoId }} от {{ $orderDate }} г.</h3>
         <div style="height: 3px; background-color: black; width: 93%;"></div>
         <table>
             <tr>
