@@ -3,6 +3,7 @@
 use App;
 use App\Commands\Command;
 
+use App\Models\Document;
 use App\Models\Order;
 use App\Models\Stantion;
 use App\Models\User;
@@ -80,15 +81,23 @@ class CreateInvoice extends Command implements SelfHandling {
         }
 
         $clientFolder = storage_path().'/app'.$whereAreClientDocuments.'/client_'.Auth::user()->id.'/invoices';
-
         //invoice_{orderID}_{depoName}_date_{currentDate}
         $fileNameTemplate = $documents['client_invoice_template'];
 
         $fileNameTemplate = Utils::mb_str_replace('{orderID}', $this->order->id, $fileNameTemplate);
-        $fileNameTemplate = Utils::mb_str_replace('{depoName}', $this->depo->stantion_name, $fileNameTemplate);
+        $depoName = Utils::mb_str_replace(' ','',$this->depo->stantion_name);
+        $depoName = Utils::translit($depoName);
+        $fileNameTemplate = Utils::mb_str_replace('{depoName}', $depoName, $fileNameTemplate);
         $fileNameTemplate = Utils::mb_str_replace('{currentDate}', time(), $fileNameTemplate);
 
         $pdf->save($clientFolder.'/'.$fileNameTemplate);
+
+        $docs = new Document();
+        $docs->type = Order::INVOICE_TYPE;
+        $docs->user_id = Auth::user()->id;
+        $docs->order_id = $this->order->id;
+        $docs->file_name = $clientFolder.'/'.$fileNameTemplate;
+        $docs->save();
     }
 
 }

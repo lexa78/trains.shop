@@ -72,9 +72,10 @@ class OrderController extends Controller {
 		if(Auth::user()->id == (int) $userID) {
 
             $productsByDepoArr = [];
+            $orderNumbers = [];
 
 			DB::transaction(function()
-				use($userID, &$productsByDepoArr)
+				use($userID, &$productsByDepoArr, &$orderNumbers)
 			{
                 $products = ProductCart::with('product.year','product.condition','product.factory','price.stantion')->where('user_id',$userID)->get();
 
@@ -103,6 +104,7 @@ class OrderController extends Controller {
                     $order->firm_id = $userCompany->firm->id;
                     $order->email = Auth::user()->email;
                     $order->save();
+                    $orderNumbers[] = $order->id;
 
                     foreach($productsArr as $product) {
                         $productsInOrder = new ProductsInOrder();
@@ -121,9 +123,28 @@ class OrderController extends Controller {
 
 				ProductCart::where('user_id',$userID)->delete();
 			});
+
+            $files=Document::where('user_id',Auth::user()->id)->where(
+                function($query)
+            {
+                $query->orWhere('votes', '>', 100)
+                    ->where('title', '<>', 'Admin');
+            });
+
+            $user->where('age',25);
+
+            for($i=0;$i<count($heightarray);i++){
+                if($i==0){
+                    $user->whereBetween('height',$heightarray[$i])
+}else{
+                    $user->orWhereBetween('height',$heightarray[$i])
+ }
+            }
+            $user->get();
             /*
              * todo Поставить в очередь на отправку письмо заказчику с созданными счетами
              */
+
 			return view('orders.success',['ordersAmount'=>count($productsByDepoArr)]);
 		} else {
 			return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');

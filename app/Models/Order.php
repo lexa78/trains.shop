@@ -6,9 +6,14 @@ class Order extends Model {
 
     protected $guarded = ['id'];
 
-    const IS_FIRST = 1;
-    const CANCELED = 2;
-    const COMPLETED = 5;
+    const IS_FIRST = 1;//статус заказа по умолчанию начальный
+    const CANCELED = 2;//статус заказа отменен
+    const COMPLETED = 5;//статус заказа выполнен
+    const INVOICE_TYPE = 1; //счет
+    const INVOICE_ACCT_TYPE = 2; //счет-фактура
+    const AUCTION_12_TYPE = 3; //торг-12
+    const CONTRACT_TYPE = 4; //договор
+    const SUPPLEMENTARY_AGREEMENT_TYPE = 5; //доп. соглашение
 
     public function status()
     {
@@ -27,6 +32,11 @@ class Order extends Model {
 
     public function products_in_order() {
         return $this->hasMany('App\Models\ProductsInOrder');
+    }
+
+    public function document()
+    {
+        return $this->hasMany('App\Models\Document');
     }
 
     public static function formatDate($date, $withTime = false)
