@@ -6,6 +6,8 @@ use App\Commands\Command;
 use App\Models\Order;
 use App\Models\Stantion;
 use App\Models\User;
+use App\MyDesigns\Classes\Utils;
+use Auth;
 use Config;
 use DateTime;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -64,36 +66,29 @@ class CreateInvoice extends Command implements SelfHandling {
             'products'=>$productsArr,
             'depoId'=>$this->depo->id
         ]);
-        $pdf->save(storage_path().'/app/documents/invoice.pdf');
-        $exists = Storage::disk('local')->exists('documents');
-        dd(Config::get('documents'));
-    }
 
-    public function invoice($orderNumber, $depoName, $look)
-    {
-
-        //$pdf->save('invoices/invoice.pdf');
-        if($look) {
-            return $pdf->stream();
-        } else {
-            return $pdf->download('invoice.pdf');
+        //$whereAreClientDocuments = storage_path().'/app'.Config::get('documents')['documents_folder'];
+        $documents = Config::get('documents');
+        $whereAreClientDocuments = $documents['documents_folder'];
+        //client_{id}
+        if( ! Storage::disk('local')->exists($whereAreClientDocuments.'/client_'.Auth::user()->id)) {
+            Storage::makeDirectory($whereAreClientDocuments.'/client_'.Auth::user()->id);
+        }
+        //invoices
+        if( ! Storage::disk('local')->exists($whereAreClientDocuments.'/client_'.Auth::user()->id.'/invoices')) {
+            Storage::makeDirectory($whereAreClientDocuments.'/client_'.Auth::user()->id.'/invoices');
         }
 
-//		$selfFirmUser = User::with('firm')->where('role_id',1)->first();
-//
-//  //      $file = 'invoice.pdf';
-//
-//		$pdf = App::make('dompdf.wrapper');
-////		$pdf->loadHTML('');
-//		$pdf->loadView('test',['orderNumber'=>5864, 'firm'=>$firm, 'selfFirm'=>$selfFirmUser->firm]);
-////		$view =  View::make('test',['orderNumber'=>5864])->render();
-////		$pdf->loadHTML($view);
-//	//	return $pdf->download('invoice.pdf');
-//   //     file_put_contents($file, $view);
-////        $pdf->loadFile('C:\OpenServer\domains\trains.shop\public\invoices\invoice.html');
-//		return $pdf->stream();
-////		return $pdf->save();
-//	//	dd($view);
+        $clientFolder = storage_path().'/app'.$whereAreClientDocuments.'/client_'.Auth::user()->id.'/invoices';
+
+        //invoice_{orderID}_{depoName}_date_{currentDate}
+        $fileNameTemplate = $documents['client_invoice_template'];
+
+        $fileNameTemplate = Utils::mb_str_replace('{orderID}', $this->order->id, $fileNameTemplate);
+        $fileNameTemplate = Utils::mb_str_replace('{depoName}', $this->depo->stantion_name, $fileNameTemplate);
+        $fileNameTemplate = Utils::mb_str_replace('{currentDate}', time(), $fileNameTemplate);
+
+        $pdf->save($clientFolder.'/'.$fileNameTemplate);
     }
 
 }

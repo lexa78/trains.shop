@@ -103,6 +103,7 @@ class OrderController extends Controller {
                     $order->firm_id = $userCompany->firm->id;
                     $order->email = Auth::user()->email;
                     $order->save();
+
                     foreach($productsArr as $product) {
                         $productsInOrder = new ProductsInOrder();
                         $productsInOrder->order_id = $order->id;
@@ -120,9 +121,7 @@ class OrderController extends Controller {
 
 				ProductCart::where('user_id',$userID)->delete();
 			});
-
             /*
-             * todo Поставить в очередь создание счетов по заказам
              * todo Поставить в очередь на отправку письмо заказчику с созданными счетами
              */
 			return view('orders.success',['ordersAmount'=>count($productsByDepoArr)]);

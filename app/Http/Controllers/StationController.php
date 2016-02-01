@@ -62,7 +62,7 @@ class StationController extends Controller {
 				}
 		);
 
-		return redirect('stations')->with('alert-warning', 'Станция успешно добавлена! Внимание! Не забудьте проставить цену товарам для этого депо');
+		return redirect('stations')->with('alert-warning', 'Депо успешно добавлено! Внимание! Не забудьте проставить цену товарам для этого депо');
 	}
 
 	/**
