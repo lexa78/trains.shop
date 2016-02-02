@@ -7,7 +7,7 @@
 ?>
 @foreach($productByDepoAsKey as $depoID => $products)
     <h2>Номер заказа: {{ $depoID }}</h2>
-    <p>Заказ в депо {{ \App\Models\Stantion::find($depoId)->first()->stantion_name }}</p>
+    <p>Заказ в депо {{ \App\Models\Stantion::find($depoID)->first()->stantion_name }}</p>
     <br>
     <h3>Заказанные продукты:</h3>
     <ol>

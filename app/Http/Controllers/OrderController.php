@@ -143,10 +143,6 @@ class OrderController extends Controller {
             //Запускаем команду на отправку email
             Bus::dispatch(new SendEmailWithInvoices($messageParams, $fileNames));
 
-            /*
-             * todo Поставить в очередь на отправку письмо заказчику с созданными счетами
-             */
-
 			return view('orders.success',['ordersAmount'=>count($productsByDepoArr)]);
 		} else {
 			return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
