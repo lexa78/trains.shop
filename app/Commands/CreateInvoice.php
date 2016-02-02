@@ -84,6 +84,7 @@ class CreateInvoice extends Command implements SelfHandling {
         //invoice_{orderID}_{depoName}_date_{currentDate}
         $fileNameTemplate = $documents['client_invoice_template'];
 
+        $fileNameTemplate = Utils::mb_str_replace('{docType}', Order::getDocTypeName(Order::INVOICE_TYPE), $fileNameTemplate);
         $fileNameTemplate = Utils::mb_str_replace('{orderID}', $this->order->id, $fileNameTemplate);
         $depoName = Utils::mb_str_replace(' ','',$this->depo->stantion_name);
         $depoName = Utils::translit($depoName);

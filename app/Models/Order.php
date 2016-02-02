@@ -15,6 +15,19 @@ class Order extends Model {
     const CONTRACT_TYPE = 4; //договор
     const SUPPLEMENTARY_AGREEMENT_TYPE = 5; //доп. соглашение
 
+    private static $documentTypes = [
+        self::INVOICE_TYPE => 'schet',
+        self::INVOICE_ACCT_TYPE => 'schet-factura',
+        self::AUCTION_12_TYPE => 'torg-12',
+        self::CONTRACT_TYPE => 'dogovor',
+        self::SUPPLEMENTARY_AGREEMENT_TYPE => 'dop-soglashenie'
+    ];
+
+    public static function getDocTypeName($key)
+    {
+        return self::$documentTypes[$key];
+    }
+
     public function status()
     {
         return $this->belongsTo('App\Models\Status');

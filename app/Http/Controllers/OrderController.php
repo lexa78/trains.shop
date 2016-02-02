@@ -2,9 +2,11 @@
 
 use App;
 use App\Commands\CreateInvoice;
+use App\Commands\SendEmailWithInvoices;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Document;
 use App\Models\Firm;
 use App\Models\Order;
 use App\Models\Price;
@@ -124,23 +126,23 @@ class OrderController extends Controller {
 				ProductCart::where('user_id',$userID)->delete();
 			});
 
-            $files=Document::where('user_id',Auth::user()->id)->where(
-                function($query)
-            {
-                $query->orWhere('votes', '>', 100)
-                    ->where('title', '<>', 'Admin');
-            });
+            $files = Document::where('user_id',Auth::user()->id)->where(
+                function($query) use($orderNumbers) {
+                    foreach($orderNumbers as $number) {
+                        $query->orWhere('file_name', 'like', '%'.Order::getDocTypeName(Order::INVOICE_TYPE).'_'.$number.'_%');
+                    }
+                })->get();
 
-            $user->where('age',25);
-
-            for($i=0;$i<count($heightarray);i++){
-                if($i==0){
-                    $user->whereBetween('height',$heightarray[$i])
-}else{
-                    $user->orWhereBetween('height',$heightarray[$i])
- }
+            $fileNames = [];
+            foreach($files as $file) {
+                $fileNames[] = $file->file_name;
             }
-            $user->get();
+
+            $messageParams = [];
+            $messageParams['productByDepoAsKey'] = $productsByDepoArr;
+            //Запускаем команду на отправку email
+            Bus::dispatch(new SendEmailWithInvoices($messageParams, $fileNames));
+
             /*
              * todo Поставить в очередь на отправку письмо заказчику с созданными счетами
              */
