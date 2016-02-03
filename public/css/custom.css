@@ -6,3 +6,10 @@
     width: 20%;
     display: inline;
 }
+div .display_show {
+    display: block;
+}
+
+div .display_none {
+    display: none;
+}

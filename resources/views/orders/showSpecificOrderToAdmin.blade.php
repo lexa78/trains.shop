@@ -48,15 +48,14 @@
                         <br>
                         <p>Сумма заказа: <b>{{ $totalSum }} руб.</b></p>
                         <br>
-                        <div class="buttons_to_create">
-                            @if($order->status->id == \App\Models\Order::COMPLETED)
-                                {!! link_to_route('createDoc','Создать Торг-12',['order_id'=>$order->id],['class'=>'btn btn-success']) !!}
-                                {!! link_to_route('createDoc','Создать Счет-фактуру',null,['class'=>'btn btn-success']) !!}
-                                <?/*
-     *todo создать route и методы контроллера для создания торг-12 и сф
-     */?>
-                            @endif
-                        </div>
+
+                        <div class="buttons_to_create {{ ($order->status->id == \App\Models\Order::COMPLETED) ? 'display_show' : 'display_none' }}">
+                            {!! link_to_route('createDoc','Создать Торг-12',['order_id'=>$order->id],['class'=>'btn btn-success']) !!}
+                            {!! link_to_route('createDoc','Создать Счет-фактуру',null,['class'=>'btn btn-success']) !!}
+                            <?/*
+ *todo создать route и методы контроллера для создания торг-12 и сф
+ */?>                   </div>
+
                         {!! link_to_route('showOrdersToAdmin','Вернуться к списку заказов') !!}
                     </div>
                 </div>

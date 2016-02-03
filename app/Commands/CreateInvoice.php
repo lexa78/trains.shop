@@ -55,7 +55,7 @@ class CreateInvoice extends Command implements SelfHandling {
             ];
         }
 
-        $date = DateTime::createFromFormat('Y-m-d H:i:s', $this->order->updated_at);
+        $date = DateTime::createFromFormat('Y-m-d H:i:s', $this->order->created_at);
         $date = strtotime($date->format('d F Y'));
 
         $pdf = App::make('dompdf.wrapper');

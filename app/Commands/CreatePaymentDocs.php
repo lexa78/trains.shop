@@ -28,7 +28,7 @@ class CreatePaymentDocs extends Command implements SelfHandling {
 	 */
 	public function handle()
 	{
-        $selfFirmUser = User::with('firm')->where('id',Auth::user()->id)->first();
+        $selfFirmUser = User::with('firm')->where('role_id',User::ADMIN)->first();
 
         $clientCompany = User::with('firm')->where('id',$this->order->user_id)->first();
 
@@ -59,7 +59,8 @@ class CreatePaymentDocs extends Command implements SelfHandling {
         ]);
 
         //$pdf->download('invoice.pdf');
-        $pdf->stream();
+        //$pdf->stream();
+        $pdf->save('qwert111.pdf');
     }
 
 }

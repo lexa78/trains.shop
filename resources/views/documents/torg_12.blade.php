@@ -383,12 +383,12 @@
             <table cellpadding="0" cellspacing="0" border="0" width="100%"	class="mainTable">
                 <tr>
                     <td class=underlined align=center><b>
-                            Продавец,&nbsp;город, улица, дом,&nbsp;(тел.:+7 495 1234567)</b>
+                            {{ $selfFirm->organisation_name }},&nbsp;{{ $selfFirm->place_address }},&nbsp;(тел.:{{ $selfFirm->phone }})</b>
                     </td>
                 </tr>
                 <tr>
                     <td class=underlined align=center><b>
-                            р/счет № в , кор/счет , БИК
+                            р/счет № {{ $selfFirm->rs }}в {{ $selfFirm->bank }}, кор/счет № {{ $selfFirm->ks }}, БИК {{ $selfFirm->bik }}
                         </b></td>
                 </tr>
                 <tr>
@@ -405,15 +405,19 @@
             <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                     <td class="reportSmallFont name_cell">Грузополучатель</td>
-                    <td width="100%" class="reportSmallFont underlined"><b class="inline_edit">
-                            ,&nbsp;				</b></td>
+                    <td width="100%" class="reportSmallFont underlined">
+                        <b class="inline_edit">
+                            {{ $firm->organisation_name }},&nbsp;{{ $firm->place_address }},&nbsp;(тел.:{{ $firm->phone }})
+                        </b>
+                    </td>
                 </tr>
                 <tr>
                     <td class="reportSmallFont name_cell">Поставщик</td>
-                    <td width="100%" class="reportSmallFont underlined"><b>
-                            Продавец,&nbsp;
-                            город, улица, дом,&nbsp;(тел.:-)
-                            , р/счет № в , кор/счет	№, БИК </b></td>
+                    <td width="100%" class="reportSmallFont underlined">
+                        <b>
+                            {{ $selfFirm->organisation_name }},&nbsp;{{ $selfFirm->place_address }},&nbsp;(тел.:{{ $selfFirm->phone }})
+                        </b>
+                    </td>
 
                 </tr>
                 <tr>
