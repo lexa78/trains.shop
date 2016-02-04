@@ -49,7 +49,6 @@ class CreateDocumentsController extends Controller {
 			'firm'=>$firm,
 			'selfFirm'=>$selfFirmUser->firm,
 			'products'=>$productsArr,
-			//  'depoId'=>$this->depo->id
 		]);
 
         $pdf->setOrientation('landscape');
