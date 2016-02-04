@@ -373,7 +373,7 @@
 </head>
 <body>
 
-<div style="width: 100mm; float: right;">
+<div align=right>
     <table cellpadding="0" cellspacing="0" border="0" style="width: 100mm">
         <tr>
             <td class=reportSmallFont align=left>Приложение № 1<br>
@@ -428,14 +428,11 @@
     </tr>
     <tr>
         <td class=leftAlign colspan="2">К платежно-расчетному документу: №
-            <div style="display:inline;" class="underlined inline_edit">{{ $orderNumber }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <div style="display:inline;">от</div>
-            <div style="display:inline;" class="underlined inline_edit">{{ date('d.m.Y') }}г.</div>
-            {{--<table style="display:inline;"><tr>--}}
-                    {{--<td class="underlined inline_edit" style="width:60mm;">{{ $orderNumber }}</td>--}}
-                    {{--<td>от </td>--}}
-                    {{--<td class="underlined inline_edit" style="width:50mm;">{{ date('d.m.Y') }}г.</td>--}}
-                {{--</tr></table>--}}
+            <table style="display:inline;"><tr>
+                    <td class="underlined inline_edit" style="width:60mm;">{{ $orderNumber }}</td>
+                    <td>от </td>
+                    <td class="underlined inline_edit" style="width:50mm;">{{ date('d.m.Y') }}г.</td>
+                </tr></table>
         </td>
     </tr>
     <tr>
@@ -443,33 +440,33 @@
     </tr>
 </table>
 
-{{--<table cellpadding="0" cellspacing="0" border="0" class="mainTable_normal">--}}
-    {{--<tr>--}}
-        {{--<td class=leftAlign>Покупатель:</td>--}}
-        {{--<td class="leftAlign underlined"><b class="inline_edit">{{ $firm->organisation_name }}</b></td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-        {{--<td class=leftAlign>Адрес:</td>--}}
-        {{--<td class="leftAlign underlined"><b class="inline_edit">--}}
-                {{--{{ $firm->place_address }}</b></td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-        {{--<td class=leftAlign>ИНН/КПП покупателя:</td>--}}
-        {{--<td class="leftAlign underlined">--}}
-            {{--<table style="display:inline;"><tr>--}}
-                    {{--<td style="width:50mm;font-weight: bold;" class="inline_edit">{{ $firm->inn }}</td>--}}
-                    {{--<td style="font-weight: bold;">/</td>--}}
-                    {{--<td style="width:50mm;font-weight: bold;" class="inline_edit">{{ $firm->kpp }}</td>--}}
-                {{--</tr></table>--}}
-        {{--</td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-        {{--<td colspan=2>&nbsp;</td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-        {{--<td colspan=2>&nbsp;</td>--}}
-    {{--</tr>--}}
-{{--</table>--}}
+<table cellpadding="0" cellspacing="0" border="0" class="mainTable_normal">
+    <tr>
+        <td class=leftAlign>Покупатель:</td>
+        <td class="leftAlign underlined"><b class="inline_edit">{{ $firm->organisation_name }}</b></td>
+    </tr>
+    <tr>
+        <td class=leftAlign>Адрес:</td>
+        <td class="leftAlign underlined"><b class="inline_edit">
+                {{ $firm->place_address }}</b></td>
+    </tr>
+    <tr>
+        <td class=leftAlign>ИНН/КПП покупателя:</td>
+        <td class="leftAlign underlined">
+            <table style="display:inline;"><tr>
+                    <td style="width:50mm;font-weight: bold;" class="inline_edit">{{ $firm->inn }}</td>
+                    <td style="font-weight: bold;">/</td>
+                    <td style="width:50mm;font-weight: bold;" class="inline_edit">{{ $firm->kpp }}</td>
+                </tr></table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan=2>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan=2>&nbsp;</td>
+    </tr>
+</table>
 
 <table width="100%" border="0" cellpadding=0 cellspacing=0
        class="mainTable_normal">

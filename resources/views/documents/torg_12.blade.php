@@ -640,7 +640,7 @@
             <td class="b_left b_top b_bottom">&nbsp;</td>
             <td class="b_left b_top b_bottom">&nbsp;</td>
             <td class="b_left b_top b_bottom">1</td>
-            <td class="b_left b_top b_bottom">{{ $totalAmount += $product['product_amount'] }}</td>
+            <td class="b_left b_top b_bottom">{{ $product['product_amount'] }}</td>
             <td class="b_left b_top b_bottom">&nbsp;</td>
             <td class="b_left b_top b_bottom">{{ $product['product_amount'] }}</td>
             <td class="b_left b_top b_bottom">{{ $product['product_price'] }}</td>
@@ -649,11 +649,17 @@
                 $nds = $sumWithNds * 0.18;
                 $sumWithoutNds = $sumWithNds - $nds;
             ?>
-            <td class="b_left b_top b_bottom">{{ $totalSumWithoutNds += $sumWithoutNds }}</td>
+            <td class="b_left b_top b_bottom">{{ $sumWithoutNds }}</td>
             <td class="b_left b_top b_bottom">18</td>
-            <td class="b_left b_top b_bottom">{{ $totalNds += $nds }}</td>
-            <td class="b_left b_top b_bottom b_right">{{ $totalSumWithNds += $sumWithNds }}</td>
+            <td class="b_left b_top b_bottom">{{ $nds }}</td>
+            <td class="b_left b_top b_bottom b_right">{{ $sumWithNds }}</td>
         </tr>
+        <?
+            $totalAmount += $product['product_amount'];
+            $totalSumWithoutNds += $sumWithoutNds;
+            $totalNds += $nds;
+            $totalSumWithNds += $sumWithNds;
+        ?>
     @endforeach
     <tr>
         <td colspan="7" align="right" class="rightAlign">Итого</td>
