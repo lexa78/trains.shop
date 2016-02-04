@@ -15,27 +15,27 @@
             line-height: 7pt;
         }
 
-        .greatHeader {
-            font-family: Verdana, Arial, sans-serif;
-            font-size: 16pt;
-            font-weight: normal;
-            color: #000000;
-            padding-left: 11px;
-        }
+        /*.greatHeader {*/
+            /*font-family: Verdana, Arial, sans-serif;*/
+            /*font-size: 16pt;*/
+            /*font-weight: normal;*/
+            /*color: #000000;*/
+            /*padding-left: 11px;*/
+        /*}*/
 
-        .header1 {
-            font-family: Verdana, Arial, sans-serif;
-            font-size: 13pt;
-            color: #000000;
-            padding-right: 10px;
-            padding-bottom: 3px;
-        }
+        /*.header1 {*/
+            /*font-family: Verdana, Arial, sans-serif;*/
+            /*font-size: 13pt;*/
+            /*color: #000000;*/
+            /*padding-right: 10px;*/
+            /*padding-bottom: 3px;*/
+        /*}*/
 
-        .smallFont {
-            font-family: Verdana, Arial, Helvetica, sans-serif;
-            font-size: 8pt;
-            color: #000000;
-        }
+        /*.smallFont {*/
+            /*font-family: Verdana, Arial, Helvetica, sans-serif;*/
+            /*font-size: 8pt;*/
+            /*color: #000000;*/
+        /*}*/
 
         .smallFont a {
             font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -56,60 +56,60 @@
             margin-top: 0px;
         }
 
-        .title {
-            font-family: Verdana, Arial, sans-serif;
-            font-size: 15pt;
-            color: #000000;
-            font-weight: normal;
-            margin-top: 0px;
-        }
+        /*.title {*/
+            /*font-family: Verdana, Arial, sans-serif;*/
+            /*font-size: 15pt;*/
+            /*color: #000000;*/
+            /*font-weight: normal;*/
+            /*margin-top: 0px;*/
+        /*}*/
 
-        .header2 {
-            font-family: Verdana, Arial, sans-serif;
-            font-size: 14px;
-            font-weight: bold;
-            color: #362F2D;
-        }
+        /*.header2 {*/
+            /*font-family: Verdana, Arial, sans-serif;*/
+            /*font-size: 14px;*/
+            /*font-weight: bold;*/
+            /*color: #362F2D;*/
+        /*}*/
 
-        .pageSubheader {
-            font-family: Verdana, Arial, sans-serif;
-            font-size: 12pt;
-            color: #000000;
-            font-weight: normal;
-        }
+        /*.pageSubheader {*/
+            /*font-family: Verdana, Arial, sans-serif;*/
+            /*font-size: 12pt;*/
+            /*color: #000000;*/
+            /*font-weight: normal;*/
+        /*}*/
 
-        .smallhead {
-            border-bottom: 0px;
-        }
+        /*.smallhead {*/
+            /*border-bottom: 0px;*/
+        /*}*/
 
-        .largeText {
-            font-family: Verdana, Arial, sans-serif;
-            font-size: 18px;
-            font-weight: bold;
-        }
+        /*.largeText {*/
+            /*font-family: Verdana, Arial, sans-serif;*/
+            /*font-size: 18px;*/
+            /*font-weight: bold;*/
+        /*}*/
 
-        .largeText_normal {
-            font-family: Verdana, Arial, sans-serif;
-            font-size: 18px;
-        }
+        /*.largeText_normal {*/
+            /*font-family: Verdana, Arial, sans-serif;*/
+            /*font-size: 18px;*/
+        /*}*/
 
-        .greatText {
-            font-family: Verdana, Arial, sans-serif;
-            font-size: 22px;
-            font-weight: bold;
-        }
+        /*.greatText {*/
+            /*font-family: Verdana, Arial, sans-serif;*/
+            /*font-size: 22px;*/
+            /*font-weight: bold;*/
+        /*}*/
 
-        .pageHeader {
-            font-family: Verdana, Arial, sans-serif;
-            font-size: 15pt;
-            color: #000000;
-            font-weight: normal;
-            background-color: #F5EBD6;
-            margin-top: 0px;
-            padding-left: 10px;
-            padding-top: 7px;
-            padding-bottom: 5px;
-        }
+        /*.pageHeader {*/
+            /*font-family: Verdana, Arial, sans-serif;*/
+            /*font-size: 15pt;*/
+            /*color: #000000;*/
+            /*font-weight: normal;*/
+            /*background-color: #F5EBD6;*/
+            /*margin-top: 0px;*/
+            /*padding-left: 10px;*/
+            /*padding-top: 7px;*/
+            /*padding-bottom: 5px;*/
+        /*}*/
 
         html,body {
             height: 100%;
@@ -126,14 +126,14 @@
             padding: 0px
         }
 
-        .separator {
-            overflow: hidden;
-        }
+        /*.separator {*/
+            /*overflow: hidden;*/
+        /*}*/
 
-        .list {
-            margin-top: 0px;
-            border: 1px solid #B1B1B1;
-        }
+        /*.list {*/
+            /*margin-top: 0px;*/
+            /*border: 1px solid #B1B1B1;*/
+        /*}*/
 
         .list td {
             padding-left: 5px;
@@ -152,22 +152,22 @@
             background-color: #F0F0F0;
         }
 
-        .list_rightBorder {
-            border-right: 1px solid #BFBFBF;
-        }
+        /*.list_rightBorder {*/
+            /*border-right: 1px solid #BFBFBF;*/
+        /*}*/
 
-        .listFooter {
-            background: #F7F7F7;
-            border-top: 1px solid #D9D9D9;
-            font-weight: bold;
-        }
+        /*.listFooter {*/
+            /*background: #F7F7F7;*/
+            /*border-top: 1px solid #D9D9D9;*/
+            /*font-weight: bold;*/
+        /*}*/
 
-        .complexList {
-            margin-top: 0px;
-            border-right: 1px solid #B1B1B1;
-            border-left: 1px solid #B1B1B1;
-            border-bottom: 1px solid #B1B1B1;
-        }
+        /*.complexList {*/
+            /*margin-top: 0px;*/
+            /*border-right: 1px solid #B1B1B1;*/
+            /*border-left: 1px solid #B1B1B1;*/
+            /*border-bottom: 1px solid #B1B1B1;*/
+        /*}*/
 
         .complexList td {
             padding-left: 5px;
@@ -196,17 +196,17 @@
         }
 
         /* Folder document view styles */
-        .treeDocumentListViewTable {
-            padding-left: 20px;
-            padding-bottom: 2px;
-        }
+        /*.treeDocumentListViewTable {*/
+            /*padding-left: 20px;*/
+            /*padding-bottom: 2px;*/
+        /*}*/
 
-        .treeDocumentListViewContent {
-            padding-left: 40px;
-            font-family: Verdana, Arial, Helvetica, sans-serif;
-            font-size: 8pt;
-            color: #000000;
-        }
+        /*.treeDocumentListViewContent {*/
+            /*padding-left: 40px;*/
+            /*font-family: Verdana, Arial, Helvetica, sans-serif;*/
+            /*font-size: 8pt;*/
+            /*color: #000000;*/
+        /*}*/
 
         .treeDocumentListViewContent a {
             font-size: 8pt;
@@ -220,9 +220,9 @@
             font-size: 10pt;
         }
 
-        .treeDocumentListTable {
-            padding-bottom: 2px;
-        }
+        /*.treeDocumentListTable {*/
+            /*padding-bottom: 2px;*/
+        /*}*/
 
         .treeDocumentListTable th {
             font-weight: bold;
@@ -238,9 +238,9 @@
             padding-bottom: 1px;
         }
 
-        .dampedText {
-            color: #888888 !important;
-        }
+        /*.dampedText {*/
+            /*color: #888888 !important;*/
+        /*}*/
 
         /* mt*/
         .underlined {
@@ -263,21 +263,21 @@
             border-top: 1px solid #000000;
         }
 
-        .b_light_left {
-            border-left: 1px solid #CCCCCC;
-        }
+        /*.b_light_left {*/
+            /*border-left: 1px solid #CCCCCC;*/
+        /*}*/
 
-        .b_light_right {
-            border-right: 1px solid #CCCCCC;
-        }
+        /*.b_light_right {*/
+            /*border-right: 1px solid #CCCCCC;*/
+        /*}*/
 
-        .b_light_bottom {
-            border-bottom: 1px solid #CCCCCC;
-        }
+        /*.b_light_bottom {*/
+            /*border-bottom: 1px solid #CCCCCC;*/
+        /*}*/
 
-        .b_light_top {
-            border-top: 1px solid #CCCCCC;
-        }
+        /*.b_light_top {*/
+            /*border-top: 1px solid #CCCCCC;*/
+        /*}*/
 
         .item_cell {
             height: 4mm;
@@ -360,8 +360,14 @@
             margin-bottom: 8px;
         }
 
-        .reportMiddleFont,.reportMiddleFont td,.reportMiddleFont li {
-            font-size: 8pt !important;
+        /*.reportMiddleFont,.reportMiddleFont td,.reportMiddleFont li {*/
+            /*font-size: 8pt !important;*/
+        /*}*/
+        .stamp {
+            height: 100px;
+            width: 100px;
+            position: absolute;
+            top: -50px;
         }
     </style>
 </head>
@@ -424,11 +430,13 @@
                     <td class="reportSmallFont name_cell">Плательщик</td>
                     <td width="100%" class="reportSmallFont underlined">
                         <b class="inline_edit">
-                            ,&nbsp;				</b></td>
+                            {{ $firm->organisation_name }},&nbsp;{{ $firm->place_address }},&nbsp;(тел.:{{ $firm->phone }})
+                        </b>
+                    </td>
                 </tr>
                 <tr>
                     <td class="reportSmallFont name_cell">Основание</td>
-                    <td width="100%" class="reportSmallFont underlined"><b class="inline_edit">По заказу №  от  г.</b></td>
+                    <td width="100%" class="reportSmallFont underlined"><b class="inline_edit">По заказу № {{ $orderNumber }}  от  {{ $orderDate }}г.</b></td>
                 </tr>
                 <tr>
                     <td colspan=2>&nbsp;</td>
@@ -455,12 +463,12 @@
                                 <td
                                         class="reportSmallFont docNameLabels b_top b_left b_bottom b_right docNameValues"
                                         align=center>
-                                    <b class="inline_edit">&nbsp;</b>
+                                    <b class="inline_edit">{{ $orderNumber }}</b>
                                 </td>
                                 <td
                                         class="reportSmallFont docNameLabels b_top b_right b_bottom docNameValues"
                                         align=center>
-                                    <b class="inline_edit">&nbsp;</b>
+                                    <b class="inline_edit">{{ date('d.m.Y') }}г.</b>
                                 </td>
                             </tr>
 
@@ -617,28 +625,58 @@
         <td class="b_left b_top b_bottom">14</td>
         <td class="b_left b_top b_bottom b_right">15</td>
     </tr>
+    <?
+        $totalAmount = 0;
+        $totalSumWithoutNds = 0;
+        $totalNds = 0;
+        $totalSumWithNds = 0;
+    ?>
+    @foreach($products as $key => $product)
+        <tr>
+            <td class="b_left b_top b_bottom">{{ $key+1 }}</td>
+            <td class="b_left b_top b_bottom">{{ $product['product_name'] }}</td>
+            <td class="b_left b_top b_bottom">&nbsp;</td>
+            <td class="b_left b_top b_bottom">шт</td>
+            <td class="b_left b_top b_bottom">&nbsp;</td>
+            <td class="b_left b_top b_bottom">&nbsp;</td>
+            <td class="b_left b_top b_bottom">1</td>
+            <td class="b_left b_top b_bottom">{{ $totalAmount += $product['product_amount'] }}</td>
+            <td class="b_left b_top b_bottom">&nbsp;</td>
+            <td class="b_left b_top b_bottom">{{ $product['product_amount'] }}</td>
+            <td class="b_left b_top b_bottom">{{ $product['product_price'] }}</td>
+            <?
+                $sumWithNds = $product['product_amount'] * $product['product_price'];
+                $nds = $sumWithNds * 0.18;
+                $sumWithoutNds = $sumWithNds - $nds;
+            ?>
+            <td class="b_left b_top b_bottom">{{ $totalSumWithoutNds += $sumWithoutNds }}</td>
+            <td class="b_left b_top b_bottom">18</td>
+            <td class="b_left b_top b_bottom">{{ $totalNds += $nds }}</td>
+            <td class="b_left b_top b_bottom b_right">{{ $totalSumWithNds += $sumWithNds }}</td>
+        </tr>
+    @endforeach
     <tr>
         <td colspan="7" align="right" class="rightAlign">Итого</td>
         <td class="b_left b_bottom">X</td>
         <td class="b_left b_bottom">X</td>
-        <td class="b_left b_bottom rightAlign nobr">0.000</td>
+        <td class="b_left b_bottom rightAlign nobr">{{ $totalAmount }}</td>
         <td class="b_left b_bottom">X</td>
-        <td class="b_left b_bottom rightAlign nobr">0.00</td>
+        <td class="b_left b_bottom rightAlign nobr">{{ $totalSumWithoutNds }}</td>
         <td class="b_left b_bottom">X</td>
-        <td class="b_left b_bottom rightAlign nobr">0.00</td>
-        <td class="b_left b_bottom b_right rightAlign nobr">0.00</td>
+        <td class="b_left b_bottom rightAlign nobr">{{ $totalNds }}</td>
+        <td class="b_left b_bottom b_right rightAlign nobr">{{ $totalSumWithNds }}</td>
     </tr>
     <tr class=totals>
         <td colspan="7" align="right" class="rightAlign normalFont ">Всего
             по накладной</td>
         <td class="b_left b_bottom">&nbsp;</td>
         <td class="b_left b_bottom">&nbsp;</td>
-        <td class="b_left b_bottom rightAlign">0.000</td>
+        <td class="b_left b_bottom rightAlign">{{ $totalAmount }}</td>
         <td class="b_left b_bottom normalFont">X</td>
-        <td class="b_left b_bottom rightAlign nobr">0.00</td>
+        <td class="b_left b_bottom rightAlign nobr">{{ $totalSumWithoutNds }}</td>
         <td class="b_left b_bottom normalFont">X</td>
-        <td class="b_left b_bottom rightAlign">0.00</td>
-        <td class="b_left b_bottom b_right rightAlign nobr">0.00</td>
+        <td class="b_left b_bottom rightAlign">{{ $totalNds }}</td>
+        <td class="b_left b_bottom b_right rightAlign nobr">{{ $totalSumWithNds }}</td>
     </tr>
 </table>
 
@@ -655,7 +693,7 @@
         <td class="nobr">Товарная накладная имеет приложение на</td>
         <td style="width: 40%" class="underlined">&nbsp;</td>
         <td class="nobr">и содержит</td>
-        <td style="width: 40%" class=underlined><b></b></td>
+        <td style="width: 40%" class=underlined><b>{{ \App\Models\Order::num_propis($key + 1) }}</b></td>
         <td class="nobr">порядковых номеров записей</td>
     </tr>
     <tr>
@@ -694,7 +732,7 @@
     </tr>
     <tr>
         <td style="width: 20mm" class="leftAlign nobr">Всего мест</td>
-        <td style="width: 50%" class=underlined><b>&nbsp;</b></td>
+        <td style="width: 50%" class=underlined><b>{{ \App\Models\Order::num_propis($totalAmount) }}</b></td>
         <td class="rightAlign">Масса груза (брутто)</td>
         <td class=underlined><b>&nbsp;</b></td>
         <td class="b_top b_left b_bottom b_right" style="width: 30mm">&nbsp;</td>
@@ -737,7 +775,7 @@
                     <td class=leftAlign>Всего отпущено на сумму</td>
                 </tr>
                 <tr>
-                    <td class="underlined leftAlign"><b>, без налога (НДС)</b></td>
+                    <td class="underlined leftAlign"><b>{{ \App\Models\Order::num2str($totalSumWithNds) }}, <br>в том числе без налога (НДС) {{ \App\Models\Order::num2str($totalSumWithoutNds) }}</b></td>
                 </tr>
                 <tr>
                     <td class=separatorCell>&nbsp;</td>
@@ -748,11 +786,11 @@
                    class="mainTable">
                 <tr>
                     <td class="leftAlign nobr">Отпуск разрешил</td>
-                    <td class=underlined style="width: 30%">Директор</td>
+                    <td class=underlined style="width: 30%">{{ $selfFirm->face_position }}</td>
                     <td>&nbsp;</td>
                     <td class=underlined style="width: 30%">&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td class=underlined><b>&nbsp;</b></td>
+                    <td class=underlined><b>{{ \App\Models\Order::getLastNameWithFirstLetters($selfFirm->face_fio) }}</b></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
@@ -768,7 +806,7 @@
                     <td>&nbsp;</td>
                     <td class=underlined>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td class=underlined><b>&nbsp;</b></td>
+                    <td class=underlined><b>{{ \App\Models\Order::getLastNameWithFirstLetters($selfFirm->accountant_fio) }}</b></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
@@ -783,7 +821,7 @@
             <table border="0" cellpadding=0 cellspacing=0
                    class="mainTable">
                 <tr>
-                    <td width="90">М.П.</td>
+                    <td width="90">М.П.<img src="{{ asset('/invoices/stamp.jpg') }}" class="stamp"></td>
                     <td style="padding-left:100px;" class="inline_edit">&nbsp;</td>
                 </tr>
             </table>

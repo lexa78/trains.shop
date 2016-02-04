@@ -19,7 +19,7 @@ function sendAjax(statusId, orderId) {
         type: 'POST',
         success: function (data) {
             if(data) {
-               // $('div.buttons_to_create').removeClass('display_show').addClass('display_none');
+                $('div.buttons_to_create').removeClass('display_show').addClass('display_none');
                 $('div.answerOnChange').html('<p class="alert alert-success">Статус заказа изменен <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>');
                 if(data == 5) {
                     $('div.buttons_to_create').removeClass('display_none').addClass('display_show');

@@ -18,45 +18,57 @@ class CreateDocumentsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create($orderID)
+	public function create($orderID, $isTorg)
 	{
 		$order = Order::find($orderID);
-        //Bus::dispatch(new CreatePaymentDocs($order));
-		$selfFirmUser = User::with('firm')->where('role_id',User::ADMIN)->first();
+        //Bus::dispatch(new CreatePaymentDocs($order, $isTorg));
+        $selfFirmUser = User::with('firm')->where('role_id',User::ADMIN)->first();
 
-		$clientCompany = User::with('firm')->where('id',$order->user_id)->first();
+        $clientCompany = User::with('firm')->where('id',$order->user_id)->first();
 
-		$products = $order->products_in_order;
-		$firm = $clientCompany->firm;
+        $products = $order->products_in_order;
+        $firm = $clientCompany->firm;
 
-		$productsArr = [];
-		foreach($products as $product) {
-			$productsArr[] = [
-				'product_name' => $product->product_name,
-				'product_amount' => $product->product_amount,
-				'product_price' => $product->product_price
-			];
-		}
+        $productsArr = [];
+        foreach($products as $product) {
+            $productsArr[] = [
+                'product_name' => $product->product_name,
+                'product_amount' => $product->product_amount,
+                'product_price' => $product->product_price
+            ];
+        }
 
-		$date = DateTime::createFromFormat('Y-m-d H:i:s', $order->created_at);
-		$date = strtotime($date->format('d F Y'));
+        $date = DateTime::createFromFormat('Y-m-d H:i:s', $order->created_at);
+        $date = strtotime($date->format('d F Y'));
 
-		$pdf = App::make('dompdf.wrapper');
+        $pdf = App::make('dompdf.wrapper');
 
-		$pdf->loadView('documents.torg_12',[
-			'orderNumber'=>$order->id,
-			'orderDate'=>date('d.m.Y',$date),
-			'firm'=>$firm,
-			'selfFirm'=>$selfFirmUser->firm,
-			'products'=>$productsArr,
-		]);
+        $viewType = null;
+
+        if($isTorg) {
+            $viewType = 'documents.torg_12';
+        } else {
+            $viewType = 'documents.schet_factura';
+        }
+//return view('documents.schet_factura', [
+//            'orderNumber'=>$order->id,
+//            'orderDate'=>date('d.m.Y',$date),
+//            'firm'=>$firm,
+//            'selfFirm'=>$selfFirmUser->firm,
+//            'products'=>$productsArr,
+//        ]);
+        $pdf->loadView($viewType,[
+            'orderNumber'=>$order->id,
+            'orderDate'=>date('d.m.Y',$date),
+            'firm'=>$firm,
+            'selfFirm'=>$selfFirmUser->firm,
+            'products'=>$productsArr,
+        ]);
 
         $pdf->setOrientation('landscape');
+        //$pdf->setPaper('A4', 'landscape');
 
-		//$pdf->download('invoice.pdf');
-		return $pdf->stream();
-//		$pdf->save('qwert111.pdf');
+        return $pdf->stream();
 
-		//return view('documents.torg_12');
-	}
+    }
 }

@@ -65,4 +65,4 @@ Route::get('showSpecificOrderToAdmin/{order_id}', ['as'=>'showSpecificOrderToAdm
 Route::post('changeStatus/{status_id}/{order_id}', ['as'=>'changeStatus', 'uses'=>'OrderController@changeStatus']);
 
 //Route::get('invoice/{order_id}/{depo_name}/{look}', ['as'=>'invoice', 'uses'=>'OrderController@invoice']);
-Route::get('createDoc/{order_id}', ['as'=>'createDoc', 'uses'=>'CreateDocumentsController@create']);
+Route::get('createDoc/{order_id}/{is_torg}', ['as'=>'createDoc', 'uses'=>'CreateDocumentsController@create']);
