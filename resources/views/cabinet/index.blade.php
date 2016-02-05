@@ -19,6 +19,7 @@
                         <ul>
                             <li><a href="{{ route('firm.edit') }}">Редактировать информацию о фирме {{ $firmName }}</a></li>
                             <li><a href="{{ route('showMyOrders') }}">Мои заказы (всего {{ $countOfOrders }})</a></li>
+                            <li><a href="{{ route('showMyDocs') }}">Мои документы (всего {{ $countOfDocuments }})</a></li>
                         </ul>
                     </div>
                 </div>

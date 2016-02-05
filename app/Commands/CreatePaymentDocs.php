@@ -80,15 +80,15 @@ class CreatePaymentDocs extends Command implements SelfHandling {
         $documents = Config::get('documents');
         $whereAreClientDocuments = $documents['documents_folder'];
         //client_{id}
-        if( ! Storage::disk('local')->exists($whereAreClientDocuments.'/client_'.$this->order->user_id)) {
-            Storage::makeDirectory($whereAreClientDocuments.'/client_'.$this->order->user_id);
+        if( ! Storage::disk('local')->exists($whereAreClientDocuments.DIRECTORY_SEPARATOR.'client_'.$this->order->user_id)) {
+            Storage::makeDirectory($whereAreClientDocuments.DIRECTORY_SEPARATOR.'client_'.$this->order->user_id);
         }
         //paymentDocs
-        if( ! Storage::disk('local')->exists($whereAreClientDocuments.'/client_'.$this->order->user_id.'/paymentDocs')) {
-            Storage::makeDirectory($whereAreClientDocuments.'/client_'.$this->order->user_id.'/paymentDocs');
+        if( ! Storage::disk('local')->exists($whereAreClientDocuments.DIRECTORY_SEPARATOR.'client_'.$this->order->user_id.DIRECTORY_SEPARATOR.'paymentDocs')) {
+            Storage::makeDirectory($whereAreClientDocuments.DIRECTORY_SEPARATOR.'client_'.$this->order->user_id.DIRECTORY_SEPARATOR.'paymentDocs');
         }
 
-        $clientFolder = storage_path().'/app'.$whereAreClientDocuments.'/client_'.$this->order->user_id.'/paymentDocs';
+        $clientFolder = storage_path().DIRECTORY_SEPARATOR.'app'.$whereAreClientDocuments.DIRECTORY_SEPARATOR.'client_'.$this->order->user_id.DIRECTORY_SEPARATOR.'paymentDocs';
         //(torg12/schetfactura)_{orderID}_{depoName}_date_{currentDate}
         $fileNameTemplate = $documents['client_invoice_template'];
 
@@ -100,13 +100,13 @@ class CreatePaymentDocs extends Command implements SelfHandling {
         $fileNameTemplate = Utils::mb_str_replace('{depoName}', $depoName, $fileNameTemplate);
         $fileNameTemplate = Utils::mb_str_replace('{currentDate}', time(), $fileNameTemplate);
 
-        $pdf->save($clientFolder.'/'.$fileNameTemplate);
+        $pdf->save($clientFolder.DIRECTORY_SEPARATOR.$fileNameTemplate);
 
         $docs = new Document();
-        $docs->type = Order::AUCTION_12_TYPE;
+        $docs->type = $this->isTorg ? Order::AUCTION_12_TYPE : Order::INVOICE_ACCT_TYPE;
         $docs->user_id = $this->order->user_id;
         $docs->order_id = $this->order->id;
-        $docs->file_name = $clientFolder.'/'.$fileNameTemplate;
+        $docs->file_name = $clientFolder.DIRECTORY_SEPARATOR.$fileNameTemplate;
         $docs->save();
 
         Bus::dispatch(new SendEmailWithPaymentDocs($docs->file_name, $this->isTorg, $this->order));

@@ -35,7 +35,7 @@ class SendEmailWithInvoices extends Command implements SelfHandling {
             $message->to(Auth::user()->email)->subject('Заказ оформлен. Спасибо за заказ');
 
             foreach($this->fileNames as $fileName) {
-                $tempFileNameArr = explode('/',$fileName);
+                $tempFileNameArr = explode(DIRECTORY_SEPARATOR,$fileName);
                 $tempFileName = end($tempFileNameArr);
                 $message->attach($fileName, ['as' => $tempFileName, 'mime' => 'application/pdf']);
             }

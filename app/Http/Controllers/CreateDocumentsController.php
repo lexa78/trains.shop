@@ -5,11 +5,15 @@ use App\Commands\CreatePaymentDocs;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Document;
 use App\Models\Order;
 use App\Models\User;
+use Auth;
 use Bus;
+use Config;
 use DateTime;
 use Illuminate\Http\Request;
+use Response;
 
 class CreateDocumentsController extends Controller {
 
@@ -20,55 +24,50 @@ class CreateDocumentsController extends Controller {
 	 */
 	public function create($orderID, $isTorg)
 	{
-		$order = Order::find($orderID);
-        //Bus::dispatch(new CreatePaymentDocs($order, $isTorg));
-        $selfFirmUser = User::with('firm')->where('role_id',User::ADMIN)->first();
-
-        $clientCompany = User::with('firm')->where('id',$order->user_id)->first();
-
-        $products = $order->products_in_order;
-        $firm = $clientCompany->firm;
-
-        $productsArr = [];
-        foreach($products as $product) {
-            $productsArr[] = [
-                'product_name' => $product->product_name,
-                'product_amount' => $product->product_amount,
-                'product_price' => $product->product_price
-            ];
-        }
-
-        $date = DateTime::createFromFormat('Y-m-d H:i:s', $order->created_at);
-        $date = strtotime($date->format('d F Y'));
-
-        $pdf = App::make('dompdf.wrapper');
-
-        $viewType = null;
-
-        if($isTorg) {
-            $viewType = 'documents.torg_12';
+		if(Auth::user()->role_id == User::ADMIN) {
+            $order = Order::find($orderID);
+            Bus::dispatch(new CreatePaymentDocs($order, $isTorg));
+            return redirect()->back()->with('alert-success', 'Документ создан и отправлен клиенту по email');
         } else {
-            $viewType = 'documents.schet_factura';
+            return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
         }
-//return view('documents.schet_factura', [
-//            'orderNumber'=>$order->id,
-//            'orderDate'=>date('d.m.Y',$date),
-//            'firm'=>$firm,
-//            'selfFirm'=>$selfFirmUser->firm,
-//            'products'=>$productsArr,
-//        ]);
-        $pdf->loadView($viewType,[
-            'orderNumber'=>$order->id,
-            'orderDate'=>date('d.m.Y',$date),
-            'firm'=>$firm,
-            'selfFirm'=>$selfFirmUser->firm,
-            'products'=>$productsArr,
-        ]);
+    }
 
-        $pdf->setOrientation('landscape');
-        //$pdf->setPaper('A4', 'landscape');
+    public function download(Request $request)
+    {
+        $file = Document::where('file_name','like','%'.$request->input('shortFileName'))->where('user_id',Auth::user()->id)->first();
+        if(! $file) {
+            return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
+        }
+        if($request->input('download')) {
+            return Response::download($file->file_name, $request->input('shownFileName'), ['Content-Length: '. filesize($file->file_name)]);
+        } else {
+            return Response::make(file_get_contents($file->file_name), 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; '.$request->input('shortFileName'),
+            ]);
+        }
+    }
 
-        return $pdf->stream();
+    public function showDocs()
+    {
+        $docs = Document::where('user_id', Auth::user()->id)->get();
+        $docsByTypesArr = [];
+        foreach($docs as $doc) {
+            $fileName = explode(DIRECTORY_SEPARATOR,$doc->file_name);
+            $fileName = end($fileName);
+            $typeOfDoc = Order::getDocTypeName($doc->type, true);
 
+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $doc->created_at);
+            $date = $date->format('d F Y');
+
+            $docsByTypesArr[$typeOfDoc][] = [
+                                                'shortFileName' => $fileName,
+                                                'fileDate' => $date,
+                                                'orderNumber' => $doc->order_id
+                                            ];
+        }
+
+        return view('documents.showDocs', ['documentsByTypes' => $docsByTypesArr]);
     }
 }

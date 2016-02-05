@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Document;
 use App\Models\Firm;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -19,8 +20,14 @@ class CabinetController extends Controller {
 	{
 		$user = Auth::user();
 		$firmName = $user->firm->organisation_name;
-		$countOfOrders = Order::count();
-		return view('cabinet.index', ['userId' => $user->id, 'firmName' => $firmName, 'countOfOrders'=>$countOfOrders]);
+		$countOfOrders = Order::where('user_id', Auth::user()->id)->count();
+		$countOfDocuments = Document::where('user_id', Auth::user()->id)->count();
+		return view('cabinet.index', [
+										'userId' => $user->id,
+										'firmName' => $firmName,
+										'countOfOrders'=>$countOfOrders,
+										'countOfDocuments'=>$countOfDocuments
+									]);
 	}
 
 	/**

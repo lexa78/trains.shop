@@ -23,9 +23,21 @@ class Order extends Model {
         self::SUPPLEMENTARY_AGREEMENT_TYPE => 'dop-soglashenie'
     ];
 
-    public static function getDocTypeName($key)
+    private static $documentTypesInRushka = [
+        self::INVOICE_TYPE => 'Счет',
+        self::INVOICE_ACCT_TYPE => 'Счет-фактура',
+        self::AUCTION_12_TYPE => 'Торг-12',
+        self::CONTRACT_TYPE => 'Договор',
+        self::SUPPLEMENTARY_AGREEMENT_TYPE => 'Доп. соглашение'
+    ];
+
+    public static function getDocTypeName($key, $is_rushka = false)
     {
-        return self::$documentTypes[$key];
+        if($is_rushka) {
+            return self::$documentTypesInRushka[$key];
+        } else {
+            return self::$documentTypes[$key];
+        }
     }
 
     public function status()

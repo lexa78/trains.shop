@@ -38,12 +38,32 @@
                         <br>
                         <p>Сумма заказа: <b>{{ $totalSum }} руб.</b></p>
                         <br>
-                        <?
-                            /*
-                             * todo написать ссылки на просмотр и скачивание счета по заказу
-                             */
-                        ?>
-                        Ссылка на посмотреть счет, ссылка на скачать счет
+                        <table>
+                            <tr>
+                                <td>
+                                    {!! Form::open(['route' => 'downloadDoc', 'role' => 'form']) !!}
+
+                                    {!! Form::hidden('shortFileName', $shortFileName) !!}
+                                    {!! Form::hidden('shownFileName', $shownFileName) !!}
+                                    {!! Form::hidden('download', true) !!}
+
+                                    {!! Form::submit('Скачать') !!}
+
+                                    {!! Form::close() !!}
+                                </td>
+                                <td>
+                                    {!! Form::open(['route' => 'downloadDoc', 'role' => 'form']) !!}
+
+                                    {!! Form::hidden('shortFileName', $shortFileName) !!}
+                                    {!! Form::hidden('shownFileName', $shownFileName) !!}
+                                    {!! Form::hidden('download', false) !!}
+
+                                    {!! Form::submit('Посмотреть') !!}
+
+                                    {!! Form::close() !!}
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -46,7 +46,7 @@ class SendEmailWithPaymentDocs extends Command implements SelfHandling {
 
             $message->to($user->email)->subject('Ваш заказ выполнен.');
 
-            $tempFileNameArr = explode('/',$this->fileName);
+            $tempFileNameArr = explode(DIRECTORY_SEPARATOR,$this->fileName);
             $tempFileName = end($tempFileNameArr);
             $message->attach($this->fileName, ['as' => $tempFileName, 'mime' => 'application/pdf']);
         });

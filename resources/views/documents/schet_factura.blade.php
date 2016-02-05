@@ -373,8 +373,8 @@
 </head>
 <body>
 
-<div style="width: 100mm; float: right;">
-    <table cellpadding="0" cellspacing="0" border="0" style="width: 100mm">
+<div style="position: relative; height: 100px;">
+    <table cellpadding="0" cellspacing="0" border="0" style="width: 100mm; position: absolute; top: 2px; right: 2px;">
         <tr>
             <td class=reportSmallFont align=left>Приложение № 1<br>
                 к Правилам ведения журналов учета полученных и выставленных
@@ -443,33 +443,37 @@
     </tr>
 </table>
 
-{{--<table cellpadding="0" cellspacing="0" border="0" class="mainTable_normal">--}}
-    {{--<tr>--}}
-        {{--<td class=leftAlign>Покупатель:</td>--}}
-        {{--<td class="leftAlign underlined"><b class="inline_edit">{{ $firm->organisation_name }}</b></td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-        {{--<td class=leftAlign>Адрес:</td>--}}
-        {{--<td class="leftAlign underlined"><b class="inline_edit">--}}
-                {{--{{ $firm->place_address }}</b></td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-        {{--<td class=leftAlign>ИНН/КПП покупателя:</td>--}}
-        {{--<td class="leftAlign underlined">--}}
+<table cellpadding="0" cellspacing="0" border="0" class="mainTable_normal">
+    <tr>
+        <td class=leftAlign>Покупатель:</td>
+        <td class="leftAlign underlined"><b class="inline_edit">{{ $firm->organisation_name }}</b></td>
+    </tr>
+    <tr>
+        <td class=leftAlign>Адрес:</td>
+        <td class="leftAlign underlined"><b class="inline_edit">
+                {{ $firm->place_address }}</b></td>
+    </tr>
+    <tr>
+        <td class=leftAlign>ИНН/КПП покупателя:</td>
+        <td class="leftAlign underlined">
+            <div style="display:inline; font-weight: bold;" class="inline_edit">{{ $firm->inn }}&nbsp;</div>
+            <div style="display:inline; font-weight: bold;">/&nbsp;</div>
+            <div style="display:inline; font-weight: bold;" class="inline_edit">{{ $firm->kpp }}</div>
+
             {{--<table style="display:inline;"><tr>--}}
                     {{--<td style="width:50mm;font-weight: bold;" class="inline_edit">{{ $firm->inn }}</td>--}}
                     {{--<td style="font-weight: bold;">/</td>--}}
                     {{--<td style="width:50mm;font-weight: bold;" class="inline_edit">{{ $firm->kpp }}</td>--}}
                 {{--</tr></table>--}}
-        {{--</td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-        {{--<td colspan=2>&nbsp;</td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-        {{--<td colspan=2>&nbsp;</td>--}}
-    {{--</tr>--}}
-{{--</table>--}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan=2>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan=2>&nbsp;</td>
+    </tr>
+</table>
 
 <table width="100%" border="0" cellpadding=0 cellspacing=0
        class="mainTable_normal">

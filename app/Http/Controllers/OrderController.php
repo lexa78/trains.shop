@@ -244,7 +244,21 @@ class OrderController extends Controller {
     {
         if(Auth::user()->id == (int) $userId) {
             $order = Order::with('products_in_order.stantion', 'status')->where('id',$orderId)->first();
-            return view('orders.showSpecificOrder',['order'=>$order]);
+
+            $document = Document::where('user_id', Auth::user()->id)->where('order_id',$orderId)->first();
+            if(! $document) {
+                return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
+            }
+            $fileName = explode(DIRECTORY_SEPARATOR,$document->file_name);
+            $fileName = end($fileName);
+            $typeOfDoc = Order::getDocTypeName($document->type, true);
+
+            $shownFileName = $typeOfDoc.' № '. $document->order_id;
+            return view('orders.showSpecificOrder',[
+                                                    'order'=>$order,
+                                                    'shortFileName' => $fileName,
+                                                    'shownFileName' => $shownFileName,
+                                                ]);
         } else {
             return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
         }
