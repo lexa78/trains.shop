@@ -22,7 +22,10 @@ use DB;
 use Illuminate\Http\Request;
 use Auth;
 use PhpSpec\Exception\Exception;
+use Redirect;
+use Route;
 use Session;
+use Validator;
 use View;
 
 class OrderController extends Controller {
@@ -70,10 +73,22 @@ class OrderController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(StoreOrder $request)
+	public function store(Request $request)
 	{
+        $validationRules = [
+            'oferta' => 'accepted',
+            'userID'=>'integer|required|in:'.Auth::user()->id,
+        ];
 
-        $this->validate($request, $request->all());
+        $v = Validator::make($request->all(), $validationRules);
+
+        if ($v->fails())
+        {
+            //return redirect('confirmOrder/'.Auth::user()->id)->withErrors($v->errors())->withInput();
+            //dd($v->errors()->toArray());
+            $newRequest = Request::create('confirmOrder/'.Auth::user()->id, 'POST', [], [], [], [],['blat'=>$v->errors()]);
+            return Route::dispatch($newRequest)->getContent();
+        }
 
         $userID = $request->userID;
 

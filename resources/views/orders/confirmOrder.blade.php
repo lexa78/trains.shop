@@ -44,30 +44,37 @@
                         </table>
                         <p class="totalSum">Итого на сумму <b>{{ $totalSum }}</b> руб.</p>
                         <br>
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/store_order') }}">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
+                        {{--<form class="form-horizontal" role="form" method="POST" action="{{ url('/store_order') }}">--}}
+                            {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
+                        {!! Form::open(['action' => 'OrderController@store', 'role' => 'form']) !!}
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="oferta">Нажимая кнопку "Подтвердить", я принимаю условия <a href="#">Договора оферты</a></label>
                                 <input type="checkbox" class="form-control qwe" name="oferta" id="oferta">
                                 <div class="col-md-6">
-                                    @if($errors->has('oferta'))
-                                    <div class="alert-danger alert">{!! $errors->first('oferta') !!}</div>
+
+                                    {{--@if($errors->has('oferta'))--}}
+                                    @if(Cookie::get('oferta'))
+                                    {{--<div class="alert-danger alert">{!! $errors->first('oferta') !!}</div>--}}
+                                    <div class="alert-danger alert">{!! dd(Cookie::get('oferta')) !!}</div>
                                     @endif
+                                    {{--@endif--}}
                                 </div>
                             </div>
                             <input type="hidden" name="userID" value="{{ Auth::user()->id }}">
                             @if($errors->has('userID'))
                                 <div class="alert-danger alert">{!! $errors->first('userID') !!}</div>
                             @endif
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-success">
-                                        Подтвердить
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                            {{--<div class="form-group">--}}
+                                {{--<div class="col-md-6 col-md-offset-4">--}}
+                                    {{--<button type="submit" class="btn btn-success">--}}
+                                        {{--Подтвердить--}}
+                                    {{--</button>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</form>--}}
+                        {!! Form::submit('Подтвердить', ['class'=>'btn btn-success']) !!}
+                        {!! Form::close() !!}
+
                         {{--{!! link_to_route('storeOrder','Подтвердить', ['userID'=>$userID], ['class'=>'btn btn-success']) !!}--}}
                         {!! link_to_route('productCart','Вернуться в корзину', null, ['class'=>'btn btn-info']) !!}
                     </div>
