@@ -57,7 +57,8 @@ Route::get('firm', ['as'=>'firm.edit', 'uses'=>'FirmController@edit']);
 Route::put('firmUpdate', ['as'=>'firm.update', 'uses'=>'FirmController@update']);
 
 Route::post('confirmOrder/{user_id}', ['as'=>'confirmOrder', 'uses'=>'OrderController@confirm']);
-Route::get('storeOrder/{user_id}', ['as'=>'storeOrder', 'uses'=>'OrderController@store']);
+//Route::get('storeOrder/{user_id}', ['as'=>'storeOrder', 'uses'=>'OrderController@store']);
+Route::post('store_order', ['as'=>'storeOrder', 'uses'=>'OrderController@store']);
 Route::get('showMyOrders', ['as'=>'showMyOrders', 'uses'=>'OrderController@showOrders']);
 Route::get('showSpecificOrder/{order_id}/{user_id}', ['as'=>'showSpecificOrder', 'uses'=>'OrderController@showSpecificOrder']);
 Route::get('showOrdersToAdmin/{newOnly?}', ['as'=>'showOrdersToAdmin', 'uses'=>'OrderController@showOrdersToAdmin']);

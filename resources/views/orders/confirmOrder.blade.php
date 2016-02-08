@@ -43,7 +43,32 @@
                             @endforeach
                         </table>
                         <p class="totalSum">Итого на сумму <b>{{ $totalSum }}</b> руб.</p>
-                        {!! link_to_route('storeOrder','Подтвердить', ['userID'=>$userID], ['class'=>'btn btn-success']) !!}
+                        <br>
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/store_order') }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="oferta">Нажимая кнопку "Подтвердить", я принимаю условия <a href="#">Договора оферты</a></label>
+                                <input type="checkbox" class="form-control qwe" name="oferta" id="oferta">
+                                <div class="col-md-6">
+                                    @if($errors->has('oferta'))
+                                    <div class="alert-danger alert">{!! $errors->first('oferta') !!}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <input type="hidden" name="userID" value="{{ Auth::user()->id }}">
+                            @if($errors->has('userID'))
+                                <div class="alert-danger alert">{!! $errors->first('userID') !!}</div>
+                            @endif
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-success">
+                                        Подтвердить
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        {{--{!! link_to_route('storeOrder','Подтвердить', ['userID'=>$userID], ['class'=>'btn btn-success']) !!}--}}
                         {!! link_to_route('productCart','Вернуться в корзину', null, ['class'=>'btn btn-info']) !!}
                     </div>
                 </div>

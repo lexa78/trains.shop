@@ -6,6 +6,7 @@ use App\Commands\SendEmailWithInvoices;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\StoreOrder;
 use App\Models\Document;
 use App\Models\Firm;
 use App\Models\Order;
@@ -69,8 +70,13 @@ class OrderController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store($userID)
+	public function store(StoreOrder $request)
 	{
+
+        $this->validate($request, $request->all());
+
+        $userID = $request->userID;
+
 		if(Auth::user()->id == (int) $userID) {
 
             $productsByDepoArr = [];

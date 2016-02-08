@@ -38,7 +38,7 @@ class Registrar implements RegistrarContract {
             'post_address' => 'required|chars_numbers_spaces_dot|max:255',
             'contact_face_fio' => 'required|alpha_spaces|max:255',
             'phone' => 'required|numbers_brackets_defis_spaces|max:20',
-            'oferta' => 'accepted',
+//            'oferta' => 'accepted',
 		]);
 	}
 
