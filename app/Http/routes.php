@@ -20,7 +20,7 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('purchases',['as'=>'purchases','uses'=>'PurchasesController@index']);
+//Route::get('purchases',['as'=>'purchases','uses'=>'PurchasesController@index']);
 Route::get('trainCar',['as'=>'trainCar','uses'=>'PurchasesController@trainCar']);
 Route::get('trainCarPriceList/{id}',['as'=>'trainCarPriceList','uses'=>'PurchasesController@getPriceList']);
 Route::get('trainCarPriceListInCategory/{categoryName}/{depoId}',['as'=>'trainCarPriceListInCategory','uses'=>'PurchasesController@getPriceListInCurrentCategory']);

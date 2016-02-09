@@ -65,7 +65,13 @@
                 {{--<li class="current"><a href="{{ url('/') }}" class="home"><img src="{{ asset('/images/home.jpg') }}"></a></li>--}}
                 <li><a href="#">О компании</a></li>
                 <li><a href="#">Информация для поставщиков</a></li>
-                <li><a href="{{ route('purchases') }}">Покупки</a></li>
+                <li>
+                    <a href="#">Покупки</a>
+                    <ul>
+                        <li>{!! link_to_route('trainCar','Детали товарных вагонов') !!}</li>
+                        <li>{!! link_to_route('trainCarService','Услуги по грузовым вагонам') !!}</li>
+                    </ul>
+                </li>
                 <li class="current"><a href="#">Контакты</a></li>
                 @if (Auth::guest())
                     <li>

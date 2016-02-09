@@ -24,10 +24,10 @@ class PurchasesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
-		return view('purchases.purchases');
-	}
+//	public function index()
+//	{
+//		return view('purchases.purchases');
+//	}
 
 	public function trainCar(Region $region, ProductCart $productCart)
 	{
