@@ -51,13 +51,9 @@
                                 <label class="col-md-4 control-label" for="oferta">Нажимая кнопку "Подтвердить", я принимаю условия <a href="#">Договора оферты</a></label>
                                 <input type="checkbox" class="form-control qwe" name="oferta" id="oferta">
                                 <div class="col-md-6">
-
-                                    {{--@if($errors->has('oferta'))--}}
-                                    @if(Cookie::get('oferta'))
-                                    {{--<div class="alert-danger alert">{!! $errors->first('oferta') !!}</div>--}}
-                                    <div class="alert-danger alert">{!! dd(Cookie::get('oferta')) !!}</div>
+                                    @if($errors->has('oferta'))
+                                    <div class="alert-danger alert">{!! $errors->first('oferta') !!}</div>
                                     @endif
-                                    {{--@endif--}}
                                 </div>
                             </div>
                             <input type="hidden" name="userID" value="{{ Auth::user()->id }}">

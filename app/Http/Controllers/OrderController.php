@@ -84,10 +84,9 @@ class OrderController extends Controller {
 
         if ($v->fails())
         {
-            //return redirect('confirmOrder/'.Auth::user()->id)->withErrors($v->errors())->withInput();
-            //dd($v->errors()->toArray());
-            $newRequest = Request::create('confirmOrder/'.Auth::user()->id, 'POST', [], [], [], [],['blat'=>$v->errors()]);
-            return Route::dispatch($newRequest)->getContent();
+            return redirect()->route('confirmOrder', ['user_id'=>Auth::user()->id])->withErrors($v->errors());
+//            $newRequest = Request::create('confirmOrder/'.Auth::user()->id, 'POST', [], [], [], [],['blat'=>$v->errors()]);
+//            return Route::dispatch($newRequest)->getContent();
         }
 
         $userID = $request->userID;
