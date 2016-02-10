@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    @yield('title')
+    <title>@yield('title')</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('/css/reset.css') }}">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('/css/style.css') }}">
