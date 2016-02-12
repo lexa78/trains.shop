@@ -19,7 +19,7 @@
         </div>
     </div>
     <!--==============================content================================-->
-    <section id="content"><div class="ic">More Website Templates @ TemplateMonster.com. November12, 2012!</div>
+    <section id="content"><div class="ic"></div>
         <div class="block-1 box-1">
             <div>
                 <img src="images/page1-img1.jpg" alt="">
