@@ -1,5 +1,9 @@
 @extends('public')
 
+@section('purchases_cart')
+    {!! link_to_route('productCart','Заказано '.$productsCount.' запчастей') !!}
+@stop
+
 @section('content')
     <section id="content"><div class="ic"></div>
         <div class="sub-page">
@@ -63,17 +67,17 @@
 
                 {!! link_to_route('trainCar', 'Назад', null, ['class'=>'btn btn-info']) !!}
             </div>
-            <div class="sub-page-right">
-                <h2 class="p3">{!! link_to_route('productCart','Корзина покупок') !!}</h2>
-                @if($productsCount)
-                    <p class="upper p5">В корзине <b>{{ $productsCount }}</b> товаров</p>
-                    <p class="upper p5">На сумму <b>{{ $productsSum }}</b> руб.</p>
-                @else
-                    <p class="upper p5">Корзина пуста</p>
-                @endif
+            {{--<div class="sub-page-right">--}}
+                {{--<h2 class="p3">{!! link_to_route('productCart','Корзина покупок') !!}</h2>--}}
+                {{--@if($productsCount)--}}
+                    {{--<p class="upper p5">В корзине <b>{{ $productsCount }}</b> товаров</p>--}}
+                    {{--<p class="upper p5">На сумму <b>{{ $productsSum }}</b> руб.</p>--}}
+                {{--@else--}}
+                    {{--<p class="upper p5">Корзина пуста</p>--}}
+                {{--@endif--}}
 
-                {!! link_to_route('productCart','Войти в корзину покупок',null,['class'=>'button-2 top-1']) !!}
-            </div>
+                {{--{!! link_to_route('productCart','Войти в корзину покупок',null,['class'=>'button-2 top-1']) !!}--}}
+            {{--</div>--}}
         </div>
     </section>
 @stop
