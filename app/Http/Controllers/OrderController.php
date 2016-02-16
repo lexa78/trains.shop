@@ -65,7 +65,7 @@ class OrderController extends Controller {
 
 		$userCompany = User::with('firm')->where('id',$userID)->get();
 
-		return view('orders.confirmOrder', ['userID'=>$userID, 'products'=>$productsArr, 'firm'=>$userCompany[0]->firm]);
+		return view('orders.confirmOrder', ['p'=>'confirm', 'userID'=>$userID, 'products'=>$productsArr, 'firm'=>$userCompany[0]->firm]);
 	}
 
 	/**
@@ -163,7 +163,7 @@ class OrderController extends Controller {
             //Запускаем команду на отправку email
             Bus::dispatch(new SendEmailWithInvoices($messageParams, $fileNames));
 
-			return view('orders.success',['ordersAmount'=>count($productsByDepoArr)]);
+			return view('orders.success',['p'=>'confirm', 'ordersAmount'=>count($productsByDepoArr)]);
 		} else {
 			return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
 		}
@@ -246,7 +246,7 @@ class OrderController extends Controller {
     public function showOrders()
     {
         $orders = Order::latest('created_at')->with('products_in_order.stantion', 'status')->where('user_id',Auth::user()->id)->get();
-        return view('orders.showOrders',['orders'=>$orders]);
+        return view('orders.showOrders',['p'=>'cabinet', 'orders'=>$orders]);
     }
 
     public function showSpecificOrderToAdmin($orderId)

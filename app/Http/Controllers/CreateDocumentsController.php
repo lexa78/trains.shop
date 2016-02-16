@@ -68,6 +68,6 @@ class CreateDocumentsController extends Controller {
                                             ];
         }
 
-        return view('documents.showDocs', ['documentsByTypes' => $docsByTypesArr]);
+        return view('documents.showDocs', ['p'=>'cabinet', 'documentsByTypes' => $docsByTypesArr]);
     }
 }

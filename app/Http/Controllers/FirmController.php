@@ -64,7 +64,7 @@ class FirmController extends Controller {
 		} catch(ModelNotFoundException $e) {
 			abort(404);
 		}
-		return view('firms.edit',['firm'=>$firm]);
+		return view('firms.edit',['p'=>'cabinet', 'firm'=>$firm]);
 	}
 
 	/**

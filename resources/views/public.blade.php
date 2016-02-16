@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>@yield('title')</title>
+    <meta name="csrf_token" content="{{ csrf_token() }}" />
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('/css/reset.css') }}">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('/css/style.css') }}">
@@ -63,27 +64,30 @@
         <nav>
             <ul class="menu" id="nav">
                 {{--<li class="current"><a href="{{ url('/') }}" class="home"><img src="{{ asset('/images/home.jpg') }}"></a></li>--}}
-                <li><a href="#">О компании</a></li>
-                <li><a href="#">Информация для поставщиков</a></li>
-                <li>
+                <li class="{{ ($p == 'about') ? 'current' : null}}"><a href="#">О компании</a></li>
+                <li  class="{{ ($p == 'info') ? 'current' : null}}"><a href="#">Информация для поставщиков</a></li>
+                <li  class="{{ ($p == 'purchases') ? 'current' : null}}">
                     <a href="#">Покупки</a>
                     <ul>
                         <li>{!! link_to_route('trainCar','Детали товарных вагонов') !!}</li>
                         <li>{!! link_to_route('trainCarService','Услуги по грузовым вагонам') !!}</li>
                     </ul>
                 </li>
-                <li class="current"><a href="#">Контакты</a></li>
+                <li  class="{{ ($p == 'contacts') ? 'current' : null}}"><a href="#">Контакты</a></li>
                 @if (Auth::guest())
-                    <li>
+                    <li  class="{{ ($p == 'login') ? 'current' : null}}">
                         <a href="{{ url('/auth/login') }}">Войти</a>
                         <ul>
                             <li><a href="{{ url('/auth/register') }}">Зарегистрироваться</a></li>
                         </ul>
                     </li>
                 @else
-                    <li>
-                        <a href="{{ url('/cabinet') }}">Личный кабинет</a>
+                    <li  class="{{ ($p == 'cabinet') ? 'current' : null}}">
+                        <a href="#">Личный кабинет</a>
                         <ul>
+                            <li><a href="{{ route('firm.edit') }}">Редактировать информацию о фирме</a></li>
+                            <li><a href="{{ route('showMyOrders') }}">Мои заказы</a></li>
+                            <li><a href="{{ route('showMyDocs') }}">Мои документы</a></li>
                             <li><a href="{{ url('/auth/logout') }}">Выйти</a></li>
                         </ul>
                     </li>

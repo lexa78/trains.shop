@@ -51,7 +51,7 @@ Route::put('productCartUpdate/{id}/{value}', ['as'=>'productCartUpdate', 'uses'=
 
 Route::get('fatal_error',['as'=>'fatalError', 'uses'=>'FatalErrorController@index']);
 
-Route::get('cabinet', ['as'=>'cabinet', 'uses'=>'CabinetController@index']);
+//Route::get('cabinet', ['as'=>'cabinet', 'uses'=>'CabinetController@index']);
 
 Route::get('firm', ['as'=>'firm.edit', 'uses'=>'FirmController@edit']);
 Route::put('firmUpdate', ['as'=>'firm.update', 'uses'=>'FirmController@update']);

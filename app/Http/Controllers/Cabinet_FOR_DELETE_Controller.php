@@ -23,6 +23,7 @@ class CabinetController extends Controller {
 		$countOfOrders = Order::where('user_id', Auth::user()->id)->count();
 		$countOfDocuments = Document::where('user_id', Auth::user()->id)->count();
 		return view('cabinet.index', [
+										'p'=>'cabinet',
 										'userId' => $user->id,
 										'firmName' => $firmName,
 										'countOfOrders'=>$countOfOrders,

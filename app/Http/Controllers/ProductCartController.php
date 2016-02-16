@@ -44,7 +44,7 @@ class ProductCartController extends Controller {
 			unset($productCart);
 		}
 
-		return view('productCart.index',['productCartArr'=>$productCartArr, 'totalSum'=>$totalSum, 'userID'=>$userID]);
+		return view('productCart.index',['p'=>'productCart','productCartArr'=>$productCartArr, 'totalSum'=>$totalSum, 'userID'=>$userID]);
 	}
 
 	/**

@@ -40,6 +40,7 @@ class PurchasesController extends Controller {
 		$sumAndCount = $this->getGeneralViewOfCart($productCart);
 
 		return view('purchases.trainCar', [
+			                                'p'=>'purchases',
 											'regions'=>$regionsWithRelations,
 											'productsCount'=>$sumAndCount['productsCount'],
 											'productsSum'=>$sumAndCount['productsSum']
@@ -90,6 +91,7 @@ class PurchasesController extends Controller {
 		$sumAndCount = $this->getGeneralViewOfCart($productCart);
 
 		return view('purchases.trainCarPriceList', [
+                                                        'p'=>'purchases',
 														'categoriesArr'=>$categoriesArr,
 														'depoName'=>$depo->stantion_name,
                                                         'depoId'=>$depoID,
