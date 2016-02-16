@@ -204,7 +204,7 @@
 
     <div class="form-group">
         <div class="col-md-6 col-md-offset-4">
-            {!! Form::submit('Изменить', ['class'=>'btn btn-success']) !!}
+            {!! Form::submit('Изменить', ['class'=>'button']) !!}
         </div>
     </div>
 

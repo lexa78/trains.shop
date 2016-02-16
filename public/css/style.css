@@ -38,8 +38,8 @@ ul.list-1 li {padding:0px 0 8px 15px; font-size:11px; line-height:22px; color:#f
 ul.list-1 li a {color:#fff;text-decoration:underline;}
 ul.list-1 li a:hover {text-decoration:none;}
 
-ul.list-2 li {padding:0px 0 8px 15px; font-size:11px; line-height:22px; color:#9f9fa6; text-transform:uppercase; background:url(../images/marker-1.gif) 0 8px no-repeat;}
-ul.list-2 li a {color:#9f9fa6;text-decoration:underline;}
+ul.list-2 li {padding:0px 0 8px 15px; font-size:16px; line-height:22px; color:#9f9fa6; text-transform:uppercase; background:url(../images/marker-1.gif) 0 8px no-repeat;}
+ul.list-2 li a {color: #35353A;text-decoration:underline;}
 ul.list-2 li a:hover {text-decoration:none;}
 
 /******************************************************************/

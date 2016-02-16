@@ -1,5 +1,6 @@
 .qwe {
-    width: 40px;
+    width: 30px;
+    height: 30px;
 }
 .priceForAll {
     width: 20%;
@@ -168,4 +169,84 @@ position:relative;
 }
 .alert-danger .alert-link {
     color: #843534;
+}
+.num_in_tbl {
+    width: 4em;
+    font-size: 20px;
+    margin-bottom: 7px;
+    border: 4px double black;
+}
+.button-3 {
+    background: #353535;
+    display: inline-block;
+    font-size: 16px;
+    line-height: 12px;
+    color: #fff;
+    font-weight: bold;
+    font-family: 'Open Sans Condensed', sans-serif;
+    padding: 10px;
+}
+.float-r {
+    float: right;
+}
+
+.float-l {
+    float: left;
+}
+.totalSum {
+    font-size: 26px;
+    margin: 10px auto;
+    text-align: center;
+}
+.cnt {
+    text-align: center;
+}
+.gasket {
+    height: 20px;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 18px;
+    line-height: 1.42857143;
+    color: #555555;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.form-control::-moz-placeholder {
+    color: #999999;
+    opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+    color: #999999;
+}
+.form-control::-webkit-input-placeholder {
+    color: #999999;
+}
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+    cursor: not-allowed;
+    background-color: #eeeeee;
+    opacity: 1;
+}
+textarea.form-control {
+    height: auto;
+}
+.control-label {
+    font-size: 22px;
+}
+.col-md-6 {
+    margin-bottom: 20px;
 }

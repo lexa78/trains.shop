@@ -3,7 +3,7 @@
 
     {!! Form::hidden('_method', 'delete') !!}
 
-    {!! Form::submit('Удалить',['class'=>'btn btn-danger']) !!}
+    {!! Form::submit('Удалить',['class'=>'button-3']) !!}
 
     {!! Form::close() !!}
 </div>

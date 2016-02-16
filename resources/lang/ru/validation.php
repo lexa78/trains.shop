@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	"accepted"             => "Если Вы принимаете условия Договора оферты, Вы должны отметить это поле",
+	"accepted"             => "Если Вы принимаете условия Договора оферты, Вы должны поставить галочку",
 	"active_url"           => "The :attribute is not a valid URL.",
 	"after"                => "The :attribute must be a date after :date.",
 	"alpha"                => "The :attribute may only contain letters.",

@@ -36,7 +36,7 @@
                                         {!! Form::hidden('shownFileName', $shownFileName) !!}
                                         {!! Form::hidden('download', true) !!}
 
-                                        {!! Form::submit('Скачать') !!}
+                                        {!! Form::submit('Скачать', ['class'=>'button-3']) !!}
 
                                         {!! Form::close() !!}
                                     </td>
@@ -47,7 +47,7 @@
                                         {!! Form::hidden('shownFileName', $shownFileName) !!}
                                         {!! Form::hidden('download', false) !!}
 
-                                        {!! Form::submit('Посмотреть') !!}
+                                        {!! Form::submit('Посмотреть', ['class'=>'button-3']) !!}
 
                                         {!! Form::close() !!}
                                     </td>
@@ -59,9 +59,6 @@
                     <b>Документов нет</b><br>
                 @endif
 
-            </div>
-            <div class="sub-page-right">
-                Хуй знает, что тут ставить
             </div>
         </div>
     </section>

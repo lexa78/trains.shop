@@ -191,6 +191,7 @@ class PurchasesController extends Controller {
         $sumAndCount = $this->getGeneralViewOfCart($productCart);
 
         return view('purchases.trainCarPriceListInCurrentCategory', [
+			'p'=>'purchases',
             'productsArr'=>$productsArr,
             'category'=>$categoryName,
             'userID'=>$userID,

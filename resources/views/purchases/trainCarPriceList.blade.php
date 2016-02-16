@@ -26,13 +26,13 @@
                 @endif
                 <table>
                     <tr align="center">
-                        <td>№ п/п</td>
+                        {{--<td>№ п/п</td>--}}
                         <td>Название</td>
                         <td>Описание</td>
                         <td>Завод производитель</td>
                         <td>Год выпуска</td>
                         <td>Цена</td>
-                        <td>В наличии</td>
+                        <td>В на-<br>личии</td>
                         <td></td>
                     </tr>
 
@@ -40,13 +40,13 @@
                         <tr align="center"><td colspan="8">{!! link_to_route('trainCarPriceListInCategory',$category_name,['category_name'=>$category_name, 'depoId'=>$depoId]) !!}</td></tr>
                         @foreach($category as $key=>$product)
                             <tr>
-                                <td>{{  $key +1 }}</td>
+                                {{--<td>{{  $key +1 }}</td>--}}
                                 <td>{!! link_to_route('showTrainCarProduct',$product['name'],['id'=>$product['product_id'], 'depoId'=>$product['depo_id']]) !!}</td>
                                 <td>{{$product['description']}}</td>
                                 <td>({{ $product['factory_code'] }})   {{ $product['factory_name'] }}</td>
-                                <td>{{$product['year']}}</td>
+                                <td align="center">{{$product['year']}}</td>
                                 <td>{{$product['price']}}</td>
-                                <td class="prod{{ $product['product_id'] }}">{{$product['amount']}}</td>
+                                <td align="center" class="prod{{ $product['product_id'] }}">{{$product['amount']}}</td>
                                 <td>
                                     @if($userID)
                                         <form method="POST" action="{!! action('ProductCartController@store',[
@@ -55,8 +55,8 @@
                                                                                                                     'priceID'=>$product['price_id'],
                                             ])!!}" accept-charset="UTF-8" role="form">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                                            <input type="number" id="prod{{ $product['product_id'] }}" name="amount" class="addToCartAmount" value="1" size="4"/>
-                                            <input type="submit" value="В корзину">
+                                            <input type="number" id="prod{{ $product['product_id'] }}" name="amount" class="addToCartAmount num_in_tbl" value="1"/>
+                                            <input class="button-3" type="submit" value="В корзину">
                                         </form>
                                     @endif
                                 </td>
@@ -65,7 +65,7 @@
                     @endforeach
                 </table>
 
-                {!! link_to_route('trainCar', 'Назад', null, ['class'=>'btn btn-info']) !!}
+                {!! link_to_route('trainCar', 'Назад', null, ['class'=>'button']) !!}
             </div>
             {{--<div class="sub-page-right">--}}
                 {{--<h2 class="p3">{!! link_to_route('productCart','Корзина покупок') !!}</h2>--}}
@@ -80,6 +80,11 @@
             {{--</div>--}}
         </div>
     </section>
+@stop
+
+@section('jsScripts')
+    <script src="{{ asset('/js/jquery-1.7.min.js') }}"></script>
+    <script src="{{ asset('/js/addToCartAmount.js') }}"></script>
 @stop
 
 

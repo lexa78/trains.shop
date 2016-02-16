@@ -14,10 +14,10 @@
             </div>
 
             <div class="sub-page-left box-9">
-                <h2 class="p4">Подтверждение заказа</h2>
-                <p><b>Компания - заказчик:</b> {{ $firm->organisation_name }}</p>
-                <p><b>Контактное лицо:</b> {{ $firm->contact_face_fio }}</p>
-                <p><b>Его телефон:</b> {{ $firm->phone }}</p>
+                <h2 class="p4 cnt">Подтверждение заказа</h2>
+                <p class="totalSum"><b>Компания - заказчик:</b> {{ $firm->organisation_name }}</p>
+                <p class="totalSum"><b>Контактное лицо:</b> {{ $firm->contact_face_fio }}</p>
+                <p class="totalSum"><b>Его телефон:</b> {{ $firm->phone }}</p>
                 <hr>
                 <table width="100%">
                     <tr>
@@ -54,14 +54,15 @@
                 {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
                 {!! Form::open(['action' => 'OrderController@store', 'role' => 'form']) !!}
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="oferta">Нажимая кнопку "Подтвердить", я принимаю условия <a href="#">Договора оферты</a></label>
-                    <input type="checkbox" class="form-control qwe" name="oferta" id="oferta">
+                    <label class="totalSum" for="oferta">Нажимая кнопку "Подтвердить", я принимаю условия <a href="#">Договора оферты</a></label>
+                    <input type="checkbox" class="qwe" name="oferta" id="oferta">
                     <div class="col-md-6">
                         @if($errors->has('oferta'))
                             <div class="alert-danger alert">{!! $errors->first('oferta') !!}</div>
                         @endif
                     </div>
                 </div>
+
                 <input type="hidden" name="userID" value="{{ Auth::user()->id }}">
                 @if($errors->has('userID'))
                     <div class="alert-danger alert">{!! $errors->first('userID') !!}</div>
@@ -74,11 +75,12 @@
                 {{--</div>--}}
                 {{--</div>--}}
                 {{--</form>--}}
-                {!! Form::submit('Подтвердить', ['class'=>'btn btn-success']) !!}
+                <div class="gasket"></div>
+                {!! Form::submit('Подтвердить', ['class'=>'button float-l']) !!}
                 {!! Form::close() !!}
 
                 {{--{!! link_to_route('storeOrder','Подтвердить', ['userID'=>$userID], ['class'=>'btn btn-success']) !!}--}}
-                {!! link_to_route('productCart','Вернуться в корзину', null, ['class'=>'btn btn-info']) !!}
+                {!! link_to_route('productCart','Вернуться в корзину', null, ['class'=>'button-2 float-r']) !!}
             </div>
         </div>
     </section>

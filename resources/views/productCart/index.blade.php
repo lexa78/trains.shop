@@ -33,7 +33,7 @@
                                     <td>{{$item['name']}}</td>
                                     <td id="price_{{ $item['id'] }}">{{$item['price']}}</td>
                                     <td class="parent{{ $item['id'] }}">
-                                        <input type="number" name="{{ $item['id'] }}" value="{{ $item['amount'] }}" class="productCartAmount" size="4"/>
+                                        <input type="number" name="{{ $item['id'] }}" value="{{ $item['amount'] }}" class="productCartAmount num_in_tbl" size="4"/>
                                     </td>
                                     <td id="sum_{{ $item['id'] }}" class="sum">{{ $item['price'] * $item['amount'] }}</td>
                                     <td>@include('productCart._destroyForm')</td>
@@ -45,25 +45,26 @@
                         <p class="totalSum">Итого на сумму <b>{{ $totalSum }}</b> руб.</p>
                         <form method="POST" action="{!! action('OrderController@confirm',['userID'=>$userID])!!}" accept-charset="UTF-8" role="form">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                            <input type="submit" class="btn btn-success" value="Оформить заказ" />
+                            <input type="submit" class="button float-l" value="Оформить заказ" />
                         </form>
                     @endif
                 @else
                     <b>Корзина пуста</b><br>
                 @endif
-                {!! link_to_route('trainCar','Вернуться на страницу покупок', null, ['class'=>'btn btn-info']) !!}
+                {!! link_to_route('trainCar','Вернуться на страницу покупок', null, ['class'=>'button-2 float-r']) !!}
             </div>
-            <div class="sub-page-right">
-                <h2 class="p3">Most Popular</h2>
-                <p class="upper p5"><a href="#" class="link">Product name #1</a><br>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-                <p class="upper p5"><a href="#" class="link">Product name #2</a><br>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-                <p class="upper"><a href="#" class="link">Product name #3</a><br>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-                <a href="#" class="button-2 top-1">Read More</a>
-            </div>
+            {{--<div class="sub-page-right">--}}
+                {{--<h2 class="p3">Most Popular</h2>--}}
+                {{--<p class="upper p5"><a href="#" class="link">Product name #1</a><br>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor incididunt ut labore et.</p>--}}
+                {{--<p class="upper p5"><a href="#" class="link">Product name #2</a><br>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor incididunt ut labore et.</p>--}}
+                {{--<p class="upper"><a href="#" class="link">Product name #3</a><br>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor incididunt ut labore et.</p>--}}
+                {{--<a href="#" class="button-2 top-1">Read More</a>--}}
+            {{--</div>--}}
         </div>
     </section>
 @stop
 
 @section('jsScripts')
+    <script src="{{ asset('/js/jquery-1.7.min.js') }}"></script>
     <script src="{{ asset('/js/recount.js') }}"></script>
 @stop
