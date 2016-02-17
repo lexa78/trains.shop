@@ -35,8 +35,8 @@
         <nav>
             <ul class="menu" id="nav">
                 {{--<li class="current"><a href="{{ url('/') }}" class="home"><img src="{{ asset('/images/home.jpg') }}"></a></li>--}}
-                <li class="{{ ($p == 'about') ? 'current' : null}}"><a href="#">О компании</a></li>
-                <li  class="{{ ($p == 'info') ? 'current' : null}}"><a href="#">Информация для поставщиков</a></li>
+                <li class="{{ ($p == 'about') ? 'current' : null}}">{!! link_to_route('about','О компании') !!}</li>
+                <li  class="{{ ($p == 'info') ? 'current' : null}}">{!! link_to_route('info','Информация для поставщиков') !!}</li>
                 <li  class="{{ ($p == 'purchases') ? 'current' : null}}">
                     <a href="#">Покупки</a>
                     <ul>
@@ -44,7 +44,7 @@
                         <li>{!! link_to_route('trainCarService','Услуги по грузовым вагонам') !!}</li>
                     </ul>
                 </li>
-                <li  class="{{ ($p == 'contacts') ? 'current' : null}}"><a href="#">Контакты</a></li>
+                <li  class="{{ ($p == 'contacts') ? 'current' : null}}">{!! link_to_route('contacts','Контакты') !!}</li>
                 @if (Auth::guest())
                     <li  class="{{ ($p == 'login') ? 'current' : null}}">
                         <a href="{{ url('/auth/login') }}">Войти</a>

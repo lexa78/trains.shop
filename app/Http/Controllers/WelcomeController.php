@@ -32,7 +32,22 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('welcome', ['p'=>'main']);
+		return view('static.welcome', ['p'=>'main']);
 	}
+
+	public function about()
+    {
+        return view('static.about', ['p'=>'about']);
+    }
+
+	public function info()
+    {
+        return view('static.info', ['p'=>'info']);
+    }
+
+	public function contacts()
+    {
+        return view('static.contacts', ['p'=>'contacts']);
+    }
 
 }
