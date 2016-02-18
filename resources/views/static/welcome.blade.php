@@ -23,68 +23,38 @@
         <div class="block-1 box-1">
             <div>
                 <img src="images/page1-img1.jpg" alt="">
-                <p class="text-1">Schedule <strong>Services</strong></p>
-                <p class="upper"><a href="http://blog.templatemonster.com/free-website-templates/" class="link" rel="nofollow" target="_blank">Click here</a> for more info about this free website templates  by TemplateMonster.com.</p>
-                <a href="#" class="button">Read More</a>
+                <p class="text-1">Запчасти для грузовых вагонов <strong>Services</strong></p>
+                <p class="upper">Огромный выбор запчастей. От автосцепки до колесной пары.</p>
             </div>
             <div>
                 <img src="images/page1-img2.jpg" alt="">
-                <p class="text-1">Preventive <strong>Maintenance</strong></p>
-                <p class="upper">This website template is optimized for 1280X1024 screen res. It is also XHTML & CSS valid.</p>
-                <a href="#" class="button">Read More</a>
-            </div>
-            <div>
-                <img src="images/page1-img3.jpg" alt="">
-                <p class="text-1">Repair <strong>Services</strong></p>
-                <p class="upper">The PSD source files of this template are available for free for the registered members.</p>
-                <a href="#" class="button">Read More</a>
-            </div>
-            <div class="last">
-                <img src="images/page1-img4.jpg" alt="">
-                <p class="text-1">Tire & Wheel <strong>Services</strong></p>
-                <p class="upper">Feel free to get this free web template created  by Template Monster Team!</p>
-                <a href="#" class="button">Read More</a>
+                <p class="text-1">Услуги для грузовых вагонов <strong>Maintenance</strong></p>
+                <p class="upper">Мы предоставляем немалый спектр услуг. От инструментального обмера вагонов до организации отстоя вагонов.</p>
             </div>
         </div>
-        <div class="block-2 wrap pad-2">
-            <div class="box-2">
-                <h2 class="clr-1">Reviews</h2>
-                <div class="comments">
-                    <div>
-                        “Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.”
-                        <div class="comments-corner"></div>
-                    </div>
-                    <a href="#">dolor hendrerit</a>
-                </div>
-                <div class="comments">
-                    <div>
-                        “vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit.”
-                        <div class="comments-corner"></div>
-                    </div>
-                    <a href="#">vulputate velit</a>
-                </div>
-            </div>
-            <div class="box-3">
-                <h2 class="clr-1">Our Services</h2>
-                <div class="wrap">
-                    <ul class="list-1">
-                        <li><a href="#">Consetetur sadipscing</a></li>
-                        <li><a href="#">elitr sed diam nonumy</a></li>
-                        <li><a href="#">tempor invidunt utabore</a></li>
-                        <li><a href="#">et dolore magna aliquyam</a></li>
-                        <li><a href="#">erat sed diam voluptua</a></li>
-                        <li><a href="#">At vero eos et accusam et</a></li>
-                    </ul>
-                    <ul class="list-1 last">
-                        <li><a href="#">Takimata sanctus est</a></li>
-                        <li><a href="#">Lorem ipsum dolor sit amet</a></li>
-                        <li><a href="#">Ipsum dolor sit amet</a></li>
-                        <li><a href="#">consetetur sadipscing </a></li>
-                        <li><a href="#">sed diam nonumy eirmod</a></li>
-                        <li><a href="#">tempor invidunt ut labore</a></li>
-                    </ul>
-                </div>
-                <a href="#" class="button-2">Read More</a>
+
+        <div class="wrap with-bg">
+            <div class="extra-wrap">
+                <p class="text-2 p2">ООО "Гатис" специализируется на поставках запасных частей к грузовым вагонам.</p>
+                <p class="upper">На нашем сайте вы можете приобрести колесные пары, боковые рамы, надрессорные балки и прочее оборудование. Все запчасти, представленные в каталоге сайта, есть в наличии, и будут отгружены покупателю в течение максимум трех дней после оплаты счета. Условия поставки отражены в договоре оферты.</p>
+                <br>
+                <p class="upper">Помимо продажи запасных частей  вагонов, ООО "Гатис" оказывает следующие услуги:</p>
+                <ul class="list-2">
+                    <li>организация приписки вагонов</li>
+                    <li>организация регистрации/перерегистрации вагонов</li>
+                    <li>организация технического осмотра вагонов</li>
+                    <li>организация технической приемки вагонов</li>
+                    <li>создание и поддержание базы технических паспортов</li>
+                    <li>предоставление сведений о дислокации и технических характеристиках вагонов</li>
+                    <li>инструментальный обмер вагонов</li>
+                    <li>расследование и разбор причин технологических неисправностей, рекламационных случаев, крушений, сходов</li>
+                    <li>организация отстоя вагонов</li>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <br>
+                <br>
+                <p>Ознакомиться со стоимостями и заказать услуги вы можете в на странице {!! link_to_route('trainCarService','Услуги по грузовым вагонам') !!}</p>
             </div>
         </div>
     </section>

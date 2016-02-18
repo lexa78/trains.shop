@@ -103,7 +103,7 @@ ul.menu li a:hover , ul.menu li.current a {color:#0fc6ee; text-shadow:#68dcf6 0 
 .pad-2 {padding:30px 40px 30px 40px;}
 
 .box-1 {overflow:hidden; padding:39px 0 39px 39px;}
-.box-1>div {width:210px; float:left; margin-right:20px;}
+.box-1>div {width:420px; float:left; margin-right:20px;}
 .box-1 .text-1 {margin:10px 0 8px 0;}
 .box-1 .button {margin-top:13px;}
 .box-2 {width:420px; float:left; margin-right:40px; }

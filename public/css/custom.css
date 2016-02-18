@@ -250,3 +250,7 @@ textarea.form-control {
 .col-md-6 {
     margin-bottom: 20px;
 }
+.with-bg {
+    background-color: #eeeeee;
+    padding: 10px;
+}
