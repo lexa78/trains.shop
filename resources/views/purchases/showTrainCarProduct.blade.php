@@ -73,8 +73,8 @@
                                                                                                                 'priceID'=>$item['price_id'],
                                                  ])!!}" accept-charset="UTF-8" role="form">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                                                    <input type="number" name="amount" class="addToCartAmount" value="1" size="4"/>
-                                                    <input type="submit" value="В корзину">
+                                                    <input type="number" name="amount" class="addToCartAmount num_in_tbl" value="1" size="4"/>
+                                                    <input type="submit" value="В корзину" class="button-3">
                                                 </form>
                                             @endif
                                         </td>
@@ -91,5 +91,6 @@
 @stop
 
 @section('jsScripts')
+    <script src="{{ asset('/js/jquery-1.7.min.js') }}"></script>
     <script src="{{ asset('/js/addToCartAmount.js') }}"></script>
 @stop
