@@ -30,17 +30,17 @@
         <div class="main wrap">
             <h1><a href="{{ url('/') }}"><img src="{{ asset('/images/logo.png') }}"></a></h1>
             <p class="purchases_cart">@yield('purchases_cart')</p>
-            <p>Москва, ул.Вагоностроителей стр.5 <span>8 (800) 552 5975</span></p>
+            <p> МО г.Одинцово, ул. Чистяковой д. 18 <span>8 (495) 542-94-38</span></p>
         </div>
         <nav>
             <ul class="menu" id="nav">
-                {{--<li class="current"><a href="{{ url('/') }}" class="home"><img src="{{ asset('/images/home.jpg') }}"></a></li>--}}
+                <li class="{{ ($p == 'main') ? 'current' : null}}"><a href="{{ url('/') }}" class="home"><img src="{{ asset('/images/home.jpg') }}"></a></li>
                 <li class="{{ ($p == 'about') ? 'current' : null}}">{!! link_to_route('about','О компании') !!}</li>
                 <li  class="{{ ($p == 'info') ? 'current' : null}}">{!! link_to_route('info','Информация для поставщиков') !!}</li>
                 <li  class="{{ ($p == 'purchases') ? 'current' : null}}">
                     <a href="#">Покупки</a>
                     <ul>
-                        <li>{!! link_to_route('trainCar','Детали товарных вагонов') !!}</li>
+                        <li>{!! link_to_route('trainCar','Детали грузовых вагонов') !!}</li>
                         <li>{!! link_to_route('trainCarService','Услуги по грузовым вагонам') !!}</li>
                     </ul>
                 </li>

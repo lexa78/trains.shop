@@ -275,6 +275,7 @@ class OrderController extends Controller {
 
             $shownFileName = $typeOfDoc.' № '. $document->order_id;
             return view('orders.showSpecificOrder',[
+                                                    'p'=>'cabinet',
                                                     'order'=>$order,
                                                     'shortFileName' => $fileName,
                                                     'shownFileName' => $shownFileName,

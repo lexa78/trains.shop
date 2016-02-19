@@ -1,12 +1,25 @@
-@extends('app')
+@extends('public')
+
+@section('purchases_cart')
+    {!! link_to_route('productCart','Заказано '.$productsCount.' запчастей') !!}
+@stop
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+
+    <section id="content"><div class="ic"></div>
+        <div class="sub-page">
+
+            <div class="flash-message">
+                @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                    @if(Session::has('alert-' . $msg))
+                        <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                    @endif
+                @endforeach
+            </div>
+
+            <div class="sub-page-left box-9">
                 <div class="panel panel-default">
-                    {!! link_to_route('trainCarPriceList','Назад', ['id'=>$depoId], ['class'=>'btn btn-info']) !!}
-                    <div class="panel-heading">Подробное описание товара {{$product->name}}</div>
+                    <div class="totalSum cnt">Подробное описание товара {{$product->name}}</div>
                     <div class="panel-body">
                         <div class="flash-message">
                             @foreach (['danger', 'warning', 'success', 'info'] as $msg)
@@ -23,7 +36,14 @@
                         <p><b>Состояние:&nbsp;</b>{{ $productParams[0]->condition }}</p>
                         <p><b>Завод-производитель:&nbsp;</b>({{ $productParams[0]->factory_code }}) {{ $productParams[0]->factory_name }}</p>
                         <p><b>Год выпуска:&nbsp;</b>{{ $productParams[0]->year }}</p>
-                        <h3>Цены и количества</h3>
+                        <br>
+                        <div class="totalSum cnt">Цены и количества в других депо</div>
+                        @if(! $userID)
+                            <p class="alert alert-warning">Чтобы появилась возможность добавлять товары в корзину,
+                                необходимо <a href="{{ url('/auth/login') }}">Войти</a> или
+                                <a href="{{ url('/auth/register') }}">Зарегистрироваться</a>
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                        @endif
                         <table border="1" width="100%">
                             <tr align="center">
                                 <td>Депо</td>
@@ -59,27 +79,12 @@
                                 @endforeach
                             @endforeach
                         </table>
-
+                        {!! link_to_route('trainCarPriceList','Назад', ['id'=>$depoId], ['class'=>'button']) !!}
                     </div>
                 </div>
             </div>
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading"> {!! link_to_route('productCart','Корзина покупок') !!}</div>
-
-                    <div class="panel-body">
-                        @if($productsCount)
-                            <p>В корзине <b>{{ $productsCount }}</b> товаров</p>
-                            <p>На сумму <b>{{ $productsSum }}</b> руб.</p>
-                        @else
-                            <p>Корзина пуста</p>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
         </div>
-    </div>
+    </section>
 @stop
 
 @section('jsScripts')

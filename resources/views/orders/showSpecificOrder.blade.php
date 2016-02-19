@@ -1,16 +1,18 @@
-@extends('app')
+@extends('public')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+
+    <section id="content"><div class="ic"></div>
+        <div class="sub-page">
+
+            <div class="sub-page-left box-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Подробное рассмотрение заказа № {{ $order->id }}</div>
                     <div class="panel-body">
                         <h3>Заказ № {{ $order->id }}</h3>
-                        <p>Дата и время оформления заказа: {{ \App\Models\Order::formatDate($order->created_at, true) }}</p>
-                        <p>Заказ в депо: {{ $order->products_in_order[0]->stantion->stantion_name }}</p>
-                        <p>Статус заказа: {{ $order->status->status }}</p>
+                        <p>Дата и время оформления заказа: <strong>{{ \App\Models\Order::formatDate($order->created_at, true) }}</strong></p>
+                        <p>Заказ в депо: <strong>{{ $order->products_in_order[0]->stantion->stantion_name }}</strong></p>
+                        <p>Статус заказа: <strong>{{ $order->status->status }}</strong></p>
+                        <br>
                         <h4>Заказанные товары</h4>
                         <table width="100%">
                             <tr>
@@ -21,8 +23,8 @@
                                 <td>Сумма</td>
                             </tr>
                             <?
-                                $totalSum = 0;
-                                $tempSum = 0;
+                            $totalSum = 0;
+                            $tempSum = 0;
                             ?>
                             @foreach($order->products_in_order as $number => $product)
                                 <tr>
@@ -47,7 +49,7 @@
                                     {!! Form::hidden('shownFileName', $shownFileName) !!}
                                     {!! Form::hidden('download', true) !!}
 
-                                    {!! Form::submit('Скачать') !!}
+                                    {!! Form::submit('Скачать',['class'=>'button']) !!}
 
                                     {!! Form::close() !!}
                                 </td>
@@ -58,7 +60,7 @@
                                     {!! Form::hidden('shownFileName', $shownFileName) !!}
                                     {!! Form::hidden('download', false) !!}
 
-                                    {!! Form::submit('Посмотреть') !!}
+                                    {!! Form::submit('Посмотреть',['class'=>'button-2']) !!}
 
                                     {!! Form::close() !!}
                                 </td>
@@ -68,5 +70,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 @stop
