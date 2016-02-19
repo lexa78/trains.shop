@@ -1,7 +1,7 @@
 /* Global properties ======================================================== */
 html {height:100%;}
 html, body {width:100%; padding:0; margin:0;}
-body { 	 
+body {
 	/*font: 11px/22px Arial, Helvetica, sans-serif;*/
 	font-family: Arial, Helvetica, sans-serif;
 	line-height: 1.5;
@@ -40,7 +40,7 @@ ul.list-1 li {padding:0px 0 8px 15px; font-size:11px; line-height:22px; color:#f
 ul.list-1 li a {color:#fff;text-decoration:underline;}
 ul.list-1 li a:hover {text-decoration:none;}
 
-ul.list-2 li {padding:0px 0 8px 15px; font-size:16px; line-height:22px; color:#9f9fa6; /*text-transform:uppercase;*/ background:url(../images/marker-1.gif) 0 8px no-repeat;}
+ul.list-2 li {padding:0px 0 8px 15px; font-size:16px; line-height:22px; /*color:#9f9fa6; /*text-transform:uppercase;*/ background:url(../images/marker-1.gif) 0 8px no-repeat;}
 ul.list-2 li a {color: #35353A;text-decoration:underline;}
 ul.list-2 li a:hover {text-decoration:none;}
 
@@ -51,8 +51,8 @@ ul.list-2 li a:hover {text-decoration:none;}
 .extra-wrap {overflow:hidden;}
 .fleft {float:left;}
 .fright {float:right;}
-.img-indent {float:left; margin:6px 20px 0px 0;}	
-.img-indent-2 {float:left; margin:0px 20px 0px 0;}	
+.img-indent {float:left; margin:6px 20px 0px 0;}
+.img-indent-2 {float:left; margin:0px 20px 0px 0;}
 .img-indent-3 {float:left; margin:7px 20px 0px 0;}
 .line-height {line-height:18px;}
 .last {margin-right:0px !important; padding-right:0px !important;}
@@ -78,7 +78,7 @@ ul.list-2 li a:hover {text-decoration:none;}
 /*********************************header*************************************/
 header{width:100%; background:#1c1c1c;}
 
-h1 {display:inline-block; z-index:111; float:left; padding:27px 0 0 21px;}
+h1 {display:inline-block; z-index:111; float:left; padding:10px 0 0 21px;}
 header p {float:right; width:230px; overflow:hidden; font:16px/20px Tahoma, Geneva, sans-serif; color:#c6c6ce; padding:27px 0 27px 0; }
 header p>span {display:block; color:#fff; font-size:25px; line-height:30px; margin-top:6px;letter-spacing:-1px; }
 
@@ -87,12 +87,12 @@ nav {display:block; z-index:1111; position:relative; background:url(../images/he
 ul.menu {display:block; width:960px; margin:0 auto;}
 ul.menu li {float:left; display:block; height:60px; text-align:center; background:url(../images/li.jpg) right 0 no-repeat; }
 ul.menu li:first-child {background:transparent;}
-ul.menu li a.home {background:url(../images/home.jpg) 0 0 no-repeat;width:61px; height:60px; display:block; padding:0 !important;}
+/*ul.menu li a.home {background:url(../images/home.jpg) 0 0 no-repeat;width:61px; height:60px; display:block; padding:0 !important;}*/
 ul.menu li a { font:16px/20px Tahoma, Geneva, sans-serif; color:#000; display:block; padding:19px 22px 21px 22px; overflow:hidden; }
 ul.menu li:hover, ul.menu li.current {}
-ul.menu li:hover a.home, ul.menu li.current a.home {background-position:right 0;}
-ul.menu li:hover a.home img, ul.menu li.current a.home img {display:none;}
-ul.menu li a:hover , ul.menu li.current a {color:#0fc6ee; text-shadow:#68dcf6 0 0 5px;}
+/*ul.menu li:hover a.home, ul.menu li.current a.home {background-position:right 0;}*/
+/*ul.menu li:hover a.home img, ul.menu li.current a.home img {display:none;}*/
+ul.menu li a:hover , ul.menu li.current a {color:#0fc6ee; /*text-shadow:#68dcf6 0 0 5px;*/}
 
 
 /*********************************content*************************************/
@@ -145,7 +145,7 @@ table td { padding:9px 10px 8px 20px;}/*отступы внутри таблиц
 table td:first-child {font-weight:bold;}
 
 /****************************footer************************/
-footer {width:960px; overflow:hidden; margin:0 auto; padding:33px 0px 33px 0; background:#fff; text-align:center; color:#000; text-transform:uppercase; }
+footer {width:960px; overflow:hidden; margin:0 auto; padding:10px 0; background:#fff; text-align:center; color:#000;}
 
 /**********************form**********************/
 .map {width:190px; height:247px; margin-top:13px; }
@@ -162,8 +162,3 @@ dl.adr dd a:hover {}
 #form label {position:relative;display: block; min-height:35px; overflow:hidden;}
 .btns {text-align:right; overflow:hidden; width:610px; padding-top:10px; }
 .btns a {display:inline-block; margin-left:10px;}
-.purchases_cart {
-	float: left;
-    font-size: 2em;
-    margin-left: 40px;
-}

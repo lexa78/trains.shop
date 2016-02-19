@@ -29,12 +29,13 @@
     <header>
         <div class="main wrap">
             <h1><a href="{{ url('/') }}"><img src="{{ asset('/images/logo.png') }}"></a></h1>
-            <p class="purchases_cart">@yield('purchases_cart')</p>
-            <p> МО г.Одинцово, ул. Чистяковой д. 18 <span>8 (495) 542-94-38</span></p>
+            @yield('purchases_cart')
+            <p><span>8 (495) 542-94-38</span></p>
         </div>
         <nav>
             <ul class="menu" id="nav">
-                <li class="{{ ($p == 'main') ? 'current' : null}}"><a href="{{ url('/') }}" class="home"><img src="{{ asset('/images/home.jpg') }}"></a></li>
+                <li class="{{ ($p == 'main') ? 'current' : null}}">{!! link_to_route('main','Главная') !!}</li>
+                {{--<li class="{{ ($p == 'main') ? 'current' : null}}"><a href="{{ url('/') }}" class="home"><img src="{{ asset('/images/home.jpg') }}"></a></li>--}}
                 <li class="{{ ($p == 'about') ? 'current' : null}}">{!! link_to_route('about','О компании') !!}</li>
                 <li  class="{{ ($p == 'info') ? 'current' : null}}">{!! link_to_route('info','Информация для поставщиков') !!}</li>
                 <li  class="{{ ($p == 'purchases') ? 'current' : null}}">
@@ -72,7 +73,7 @@
     @yield('content')
     <!--==============================footer=================================-->
     <footer>
-        Copyright © 2016 Transgarant. All Rights Reserved.
+        ООО"ГАТИС", 2015-2016гг
     </footer>
 </div>
     @yield('jsScripts')

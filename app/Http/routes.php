@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+//Route::get('/', 'WelcomeController@index');
+Route::get('/',['as'=>'main','uses'=>'WelcomeController@index']);
 Route::get('about', ['as'=>'about','uses'=>'WelcomeController@about']);
 Route::get('info', ['as'=>'info','uses'=>'WelcomeController@info']);
 Route::get('contacts', ['as'=>'contacts','uses'=>'WelcomeController@contacts']);

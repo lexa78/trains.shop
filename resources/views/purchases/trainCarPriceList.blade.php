@@ -1,7 +1,10 @@
 @extends('public')
 
 @section('purchases_cart')
-    {!! link_to_route('productCart','Заказано '.$productsCount.' запчастей') !!}
+    <div class="purchases_cart">
+        <div class="title-in-purchases_cart">Запчасти</div>
+        {!! link_to_route('productCart','Заказано '.$productsCount.' запчастей') !!}
+    </div>
 @stop
 
 @section('content')
