@@ -20,7 +20,7 @@
             </div>
 
             <div class="sub-page-left box-9">
-                <h2 class="p4">Детали товарных вагонов</h2>
+                <h2 class="p4">Детали грузовых вагонов</h2>
                 <table width="100%">
                 @foreach($regions as $region)
                     <tr class="with-bottom-margin">
