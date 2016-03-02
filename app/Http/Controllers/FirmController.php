@@ -82,7 +82,7 @@ class FirmController extends Controller {
 		}
 		$firm->update($request->all());
 		$firm->save();
-		return redirect('cabinet')->with('alert-success','Информация о фирме обновлена');
+		return redirect('/');
 	}
 
 	/**

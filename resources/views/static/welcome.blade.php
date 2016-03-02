@@ -9,9 +9,9 @@
         <div class="slider-block">
             <div class="slider">
                 <ul class="items">
-                    <li><img src="{{ asset('/images/slide-1.jpg') }}" alt="" /><div class="banner"><div><span>Автосцепка</span><p>Автосцепка состоит из следующих частей: корпуса автосцепки и расположенного в нём механизма, тягового устройства с поглощающим аппаратом (пружинами), расцепного привода и ударно-центрирующего прибора.</p></div></div></li>
-                    <li><img src="{{ asset('/images/slide-2.jpg') }}" alt="" /><div class="banner"><div><span>Надрессорная балка</span><p>Надрессорная балка в конструкции тележки грузового вагона служит соединительным звеном между двумя рамами боковыми. Для обеспечения надежности и долговечности балку надрессорную отливают из стали 20ГФЛ или 20ГЛ.</p></div></div></li>
-                    <li><img src="{{ asset('/images/slide-3.jpg') }}" alt="" /><div class="banner"><div><span>Колесная пара</span><p>Колесные пары предназначены для направления движения вагона по рельсовому пути и восприятия всех нагрузок, передающихся от вагона на рельсы при их вращении.</p></div></div></li>
+                    <li><img src="{{ asset('/images/slide-1.jpg') }}" alt="" /><div class="banner"><div><a href="{{ URL::route('trainCarPriceListInCategory',['category_name'=>'Автосцепки', 'depoId'=>\App\Models\Stantion::where('id','>','0')->first()]) }}"><span>Автосцепка</span></a><p><a href="{{ URL::route('trainCarPriceListInCategory',['category_name'=>'Автосцепки', 'depoId'=>\App\Models\Stantion::where('id','>','0')->first()]) }}">Автосцепка состоит из следующих частей: корпуса автосцепки и расположенного в нём механизма, тягового устройства с поглощающим аппаратом (пружинами), расцепного привода и ударно-центрирующего прибора.</a></p></div></div></li>
+                    <li><img src="{{ asset('/images/slide-2.jpg') }}" alt="" /><div class="banner"><div><a href="{{ URL::route('trainCarPriceListInCategory',['category_name'=>'Балки надрессорные', 'depoId'=>\App\Models\Stantion::where('id','>','0')->first()]) }}"><span>Надрессорная балка</span></a><p><a href="{{ URL::route('trainCarPriceListInCategory',['category_name'=>'Балки надрессорные', 'depoId'=>\App\Models\Stantion::where('id','>','0')->first()]) }}">Надрессорная балка в конструкции тележки грузового вагона служит соединительным звеном между двумя рамами боковыми. Для обеспечения надежности и долговечности балку надрессорную отливают из стали 20ГФЛ или 20ГЛ.</a></p></div></div></li>
+                    <li><img src="{{ asset('/images/slide-3.jpg') }}" alt="" /><div class="banner"><div><a href="{{ URL::route('trainCarPriceListInCategory',['category_name'=>'Колесные пары', 'depoId'=>\App\Models\Stantion::where('id','>','0')->first()]) }}"><span>Колесная пара</span></a><p><a href="{{ URL::route('trainCarPriceListInCategory',['category_name'=>'Колесные пары', 'depoId'=>\App\Models\Stantion::where('id','>','0')->first()]) }}">Колесные пары предназначены для направления движения вагона по рельсовому пути и восприятия всех нагрузок, передающихся от вагона на рельсы при их вращении.</a></p></div></div></li>
                 </ul>
             </div>
             <a href="#" class="prev"></a>
@@ -19,7 +19,6 @@
         </div>
     </div>
     <!--==============================content================================-->
-    <a href="{{ URL::route('trainCarPriceListInCategory',['category_name'=>'Автосцепки', 'depoId'=>\App\Models\Stantion::where('id','>','0')->first()]) }}"><img src="{{ asset('/images/slide-1.jpg') }}" alt="" /></a>
     <section id="content"><div class="ic"></div>
         <div class="block-1 box-1">
             <div>
