@@ -55,7 +55,7 @@ class PurchasesController extends Controller {
 
 	public function getPriceList($depoID, ProductCart $productCart)
 	{
-		$depo = Stantion::with('price.product.category','price.product.factory','price.product.year')->where('id',$depoID)->first();
+		$depo = Stantion::with('price.product.category')->where('id',$depoID)->first();
 
 		$categoriesArr = [];
 
@@ -79,9 +79,6 @@ class PurchasesController extends Controller {
                     'price_id'=>$price->id,
                     'article'=>$price->product[0]->article,
                     'description'=>$price->product[0]->description,
-                    'year'=>$price->product[0]->year->year,
-                    'factory_code'=>$price->product[0]->factory->factory_code,
-                    'factory_name'=>$price->product[0]->factory->factory_name,
                     'price'=>$price->price,
                     'amount'=>$price->amount,
                 ];
@@ -156,7 +153,7 @@ class PurchasesController extends Controller {
 	}
 
     public function getPriceListInCurrentCategory( ProductCart $productCart, $categoryName, $depoId) {
-        $category = Category::with('product.price.stantion.train_road','product.year','product.factory')->where('category',$categoryName)->first();
+        $category = Category::with('product.price.stantion.train_road')->where('category',$categoryName)->first();
 
         $stantion = Stantion::where('id',$depoId)->first();
         $depoName = $stantion->stantion_name;
@@ -179,9 +176,6 @@ class PurchasesController extends Controller {
                         'price_id' => $price->id,
                         'article' => $product->article,
                         'description' => $product->description,
-                        'year' => $product->year->year,
-                        'factory_code' => $product->factory->factory_code,
-                        'factory_name' => $product->factory->factory_name,
                         'price' => $price->price,
                         'amount' => $price->amount,
                     ];

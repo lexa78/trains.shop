@@ -37,8 +37,6 @@
                         <p><b>Артикул:&nbsp;</b>{{ $product->article }}</p>
                         <p><b>Описание:&nbsp;</b>{{ $product->description }}</p>
                         <p><b>Состояние:&nbsp;</b>{{ $productParams[0]->condition }}</p>
-                        <p><b>Завод-производитель:&nbsp;</b>({{ $productParams[0]->factory_code }}) {{ $productParams[0]->factory_name }}</p>
-                        <p><b>Год выпуска:&nbsp;</b>{{ $productParams[0]->year }}</p>
                         <br>
                         <div class="totalSum cnt">Цены и количества в других депо</div>
                         @if(! $userID)

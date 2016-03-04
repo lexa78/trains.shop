@@ -6,16 +6,6 @@ class Product extends Model {
 
     protected $guarded = ['id'];
 
-    public function year()
-    {
-        return $this->belongsTo('App\Models\Year');
-    }
-
-    public function factory()
-    {
-        return $this->belongsTo('App\Models\Factory');
-    }
-
     public function condition()
     {
         return $this->belongsTo('App\Models\Condition');

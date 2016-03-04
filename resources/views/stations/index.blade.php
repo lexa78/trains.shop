@@ -17,7 +17,7 @@
                             @endforeach
                         </div>
                         @if(count($stations))
-                        <table>
+                        <table width="100%">
                             <tr>
                                 <td>№ п/п</td>
                                 <td>Название депо</td>

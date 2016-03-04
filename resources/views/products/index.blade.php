@@ -23,8 +23,6 @@
                                 <td>Артикул</td>
                                 <td>Название</td>
                                 <td>Описание</td>
-                                <td>Завод</td>
-                                <td>Год выпуска</td>
                                 <td>Редактировать</td>
                                 <td>Удалить</td>
                             </tr>
@@ -34,8 +32,6 @@
                                     <td>{{ $product->article }}</td>
                                     <td>{!! link_to_route('products.show', $product->name, $product->id) !!}</td>
                                     <td>{{ $product->description }}</td>
-                                    <td>({{ $product->factory->factory_code }})   {{ $product->factory->factory_name }}</td>
-                                    <td>{{ $product->year->year }}</td>
                                     <td>{!! link_to_route('products.edit', 'Редактировать', $product->id, ['class'=>'btn btn-info']) !!}</td>
                                     <td>@include('products._destroyForm')</td>
                                 </tr>

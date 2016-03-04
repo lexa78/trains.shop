@@ -29,9 +29,7 @@ class AdminController extends Controller {
 		$tRoadsCount = $trainRoad->count();
 		$stationsCount = $stantion->count();
 
-		$yearsCount = Year::count();
 		$condCount = Condition::count();
-		$factoriesCount = Factory::count();
 		$productsCount = Product::count();
 		$servicesCount = Service::count();
 
@@ -42,9 +40,8 @@ class AdminController extends Controller {
 		$newOrdersCount = Order::where('is_new',1)->count();
 
 		return view('admin.adminArea',['regionsCount'=>$regionsCount, 'tRoadsCount'=>$tRoadsCount, 'stationsCount'=>$stationsCount,
-					'yearsCount'=>$yearsCount, 'condCount'=>$condCount, 'factoriesCount'=>$factoriesCount, 'catCount'=>$catCount,
-					'productsCount'=>$productsCount, 'servicesCount'=>$servicesCount, 'statusesCount'=>$statusesCount,
-					'newOrdersCount'=>$newOrdersCount]);
+					'condCount'=>$condCount, 'catCount'=>$catCount, 'productsCount'=>$productsCount, 'servicesCount'=>$servicesCount,
+				    'statusesCount'=>$statusesCount, 'newOrdersCount'=>$newOrdersCount]);
 	}
 
 	/**

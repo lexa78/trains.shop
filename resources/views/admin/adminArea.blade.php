@@ -37,9 +37,7 @@
 
                     <div class="panel-body">
                         <ul>
-                            <li>{!! link_to_route('years.index','Годы выпуска ('.$yearsCount.')') !!}</li>
                             <li>{!! link_to_route('conditions.index','Состояния ('.$condCount.')') !!}</li>
-                            <li>{!! link_to_route('factories.index','Заводы-производители ('.$factoriesCount.')') !!}</li>
                         </ul>
                     </div>
                 </div>

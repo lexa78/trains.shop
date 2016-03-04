@@ -26,8 +26,7 @@ class ProductController extends Controller {
 	 */
 	public function index()
 	{
-		$products = Product::with('year','factory')->get();
-//dd($products);
+		$products = Product::all();
 		return view('products.index',['products'=>$products]);
 	}
 
@@ -36,16 +35,14 @@ class ProductController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create(Factory $factory, Year $year, Condition $condition, Category $category, TrainRoad $trainRoad)
+	public function create(Condition $condition, Category $category, TrainRoad $trainRoad)
 	{
-		$factories = $factory->all();
-		$years = $year->orderBy('year','desc')->get();
 		$conditions = $condition->all();
 		$categories = $category->all();
 		$trainRoads = $trainRoad->with('stantion')->get();
 
-		return view('products.create',['product'=>null, 'factories'=>$factories, 'factoryID'=>null, 'years'=>$years,
-					'yearID'=>null, 'conditions'=>$conditions, 'conditionID'=>null, 'categories'=>$categories,
+		return view('products.create',['product'=>null,
+			        'conditions'=>$conditions, 'conditionID'=>null, 'categories'=>$categories,
 					'categoryID'=>null, 'trainRoads'=>$trainRoads, 'pricesArr'=>null]);
 	}
 
@@ -62,8 +59,6 @@ class ProductController extends Controller {
 			'name' => 'required|alpha_spaces_numbers|max:35|unique:products',
 			'article' => 'required|alpha_spaces_numbers|max:15',
 			'description' => 'required|alpha_spaces_numbers',
-			'year_id' => 'required|integer',
-			'factory_id' => 'required|integer',
 			'condition_id' => 'required|integer',
 		];
 
@@ -86,8 +81,6 @@ class ProductController extends Controller {
 			$product->article = $request->article;
 			$product->name = $request->name;
 			$product->description = $request->description;
-			$product->year_id = $request->year_id;
-			$product->factory_id = $request->factory_id;
 			$product->condition_id = $request->condition_id;
 			if( ! (int)$request->category_id) {
 				$product->category_id = null;
@@ -158,7 +151,7 @@ class ProductController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit(Factory $factory, Year $year, Condition $condition, Category $category, TrainRoad $trainRoad, $id)
+	public function edit(Condition $condition, Category $category, $id)
 	{
 		try{
 			$product = Product::with(['price', 'price.stantion', 'price.stantion.train_road'])->where('id', $id)->first();
@@ -169,8 +162,6 @@ class ProductController extends Controller {
 			abort(404);
 		}
 
-		$factories = $factory->all();
-		$years = $year->orderBy('year','desc')->get();
 		$conditions = $condition->all();
 		$categories = $category->all();
 
@@ -187,8 +178,8 @@ class ProductController extends Controller {
 		}
 		unset($prices);
 
-		return view('products.edit',['product'=>$product, 'factories'=>$factories, 'factoryID'=>$product->factory_id, 'years'=>$years,
-			'yearID'=>$product->year_id, 'conditions'=>$conditions, 'conditionID'=>$product->condition_id, 'categories'=>$categories,
+		return view('products.edit',['product'=>$product, 'conditions'=>$conditions,
+            'conditionID'=>$product->condition_id, 'categories'=>$categories,
 			'categoryID'=>$product->category_id, 'id'=>$product->id, 'prices'=>$pricesArr]);
 	}
 
@@ -215,8 +206,6 @@ class ProductController extends Controller {
 			'name' => 'required|alpha_spaces_numbers|max:35|unique:products,name,'.$id,
 			'article' => 'required|alpha_spaces_numbers|max:15',
 			'description' => 'required|alpha_spaces_numbers',
-			'year_id' => 'required|integer',
-			'factory_id' => 'required|integer',
 			'condition_id' => 'required|integer',
 		];
 
@@ -241,8 +230,6 @@ class ProductController extends Controller {
 			$product->article = $request->article;
 			$product->name = $request->name;
 			$product->description = $request->description;
-			$product->year_id = $request->year_id;
-			$product->factory_id = $request->factory_id;
 			$product->condition_id = $request->condition_id;
 			if( ! (int)$request->category_id) {
 				$product->category_id = null;

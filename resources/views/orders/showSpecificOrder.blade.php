@@ -40,32 +40,32 @@
                         <br>
                         <p>Сумма заказа: <b>{{ $totalSum }} руб.</b></p>
                         <br>
-                        <table>
-                            <tr>
-                                <td>
-                                    {!! Form::open(['route' => 'downloadDoc', 'role' => 'form']) !!}
+                        {{--<table>--}}
+                            {{--<tr>--}}
+                                {{--<td>--}}
+                                    {{--{!! Form::open(['route' => 'downloadDoc', 'role' => 'form']) !!}--}}
 
-                                    {!! Form::hidden('shortFileName', $shortFileName) !!}
-                                    {!! Form::hidden('shownFileName', $shownFileName) !!}
-                                    {!! Form::hidden('download', true) !!}
+                                    {{--{!! Form::hidden('shortFileName', $shortFileName) !!}--}}
+                                    {{--{!! Form::hidden('shownFileName', $shownFileName) !!}--}}
+                                    {{--{!! Form::hidden('download', true) !!}--}}
 
-                                    {!! Form::submit('Скачать',['class'=>'button']) !!}
+                                    {{--{!! Form::submit('Скачать',['class'=>'button']) !!}--}}
 
-                                    {!! Form::close() !!}
-                                </td>
-                                <td>
-                                    {!! Form::open(['route' => 'downloadDoc', 'role' => 'form']) !!}
+                                    {{--{!! Form::close() !!}--}}
+                                {{--</td>--}}
+                                {{--<td>--}}
+                                    {{--{!! Form::open(['route' => 'downloadDoc', 'role' => 'form']) !!}--}}
 
-                                    {!! Form::hidden('shortFileName', $shortFileName) !!}
-                                    {!! Form::hidden('shownFileName', $shownFileName) !!}
-                                    {!! Form::hidden('download', false) !!}
+                                    {{--{!! Form::hidden('shortFileName', $shortFileName) !!}--}}
+                                    {{--{!! Form::hidden('shownFileName', $shownFileName) !!}--}}
+                                    {{--{!! Form::hidden('download', false) !!}--}}
 
-                                    {!! Form::submit('Посмотреть',['class'=>'button-2']) !!}
+                                    {{--{!! Form::submit('Посмотреть',['class'=>'button-2']) !!}--}}
 
-                                    {!! Form::close() !!}
-                                </td>
-                            </tr>
-                        </table>
+                                    {{--{!! Form::close() !!}--}}
+                                {{--</td>--}}
+                            {{--</tr>--}}
+                        {{--</table>--}}
                     </div>
                 </div>
             </div>

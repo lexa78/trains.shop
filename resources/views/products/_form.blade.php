@@ -48,28 +48,6 @@
             <div class="alert-danger alert">{!! $errors->first('condition_id') !!}</div>
         @endif
     </div>
-    <div class="form-group">
-        <label class="col-md-4 control-label">Завод-производитель</label>
-        <select class="form-control" name="factory_id">
-            @foreach($factories as $factory)
-                <option value="{{ $factory->id }}" {{ $factoryID == $factory->id ? 'selected' : null }}>({{ $factory->factory_code }}) {{ $factory->factory_name }}</option>
-            @endforeach
-        </select>
-        @if($errors->has('factory_id'))
-            <div class="alert-danger alert">{!! $errors->first('factory_id') !!}</div>
-        @endif
-    </div>
-    <div class="form-group">
-        <label class="col-md-4 control-label">Год выпуска</label>
-        <select class="form-control" name="year_id">
-            @foreach($years as $year)
-                <option value="{{ $year->id }}" {{ $yearID == $year->id ? 'selected' : null }}>{{ $year->year }}</option>
-            @endforeach
-        </select>
-        @if($errors->has('year_id'))
-            <div class="alert-danger alert">{!! $errors->first('year_id') !!}</div>
-        @endif
-    </div>
     <h3>Цены и количества</h3>
         @if($product)
             <?$prevTrainRoad = null;?>

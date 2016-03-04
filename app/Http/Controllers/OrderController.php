@@ -99,18 +99,17 @@ class OrderController extends Controller {
 			DB::transaction(function()
 				use($userID, &$productsByDepoArr, &$orderNumbers)
 			{
-                $products = ProductCart::with('product.year','product.condition','product.factory','price.stantion')->where('user_id',$userID)->get();
+                $products = ProductCart::with('product.condition','price.stantion')->where('user_id',$userID)->get();
 
                 foreach($products as $productCart) {
                     $productsByDepoArr[$productCart->price->stantion[0]->id][] = [
-                        $productCart->product->name.'( состояние - '.$productCart->product->condition->condition
-                        .', завод - ('.$productCart->product->factory->factory_code.')'
-                        .$productCart->product->factory->factory_name
-                        .', год выпуска - '.$productCart->product->year->year.')',
+                        $productCart->product->name.'( состояние - '.$productCart->product->condition->condition.')',
                         $productCart->product_count,
                         $productCart->price->price,
                         $productCart->price->id,
                         $productCart->product->id,
+//добавление stantion_name в products_in_order
+                        $productCart->price->stantion[0]->stantion_name,
                     ];
                     $productCart->price->amount -= $productCart->product_count;
                     $productCart->price->save();
@@ -137,31 +136,32 @@ class OrderController extends Controller {
                         $productsInOrder->stantion_id = $depoID;
                         $productsInOrder->price_id = $product[3];
                         $productsInOrder->product_id = $product[4];
+                        $productsInOrder->stantion_name = $product[5];
                         $productsInOrder->save();
                     }
                     //Запускаем команду на формирование счета
-                    Bus::dispatch(new CreateInvoice($order, Stantion::find($depoID)));
+//                    Bus::dispatch(new CreateInvoice($order, Stantion::find($depoID)));
                 }
 
 				ProductCart::where('user_id',$userID)->delete();
 			});
 
-            $files = Document::where('user_id',Auth::user()->id)->where(
-                function($query) use($orderNumbers) {
-                    foreach($orderNumbers as $number) {
-                        $query->orWhere('file_name', 'like', '%'.Order::getDocTypeName(Order::INVOICE_TYPE).'_'.$number.'_%');
-                    }
-                })->get();
+//            $files = Document::where('user_id',Auth::user()->id)->where(
+//                function($query) use($orderNumbers) {
+//                    foreach($orderNumbers as $number) {
+//                        $query->orWhere('file_name', 'like', '%'.Order::getDocTypeName(Order::INVOICE_TYPE).'_'.$number.'_%');
+//                    }
+//                })->get();
+//
+//            $fileNames = [];
+//            foreach($files as $file) {
+//                $fileNames[] = $file->file_name;
+//            }
 
-            $fileNames = [];
-            foreach($files as $file) {
-                $fileNames[] = $file->file_name;
-            }
-
-            $messageParams = [];
-            $messageParams['productByDepoAsKey'] = $productsByDepoArr;
-            //Запускаем команду на отправку email
-            Bus::dispatch(new SendEmailWithInvoices($messageParams, $fileNames));
+//            $messageParams = [];
+//            $messageParams['productByDepoAsKey'] = $productsByDepoArr;
+//            //Запускаем команду на отправку email
+//            Bus::dispatch(new SendEmailWithInvoices($messageParams, $fileNames));
 
 			return view('orders.success',['p'=>'confirm', 'ordersAmount'=>count($productsByDepoArr)]);
 		} else {
@@ -265,20 +265,20 @@ class OrderController extends Controller {
         if(Auth::user()->id == (int) $userId) {
             $order = Order::with('products_in_order.stantion', 'status')->where('id',$orderId)->first();
 
-            $document = Document::where('user_id', Auth::user()->id)->where('order_id',$orderId)->first();
-            if(! $document) {
-                return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
-            }
-            $fileName = explode(DIRECTORY_SEPARATOR,$document->file_name);
-            $fileName = end($fileName);
-            $typeOfDoc = Order::getDocTypeName($document->type, true);
-
-            $shownFileName = $typeOfDoc.' № '. $document->order_id;
+//            $document = Document::where('user_id', Auth::user()->id)->where('order_id',$orderId)->first();
+//            if(! $document) {
+//                return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
+//            }
+//            $fileName = explode(DIRECTORY_SEPARATOR,$document->file_name);
+//            $fileName = end($fileName);
+//            $typeOfDoc = Order::getDocTypeName($document->type, true);
+//
+//            $shownFileName = $typeOfDoc.' № '. $document->order_id;
             return view('orders.showSpecificOrder',[
                                                     'p'=>'cabinet',
                                                     'order'=>$order,
-                                                    'shortFileName' => $fileName,
-                                                    'shownFileName' => $shownFileName,
+//                                                    'shortFileName' => $fileName,
+//                                                    'shownFileName' => $shownFileName,
                                                 ]);
         } else {
             return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
