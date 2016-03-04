@@ -36,7 +36,6 @@ class PurchasesController extends Controller {
 		foreach($regions as $oneRegion) {
 			$regionsWithRelations[] = $region->with('train_road.stantion')->where('id',$oneRegion->id)->first();
 		}
-
 		$sumAndCount = $this->getGeneralViewOfCart($productCart);
 
 		return view('purchases.trainCar', [
@@ -84,7 +83,6 @@ class PurchasesController extends Controller {
                 ];
             }
 		}
-
 		$sumAndCount = $this->getGeneralViewOfCart($productCart);
 
 		return view('purchases.trainCarPriceList', [

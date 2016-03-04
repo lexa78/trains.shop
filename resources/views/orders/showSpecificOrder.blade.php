@@ -10,7 +10,7 @@
                     <div class="panel-body">
                         <h3>Заказ № {{ $order->id }}</h3>
                         <p>Дата и время оформления заказа: <strong>{{ \App\Models\Order::formatDate($order->created_at, true) }}</strong></p>
-                        <p>Заказ в депо: <strong>{{ $order->products_in_order[0]->stantion->stantion_name }}</strong></p>
+                        <p>Заказ в депо: <strong>{{ $order->products_in_order[0]->stantion_name }}</strong></p>
                         <p>Статус заказа: <strong>{{ $order->status->status }}</strong></p>
                         <br>
                         <h4>Заказанные товары</h4>

@@ -10,7 +10,7 @@
                         <li> @if($order->is_new)<b>@endif
                                 {!! link_to_route('showSpecificOrder','Заказ № '
                                 .$order->id.' от '.\App\Models\Order::formatDate($order->created_at)
-                                .' депо - '.$order->products_in_order[0]->stantion->stantion_name
+                                .' депо - '.$order->products_in_order[0]->stantion_name
                                 .' статус - '.$order->status->status,['order_id'=>$order->id, 'user_id'=>Auth::user()->id]) !!}
                                 @if($order->is_new)</b>@endif
                         </li>

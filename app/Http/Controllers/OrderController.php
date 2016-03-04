@@ -114,6 +114,7 @@ class OrderController extends Controller {
                     $productCart->price->amount -= $productCart->product_count;
                     $productCart->price->save();
                 }
+
                 $userCompany = User::with('firm')->where('id',$userID)->first();
 
 				$status = Status::where('is_first',Order::IS_FIRST)->first();
@@ -245,7 +246,7 @@ class OrderController extends Controller {
 
     public function showOrders()
     {
-        $orders = Order::latest('created_at')->with('products_in_order.stantion', 'status')->where('user_id',Auth::user()->id)->get();
+        $orders = Order::latest('created_at')->with('products_in_order', 'status')->where('user_id',Auth::user()->id)->get();
         return view('orders.showOrders',['p'=>'cabinet', 'orders'=>$orders]);
     }
 

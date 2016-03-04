@@ -18,7 +18,7 @@
                         <h3>Заказ № {{ $order->id }}</h3>
                         <p>Дата и время оформления заказа: {{ \App\Models\Order::formatDate($order->created_at, true) }}</p>
                         <p>Заказчик: {{ $order->firm->organisation_name }}</p>
-                        <p>Заказ в депо: {{ $order->products_in_order[0]->stantion->stantion_name }}</p>
+                        <p>Заказ в депо: {{ $order->products_in_order[0]->stantion_name }}</p>
                         <div class="answerOnChange"></div>
                         <p>
                             Статус заказа:

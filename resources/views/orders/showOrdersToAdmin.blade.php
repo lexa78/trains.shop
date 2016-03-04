@@ -12,7 +12,7 @@
                                 {!! link_to_route('showSpecificOrderToAdmin','Заказ № '
                                 .$order->id.' создан '.\App\Models\Order::formatDate($order->created_at)
                                 .' заказчик - '.$order->firm->organisation_name
-                                .' депо - '.$order->products_in_order[0]->stantion->stantion_name,
+                                .' депо - '.$order->products_in_order[0]->stantion_name,
                                  ['order_id'=>$order->id]) !!}
                             </p>
                         @endforeach
