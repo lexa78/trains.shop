@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Region;
 use App\Models\Service;
+use App\Models\ServiceStatus;
 use App\Models\Stantion;
 use App\Models\Status;
 use App\Models\TrainRoad;
@@ -37,11 +38,13 @@ class AdminController extends Controller {
 
 		$statusesCount = Status::count();
 
+		$serviceStatusesCount = ServiceStatus::count();
+
 		$newOrdersCount = Order::where('is_new',1)->count();
 
 		return view('admin.adminArea',['regionsCount'=>$regionsCount, 'tRoadsCount'=>$tRoadsCount, 'stationsCount'=>$stationsCount,
 					'condCount'=>$condCount, 'catCount'=>$catCount, 'productsCount'=>$productsCount, 'servicesCount'=>$servicesCount,
-				    'statusesCount'=>$statusesCount, 'newOrdersCount'=>$newOrdersCount]);
+				    'statusesCount'=>$statusesCount, 'newOrdersCount'=>$newOrdersCount, 'serviceStatusesCount'=>$serviceStatusesCount]);
 	}
 
 	/**

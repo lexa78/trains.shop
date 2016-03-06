@@ -13,10 +13,8 @@
                         <p><b>Единица измерения:&nbsp;</b>{{ $service->unit }}</p>
                         <p><b>Срок исполнения:&nbsp;</b>{{ $service->period }}</p>
                         <p><b>Требуемые документы:&nbsp;</b>{{ $service->documents }}</p>
-                        <h3>Цены</h3>
-                        @foreach($prices as $price)
-                            <p><b>{{ $trainRoads[$price->tr_id] }}:&nbsp;</b>{{ $price->price }}&nbsp;&nbsp;руб.</p>
-                        @endforeach
+                        <p><b>Цена:&nbsp;</b>{{ $service->price }} руб.</p>
+                        <p><b>Для этой услуги нужно указывать станцию:&nbsp;</b>{{ $service->need_station ? 'да' : 'нет' }}</p>
                     </div>
                 </div>
             </div>

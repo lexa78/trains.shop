@@ -6,9 +6,4 @@ class Service extends Model {
 
     protected $guarded = ['id'];
 
-//    public function prices()
-//    {
-//        return $this->belongsTo('App\Models\Price');
-//    }
-
 }

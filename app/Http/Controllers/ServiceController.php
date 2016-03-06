@@ -32,8 +32,7 @@ class ServiceController extends Controller {
 	 */
 	public function create()
 	{
-		$trainRoads = TrainRoad::all();
-		return view('services.create',['service'=>null, 'trainRoads'=>$trainRoads, 'pricesArr'=>null]);
+		return view('services.create',['service'=>null]);
 	}
 
 	/**
@@ -51,41 +50,28 @@ class ServiceController extends Controller {
 			'unit' => 'required|alpha_spaces_numbers_etc|max:50',
 			'period' => 'required|alpha_spaces_numbers_etc|max:100',
 			'documents' => 'required|alpha_spaces_numbers_etc',
+			'price' => 'required|numeric'
 		];
-
-		$trainRoads = TrainRoad::all();
-		foreach($trainRoads as $trainRoad) {
-			$validationRules['price'.$trainRoad->id] = 'required|numeric';
-		}
 
 		$v = Validator::make($request->all(), $validationRules);
 
 		if ($v->fails())
 		{
-			return redirect()->back()->withErrors($v->errors());
+			return redirect()->back()->withErrors($v->errors())->withInput();
 		}
-		DB::transaction(function()
-		use($service, $request,$trainRoads)
-		{
-			$service->short_name = $request->short_name;
-			$service->full_name = $request->full_name;
-			$service->unit = $request->unit;
-			$service->period = $request->period;
-			$service->documents = $request->documents;
-			$service->save();
 
-			foreach($trainRoads as $trainRoad) {
-				$price = new Price();
-				$priceInputName = 'price'.$trainRoad->id;
-				$price->price = $request->$priceInputName;
-				$price->tr_id = $trainRoad->id;
-				$price->service_id = $service->id;
-				$price->save();
-			}
-		});
+        $service->short_name = $request->short_name;
+        $service->full_name = $request->full_name;
+        $service->unit = $request->unit;
+        $service->period = $request->period;
+        $service->documents = $request->documents;
+        $service->price = $request->price;
+        if($request->need_station) {
+            $service->need_station = 1;
+        }
+        $service->save();
 
 		return redirect('services')->with('alert-success', 'Услуга успешно добавлена!');
-
 	}
 
 	/**
@@ -102,16 +88,7 @@ class ServiceController extends Controller {
 			abort(404);
 		}
 
-		$prices = Price::where('service_id','=',$service->id)->get();
-
-		$trainRoadsTemp = TrainRoad::all();
-		$trainRoads = [];
-		foreach($trainRoadsTemp as $trainRoadTemp) {
-			$trainRoads[$trainRoadTemp->id] = $trainRoadTemp->tr_name;
-		}
-		unset($trainRoadsTemp, $trainRoadTemp);
-
-		return view('services.show',['service'=>$service, 'prices'=>$prices, 'trainRoads'=>$trainRoads]);
+		return view('services.show',['service'=>$service]);
 
 	}
 
@@ -129,17 +106,7 @@ class ServiceController extends Controller {
 			abort(404);
 		}
 
-		$trainRoads = TrainRoad::all();
-
-		$prices = Price::where('service_id','=',$service->id)->get();
-
-		$pricesArr = [];
-		foreach($prices as $price) {
-			$pricesArr[$price->tr_id] = $price->price;
-		}
-
-		return view('services.edit',['service'=>$service, 'trainRoads'=>$trainRoads, 'id'=>$service->id,
-			'pricesArr'=>$pricesArr, 'prices'=>$prices]);
+		return view('services.edit',['service'=>$service, 'id'=>$service->id]);
 	}
 
 	/**
@@ -157,46 +124,30 @@ class ServiceController extends Controller {
 		}
 
 		$id = $request->route('services');
-
 		$validationRules = [
 			'short_name' => 'required|alpha_spaces_numbers_etc|max:255|unique:services,short_name,'.$id,
 			'full_name' => 'required|alpha_spaces_numbers_etc',
 			'unit' => 'required|alpha_spaces_numbers_etc|max:50',
 			'period' => 'required|alpha_spaces_numbers_etc|max:100',
 			'documents' => 'required|alpha_spaces_numbers_etc',
+			'price' => 'required|numeric',
 		];
-
-		$trainRoads = TrainRoad::all();
-		foreach($trainRoads as $trainRoad) {
-			$validationRules['price'.$trainRoad->id] = 'required|numeric';
-		}
 
 		$v = Validator::make($request->all(), $validationRules);
 
 		if ($v->fails())
 		{
-			return redirect()->back()->withErrors($v->errors());
+			return redirect()->back()->withErrors($v->errors())->withInput();
 		}
-		DB::transaction(function()
-		use($service, $request,$trainRoads)
-		{
-			$service->short_name = $request->short_name;
-			$service->full_name = $request->full_name;
-			$service->unit = $request->unit;
-			$service->period = $request->period;
-			$service->documents = $request->documents;
-			$service->save();
 
-			$prices = Price::where('service_id',$service->id)->get();
-			foreach($prices as $price) {
-				//$price = new Price();
-				$priceInputName = 'price'.$price->tr_id;
-				$price->price = $request->$priceInputName;
-				//$price->tr_id = $price->tr_id;
-				//$price->product_id = $product->id;
-				$price->save();
-			}
-		});
+        $service->short_name = $request->short_name;
+        $service->full_name = $request->full_name;
+        $service->unit = $request->unit;
+        $service->period = $request->period;
+        $service->documents = $request->documents;
+        $service->price = $request->price;
+        $service->need_station = ($request->need_station ? 1 : 0);
+        $service->save();
 
 		return redirect('services')->with('alert-success','Услуга обновлена');
 

@@ -211,4 +211,16 @@ class PurchasesController extends Controller {
 		}
 		return ['productsSum'=>$productsSum, 'productsCount'=>$productsCount];
 	}
+
+    public function trainCarService(ProductCart $productCart) {
+        $services = Service::all();
+        $sumAndCount = $this->getGeneralViewOfCart($productCart);
+        if(Auth::guest()) {
+            $userID = 0;
+        } else {
+            $userID = Auth::user()->id;
+        }
+        return view('purchases.servicePriceList', ['services' => $services,'productsCount'=>$sumAndCount['productsCount'],
+            'userID'=>$userID, 'productsSum'=>$sumAndCount['productsSum'], 'p'=>'purchases']);
+    }
 }

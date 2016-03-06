@@ -33,23 +33,24 @@
             </div>
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Справочники для товаров</div>
+                    <div class="panel-heading">Товары</div>
 
                     <div class="panel-body">
                         <ul>
                             <li>{!! link_to_route('conditions.index','Состояния ('.$condCount.')') !!}</li>
+                            <li>{!! link_to_route('categories.index','Группы товаров ('.$catCount.')') !!}</li>
+                            <li>{!! link_to_route('products.index','Товары ('.$productsCount.')') !!}</li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Товары</div>
+                    <div class="panel-heading">Статусы заказов запчастей</div>
 
                     <div class="panel-body">
                         <ul>
-                            <li>{!! link_to_route('categories.index','Группы товаров ('.$catCount.')') !!}</li>
-                            <li>{!! link_to_route('products.index','Товары ('.$productsCount.')') !!}</li>
+                            <li>{!! link_to_route('statuses.index','Статусы заказов запчастей ('.$statusesCount.')') !!}</li>
                         </ul>
                     </div>
                 </div>
@@ -67,15 +68,16 @@
             </div>
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Статусы заказов</div>
+                    <div class="panel-heading">Статусы заказов услуг</div>
 
                     <div class="panel-body">
                         <ul>
-                            <li>{!! link_to_route('statuses.index','Статусы заказов ('.$statusesCount.')') !!}</li>
+                            <li>{!! link_to_route('service_statuses.index','Статусы заказов услуг ('.$serviceStatusesCount.')') !!}</li>
                         </ul>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 @endsection

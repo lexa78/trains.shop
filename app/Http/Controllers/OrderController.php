@@ -7,18 +7,23 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\StoreOrder;
+use App\Http\Requests\StoreServiceOrder;
 use App\Models\Document;
 use App\Models\Firm;
 use App\Models\Order;
 use App\Models\Price;
 use App\Models\ProductCart;
 use App\Models\ProductsInOrder;
+use App\Models\Service;
+use App\Models\ServiceOrder;
+use App\Models\ServiceStatus;
 use App\Models\Stantion;
 use App\Models\Status;
 use App\Models\User;
 use Bus;
 use DateTime;
 use DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Auth;
 use PhpSpec\Exception\Exception;
@@ -164,7 +169,7 @@ class OrderController extends Controller {
 //            //Запускаем команду на отправку email
 //            Bus::dispatch(new SendEmailWithInvoices($messageParams, $fileNames));
 
-			return view('orders.success',['p'=>'confirm', 'ordersAmount'=>count($productsByDepoArr)]);
+			return view('orders.success',['p'=>'purchases', 'ordersAmount'=>count($productsByDepoArr)]);
 		} else {
 			return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
 		}
@@ -315,26 +320,35 @@ class OrderController extends Controller {
         }
         echo $response;
     }
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
+
+	public function confirmServiceOrder($serviceId)
 	{
-		//
+        try{
+            $service = Service::findOrFail($serviceId);
+        } catch(ModelNotFoundException $e) {
+            abort(404);
+        }
+
+        return view('orders.confirmServiceOrder', ['service' => $service, 'firm' => Auth::user()->firm, 'p' => 'purchases']);
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
+	public function storeServiceOrder(ServiceOrder $serviceOrder, StoreServiceOrder $request)
 	{
-		//
+        $status = ServiceStatus::where('is_first',Order::IS_FIRST)->first();
+        $user = Auth::user();
+        $service = Service::find($request->service_id);
+        $serviceOrder->service_status_id = $status->id;
+        $serviceOrder->user_id = $user->id;
+        $serviceOrder->firm_id = $user->firm->id;
+        $serviceOrder->service_name = $service->short_name;
+        $serviceOrder->service_price = $service->price;
+        $serviceOrder->more_info = $request->more_info;
+        if($request->need_station) {
+            $serviceOrder->station_names = $request->station_names;
+        }
+        $serviceOrder->save();
+        //todo нужно ли отправлять письмо и создавать документы?
+        return view('orders.serviceSuccess',['p'=>'purchases', 'serviceName'=>$service->short_name]);
 	}
 
 	/**

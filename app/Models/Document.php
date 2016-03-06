@@ -16,4 +16,9 @@ class Document extends Model {
         return $this->belongsTo('App\Models\Order');
     }
 
+    public function service_order()
+    {
+        return $this->belongsTo('App\Models\ServiceOrder');
+    }
+
 }

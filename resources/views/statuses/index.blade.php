@@ -6,7 +6,7 @@
             {!! link_to_route('admin','Вернуться в админку', null, ['class'=>'btn btn-info']) !!}
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Статусы заказа</div>
+                    <div class="panel-heading">Статусы заказа запчастей</div>
 
                     <div class="panel-body">
                         <div class="flash-message">
@@ -20,7 +20,7 @@
                         <table width="100%">
                             <tr>
                                 <td>№ п/п</td>
-                                <td>Статус заказа</td>
+                                <td>Статус заказа запчастей</td>
                                 <td>Начальный статус</td>
                                 <td>Редактировать</td>
                                 <td>Удалить</td>
@@ -36,7 +36,7 @@
                             @endforeach
                         </table>
                         @else
-                            <b>Таблица статусов не заполнена</b><br>
+                            <b>Таблица статусов заказа запчастей не заполнена</b><br>
                         @endif
                             {!! link_to_route('statuses.create', 'Добавить статус', null, ['class'=>'btn btn-success']) !!}
                     </div>
@@ -44,4 +44,4 @@
             </div>
         </div>
     </div>
-@endsection
+@stop

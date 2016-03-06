@@ -29,6 +29,7 @@ Route::get('trainCar',['as'=>'trainCar','uses'=>'PurchasesController@trainCar'])
 Route::get('trainCarPriceList/{id}',['as'=>'trainCarPriceList','uses'=>'PurchasesController@getPriceList']);
 Route::get('trainCarPriceListInCategory/{categoryName}/{depoId}',['as'=>'trainCarPriceListInCategory','uses'=>'PurchasesController@getPriceListInCurrentCategory']);
 Route::get('showTrainCarProduct/{id}/{depoId}',['as'=>'showTrainCarProduct','uses'=>'PurchasesController@showTrainCarProduct']);
+
 Route::get('trainCarService',['as'=>'trainCarService','uses'=>'PurchasesController@trainCarService']);
 
 Route::get('admin',['as'=>'admin','uses'=>'AdminController@index']);
@@ -36,6 +37,8 @@ Route::get('admin',['as'=>'admin','uses'=>'AdminController@index']);
 Route::resource('regions', 'RegionController', ['except' => ['show']]);
 
 Route::resource('statuses', 'StatusController', ['except' => ['show']]);
+
+Route::resource('service_statuses', 'ServiceStatusController', ['except' => ['show']]);
 
 Route::resource('trainRoads', 'TrainRoadsController');
 Route::resource('stations', 'StationController');
@@ -59,6 +62,9 @@ Route::get('fatal_error',['as'=>'fatalError', 'uses'=>'FatalErrorController@inde
 
 Route::get('firm', ['as'=>'firm.edit', 'uses'=>'FirmController@edit']);
 Route::put('firmUpdate', ['as'=>'firm.update', 'uses'=>'FirmController@update']);
+
+Route::post('confirm_service_order/{service_id}', ['as'=>'confirmServiceOrder', 'uses'=>'OrderController@confirmServiceOrder']);
+Route::post('store_service_order', ['as'=>'storeServiceOrder', 'uses'=>'OrderController@storeServiceOrder']);
 
 Route::post('confirmOrder/{user_id}', ['as'=>'confirmOrder', 'uses'=>'OrderController@confirm']);
 Route::get('confirmOrder/{user_id}', ['as'=>'confirmOrder', 'uses'=>'OrderController@confirm']);

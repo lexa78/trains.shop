@@ -3,12 +3,12 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\StoreStatus;
-use App\Models\Status;
+use App\Http\Requests\StoreServiceStatus;
+use App\Models\ServiceStatus;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class StatusController extends Controller {
+class ServiceStatusController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -17,8 +17,8 @@ class StatusController extends Controller {
 	 */
 	public function index()
 	{
-		$statuses = Status::all();
-		return view('statuses.index',['statuses'=>$statuses]);
+		$statuses = ServiceStatus::all();
+		return view('serviceStatuses.index',['statuses'=>$statuses]);
 	}
 
 	/**
@@ -28,7 +28,7 @@ class StatusController extends Controller {
 	 */
 	public function create()
 	{
-		return view('statuses.create',['status'=>null, 'is_first'=>null]);
+		return view('serviceStatuses.create',['status'=>null, 'is_first'=>null]);
 	}
 
 	/**
@@ -36,10 +36,10 @@ class StatusController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Status $status, StoreStatus $request)
+	public function store(ServiceStatus $status, StoreServiceStatus $request)
 	{
 		$status -> create($request->all());
-		return redirect('statuses')->with('alert-success', 'Статус успешно добавлен!');
+		return redirect('service_statuses')->with('alert-success', 'Статус успешно добавлен!');
 	}
 
 	/**
@@ -51,11 +51,11 @@ class StatusController extends Controller {
 	public function edit($id)
 	{
 		try{
-			$status = Status::findOrFail($id);
+			$status = ServiceStatus::findOrFail($id);
 		} catch(ModelNotFoundException $e) {
 			abort(404);
 		}
-		return view('statuses.edit',['status'=>$status->status, 'is_first'=>$status->is_first, 'id'=>$status->id]);
+		return view('serviceStatuses.edit',['status'=>$status->status, 'is_first'=>$status->is_first, 'id'=>$status->id]);
 	}
 
 	/**
@@ -64,16 +64,16 @@ class StatusController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(StoreStatus $request, $id)
+	public function update(StoreServiceStatus $request, $id)
 	{
 		try{
-			$status = Status::findOrFail($id);
+			$status = ServiceStatus::findOrFail($id);
 		} catch(ModelNotFoundException $e) {
 			abort(404);
 		}
 		$status->update($request->all());
 		$status->save();
-		return redirect('statuses')->with('alert-success','Статус обновлен');
+		return redirect('service_statuses')->with('alert-success','Статус обновлен');
 	}
 
 	/**
@@ -84,9 +84,9 @@ class StatusController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$status = Status::find($id);
-		$status->delete();
-		return back()->with('alert-success','Статус '. $status->status .' удален');
+        $status = ServiceStatus::find($id);
+        $status->delete();
+        return back()->with('alert-success','Статус '. $status->status .' удален');
 	}
 
 }

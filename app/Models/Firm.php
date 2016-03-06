@@ -16,4 +16,9 @@ class Firm extends Model {
 		return $this->hasMany('App\Models\Order');
 	}
 
+    public function service_order()
+	{
+		return $this->hasMany('App\Models\ServiceOrder');
+	}
+
 }

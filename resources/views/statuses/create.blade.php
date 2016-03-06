@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Добавление статуса заказа</div>
+                    <div class="panel-heading">Добавление статуса заказа запчастей</div>
                     <div class="panel-body">
                         {{--<div class="flash-message">--}}
                             {{--@foreach (['danger', 'warning', 'success', 'info'] as $msg)--}}

@@ -1,14 +1,14 @@
 <div class="row">
     @if($status)
-        {!! Form::open(['action' => ['StatusController@update', $id], 'role' => 'form']) !!}
+        {!! Form::open(['action' => ['ServiceStatusController@update', $id], 'role' => 'form']) !!}
     @else
-        {!! Form::open(['action' => 'StatusController@store', 'role' => 'form']) !!}
+        {!! Form::open(['action' => 'ServiceStatusController@store', 'role' => 'form']) !!}
     @endif
     @if($status)
 	    {!! Form::hidden('_method', 'put') !!}
     @endif
     <div class="form-group">
-        {!! Form::text('status', $status ? $status :  old('status'), ['placeholder'=>'Название статуса заказа запчастей', 'class'=>'form-control', 'required'=>true]) !!}
+        {!! Form::text('status', $status ? $status :  old('status'), ['placeholder'=>'Название статуса заказа услуг', 'class'=>'form-control', 'required'=>true]) !!}
         @if($errors->has('status'))
             <div class="alert-danger alert">{!! $errors->first('status') !!}</div>
         @endif

@@ -37,18 +37,25 @@
             <div class="alert-danger alert">{!! $errors->first('documents') !!}</div>
         @endif
     </div>
-
-    @foreach($trainRoads as $trainRoad)
-        <div class="form-group">
-            <label class="col-md-4 control-label">Цена услуги на железной дороге {{ $trainRoad->tr_name }}</label>
-            {!! Form::text('price'.$trainRoad->id, $pricesArr ? $pricesArr[$trainRoad->id] : null, ['placeholder'=>'Цена услуги на железной дороге '.$trainRoad->tr_name, 'class'=>'form-control', 'required'=>true]) !!}
-            @if($errors->has('price'.$trainRoad->id))
-                <div class="alert-danger alert">{!! $errors->first('price'.$trainRoad->id) !!}</div>
-            @endif
-        </div>
-    @endforeach
-
-        {!! Form::submit( $service ? 'Изменить' : 'Создать',['class'=>'btn btn-success']) !!}
+    <div class="form-group">
+        {!! Form::text('price', $service ? $service->price : $service, ['placeholder'=>'Цена', 'class'=>'form-control', 'required'=>true]) !!}
+        @if($errors->has('price'))
+            <div class="alert-danger alert">{!! $errors->first('price') !!}</div>
+        @endif
+    </div>
+    <div class="form-group">
+        <table class="forCheckbox">
+            <tr>
+                <td>
+                    <input type="checkbox" class="qwe" name="need_station" id="need_station" @if($service && $service->need_station) checked @endif>
+                </td>
+                <td class="labelForCheckbox">
+                    <label class="need_station" for="need_station">Нужно указывать станцию для этой услуги</label>
+                </td>
+            </tr>
+        </table>
+    </div>
+    {!! Form::submit( $service ? 'Изменить' : 'Создать',['class'=>'btn btn-success']) !!}
 
     {!! Form::close() !!}
 </div>
