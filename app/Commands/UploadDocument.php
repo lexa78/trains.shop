@@ -70,7 +70,7 @@ class UploadDocument extends Command implements SelfHandling {
             Log::error('Ошибка загрузки файла '.$fileNameTemplate.' message - '.$e->getMessage());
             return false;
         }
-        return storage_path().DIRECTORY_SEPARATOR.'app'.$clientFolder.DIRECTORY_SEPARATOR.$fileNameTemplate;
+        return storage_path().DIRECTORY_SEPARATOR.'app'.$clientFolder.DIRECTORY_SEPARATOR.$fileNameTemplate.'.'.$extension;
 	}
 
 }

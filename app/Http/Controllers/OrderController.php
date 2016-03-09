@@ -286,13 +286,11 @@ class OrderController extends Controller {
             $order->save();
         }
 
-        $documents = Document::where('service_order_id',$orderId)->get();
-//        $documentsAsArr = [];
-//        foreach($documents as $document) {
-//
-//        }
+        $documents = Document::where('service_order_id',$orderId)->orderBy('type')->get();
+        $documentTypes = [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5];
 
-        return view('orders.showServiceSpecificOrderToAdmin',['order'=>$order, 'statuses'=>$statuses, 'documents'=>$documents]);
+        return view('orders.showServiceSpecificOrderToAdmin',['order'=>$order, 'statuses'=>$statuses,
+            'documents'=>$documents, 'documentTypes'=>$documentTypes]);
     }
 
     public function showSpecificOrder($orderId, $userId)

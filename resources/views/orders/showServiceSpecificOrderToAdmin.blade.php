@@ -49,17 +49,57 @@
                         </table>
                         <br>
 
-                        <table>
+                        <table width="100%">
                             <tr>
                                 <td>Тип документа</td>
                                 <td>Загружен</td>
                                 <td>Отправлен</td>
                                 <td>На отправку</td>
                             </tr>
+                            <? $tempType = 0;?>
                             @foreach($documents as $document)
+                                <tr>
+                                    @if($document->type != $tempType)
+                                        <td>{{ \App\Models\Order::getDocTypeName($document->type, true) }}</td>
+                                        <?
+                                            $tempType = $document->type;
+                                            unset($documentTypes[$document->type]);
+                                        ?>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                    <td>
+                                        <?
+                                            $shortFileName = explode('/', $document->file_name);
+                                            $shortFileName = end($shortFileName);
+                                            $tempFileName = explode('_', $shortFileName);
+                                            $tempFileName = explode('.', end($tempFileName));
+                                            $fileDate = date('d.m.Y', $tempFileName[0]);
+                                        ?>
+                                        {{ \App\Models\Order::getDocTypeName($document->type, true) }}, загруженный {{ $fileDate }}
+                                        &nbsp;
+                                        {!! Form::open(['route' => 'downloadDoc', 'role' => 'form']) !!}
+                                        {!! Form::hidden('shortFileName', $shortFileName) !!}
+                                        {!! Form::hidden('shownFileName', \App\Models\Order::getDocTypeName($document->type)) !!}
+                                        {!! Form::hidden('download', true) !!}
+                                        {!! Form::submit('Скачать', ['class'=>'btn btn-success']) !!}
+                                        {!! Form::close() !!}
+
+                                    </td>
+                                    <td>нет</td>
+                                    <td>{!! Form::checkbox('q', 1) !!}</td>
+                                </tr>
+                            @endforeach
+                            @foreach($documentTypes as $documentType)
+                                <tr>
+                                    <td>{{ \App\Models\Order::getDocTypeName($documentType, true) }}</td>
+                                    <td>Нет</td>
+                                    <td>Нет</td>
+                                    <td></td>
+                                </tr>
                             @endforeach
                         </table>
-
+                        <br>
 
                         <h4>Загрузить документ для этого заказа</h4>
                         {!! Form::open(['action' => 'CreateDocumentsController@uploadDocument',
