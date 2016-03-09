@@ -27,7 +27,7 @@
                 <p><b>Требуемые документы:&nbsp;&nbsp;&nbsp;</b>{{ $service->documents }}</p>
                 <p><b>Цена услуги:&nbsp;&nbsp;&nbsp;</b>{{ $service->price }} руб.</p>
 
-                {!! Form::open(['action' => ['OrderController@storeServiceOrder'], 'role' => 'form']) !!}
+                {!! Form::open(['action' => 'OrderController@storeServiceOrder', 'role' => 'form']) !!}
 
                 {!! Form::hidden('service_id', $service->id) !!}
 
@@ -44,7 +44,7 @@
                     @endif
                 @endif
 
-                {!! Form::submit('Подтвердить заказ', ['class'=>'button-4']) !!}
+                {!! Form::submit('Подтвердить заказ', ['class'=>'button']) !!}
 
                 {!! Form::close() !!}
 

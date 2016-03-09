@@ -6,17 +6,16 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     @if($newOnly)
-                        <div class="panel-heading">Новые заказы запчастей</div>
+                        <div class="panel-heading">Новые заказы услуг</div>
                     @else
-                        <div class="panel-heading">Все заказы запчастей</div>
+                        <div class="panel-heading">Все заказы услуг</div>
                     @endif
                     <div class="panel-body">
                         @foreach($orders as $order)
                             <p>
-                                {!! link_to_route('showSpecificOrderToAdmin','Заказ № '
+                                {!! link_to_route('showServiceSpecificOrderToAdmin','Заказ № '
                                 .$order->id.' создан '.\App\Models\Order::formatDate($order->created_at)
-                                .' заказчик - '.$order->firm->organisation_name
-                                .' депо - '.$order->products_in_order[0]->stantion_name,
+                                .' заказчик - '.$order->firm->organisation_name,
                                  ['order_id'=>$order->id]) !!}
                             </p>
                         @endforeach

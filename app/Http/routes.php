@@ -64,6 +64,7 @@ Route::get('firm', ['as'=>'firm.edit', 'uses'=>'FirmController@edit']);
 Route::put('firmUpdate', ['as'=>'firm.update', 'uses'=>'FirmController@update']);
 
 Route::post('confirm_service_order/{service_id}', ['as'=>'confirmServiceOrder', 'uses'=>'OrderController@confirmServiceOrder']);
+Route::get('confirm_service_order/{service_id}', ['as'=>'confirmServiceOrder', 'uses'=>'OrderController@confirmServiceOrder']);
 Route::post('store_service_order', ['as'=>'storeServiceOrder', 'uses'=>'OrderController@storeServiceOrder']);
 
 Route::post('confirmOrder/{user_id}', ['as'=>'confirmOrder', 'uses'=>'OrderController@confirm']);
@@ -76,7 +77,11 @@ Route::get('showOrdersToAdmin/{newOnly?}', ['as'=>'showOrdersToAdmin', 'uses'=>'
 Route::get('showSpecificOrderToAdmin/{order_id}', ['as'=>'showSpecificOrderToAdmin', 'uses'=>'OrderController@showSpecificOrderToAdmin']);
 Route::post('changeStatus/{status_id}/{order_id}', ['as'=>'changeStatus', 'uses'=>'OrderController@changeStatus']);
 
+Route::get('showServiceOrdersToAdmin/{newOnly?}', ['as'=>'showServiceOrdersToAdmin', 'uses'=>'OrderController@showServiceOrdersToAdmin']);
+Route::get('showServiceSpecificOrderToAdmin/{order_id}', ['as'=>'showServiceSpecificOrderToAdmin', 'uses'=>'OrderController@showServiceSpecificOrderToAdmin']);
+
 Route::get('showMyDocs', ['as'=>'showMyDocs', 'uses'=>'CreateDocumentsController@showDocs']);
 //Route::get('invoice/{order_id}/{depo_name}/{look}', ['as'=>'invoice', 'uses'=>'OrderController@invoice']);
 Route::get('createDoc/{order_id}/{is_torg}', ['as'=>'createDoc', 'uses'=>'CreateDocumentsController@create']);
 Route::post('download', ['as'=>'downloadDoc', 'uses'=>'CreateDocumentsController@download']);
+Route::post('uploadDoc', ['as'=>'uploadDoc', 'uses'=>'CreateDocumentsController@uploadDocument']);

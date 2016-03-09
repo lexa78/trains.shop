@@ -6,7 +6,7 @@ class ServiceOrder extends Model {
 
     protected $guarded = ['id'];
 
-    public function servece_status()
+    public function service_status()
     {
         return $this->belongsTo('App\Models\ServiceStatus');
     }

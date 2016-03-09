@@ -2,12 +2,15 @@
 
 use App;
 use App\Commands\CreatePaymentDocs;
+use App\Commands\UploadDocument;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Document;
 use App\Models\Order;
+use App\Models\ServiceOrder;
 use App\Models\User;
+use App\MyDesigns\Classes\Utils;
 use Auth;
 use Bus;
 use Config;
@@ -69,5 +72,32 @@ class CreateDocumentsController extends Controller {
         }
 
         return view('documents.showDocs', ['p'=>'cabinet', 'documentsByTypes' => $docsByTypesArr]);
+    }
+
+    public function uploadDocument(Document $document, Request $request)
+    {
+        //todo сделать Request с валидацией
+        if($request->document_for == Order::DOCUMENT_FOR_SERVICE) {
+            $order = ServiceOrder::find($request->order_id);
+        } else {
+            $order = Order::find($request->order_id);
+        }
+
+        $file = $request->file('docFileName'); //Сам файл
+       if($pathToFile = Bus::dispatch(new UploadDocument($file, $order, $request->docType, $request->document_for))) {
+           $document->type = $request->docType;
+           $document->user_id = $order->user_id;
+           if($request->document_for == Order::DOCUMENT_FOR_SERVICE) {
+               $document->service_order_id = $request->order_id;
+           } else {
+               $document->order_id = $request->order_id;
+           }
+           $document->file_name = $pathToFile;
+           $document->save();
+           return redirect()->back()->with('alert-success','Файл загружен.');
+       } else {
+           return redirect()->back()->withInput()->with('alert-danger','Ошибка загрузки файла. Файл не загружен.');
+       }
+
     }
 }

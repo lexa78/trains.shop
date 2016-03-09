@@ -242,10 +242,21 @@ class OrderController extends Controller {
     {
         if($newOnly) {
             $orders = Order::with('products_in_order.stantion','status','firm')->where('is_new',1)->get();
-            return view('orders.showOrdersToAdmin',['orders'=>$orders]);
+            return view('orders.showOrdersToAdmin',['orders'=>$orders, 'newOnly'=>$newOnly]);
         } else {
             $orders = Order::latest('created_at')->with('products_in_order.stantion','status','firm')->get();
-            return view('orders.showOrdersToAdmin',['orders'=>$orders]);
+            return view('orders.showOrdersToAdmin',['orders'=>$orders, 'newOnly'=>$newOnly]);
+        }
+    }
+
+    public function showServiceOrdersToAdmin($newOnly=false)
+    {
+        if($newOnly) {
+            $orders = ServiceOrder::with('service_status','firm')->where('is_new',1)->get();
+            return view('orders.showServiceOrdersToAdmin',['orders'=>$orders, 'newOnly'=>$newOnly]);
+        } else {
+            $orders = ServiceOrder::latest('created_at')->with('service_status','firm')->get();
+            return view('orders.showServiceOrdersToAdmin',['orders'=>$orders, 'newOnly'=>$newOnly]);
         }
     }
 
@@ -264,6 +275,24 @@ class OrderController extends Controller {
             $order->save();
         }
         return view('orders.showSpecificOrderToAdmin',['order'=>$order, 'statuses'=>$statuses]);
+    }
+
+    public function showServiceSpecificOrderToAdmin($orderId)
+    {
+        $order = ServiceOrder::with('service_status', 'firm')->where('id',$orderId)->first();
+        $statuses = ServiceStatus::all();
+        if($order->is_new == 1) {
+            $order->is_new = 0;
+            $order->save();
+        }
+
+        $documents = Document::where('service_order_id',$orderId)->get();
+//        $documentsAsArr = [];
+//        foreach($documents as $document) {
+//
+//        }
+
+        return view('orders.showServiceSpecificOrderToAdmin',['order'=>$order, 'statuses'=>$statuses, 'documents'=>$documents]);
     }
 
     public function showSpecificOrder($orderId, $userId)
