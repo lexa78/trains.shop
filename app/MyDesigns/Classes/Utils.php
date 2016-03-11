@@ -2,6 +2,8 @@
 
 class Utils {
 
+    const STR_SUCCESS = 'success';
+
     public static function mb_str_replace($search, $replace, $subject, &$count = 0)
     {
         if (!is_array($subject)) {

@@ -57,10 +57,104 @@
                         <p>Сумма заказа: <b>{{ $totalSum }} руб.</b></p>
                         <br>
 
-                        <div class="buttons_to_create {{ ($order->status->id == \App\Models\Order::COMPLETED) ? 'display_show' : 'display_none' }}">
-                            {!! link_to_route('createDoc','Создать Торг-12',['order_id'=>$order->id, 'is_torg'=>1],['class'=>'btn btn-success']) !!}
-                            {!! link_to_route('createDoc','Создать Счет-фактуру',['order_id'=>$order->id, 'is_torg'=>0],['class'=>'btn btn-success']) !!}
+                        {{--<div class="buttons_to_create {{ ($order->status->id == \App\Models\Order::COMPLETED) ? 'display_show' : 'display_none' }}">--}}
+                            {{--{!! link_to_route('createDoc','Создать Торг-12',['order_id'=>$order->id, 'is_torg'=>1],['class'=>'btn btn-success']) !!}--}}
+                            {{--{!! link_to_route('createDoc','Создать Счет-фактуру',['order_id'=>$order->id, 'is_torg'=>0],['class'=>'btn btn-success']) !!}--}}
+                        {{--</div>--}}
+
+                        <table width="100%">
+                            <tr>
+                                <td>Тип документа</td>
+                                <td>Загружен</td>
+                                <td>Отправлен</td>
+                                <td>На отправку</td>
+                            </tr>
+                            <? $tempType = 0;?>
+                            @foreach($documents as $document)
+                                <tr>
+                                    @if($document->type != $tempType)
+                                        <td>{{ \App\Models\Order::getDocTypeName($document->type, true) }}</td>
+                                        <?
+                                        $tempType = $document->type;
+                                        unset($documentTypes[$document->type]);
+                                        ?>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                    <td>
+                                        <?
+                                        $shortFileName = explode(DIRECTORY_SEPARATOR, $document->file_name);
+                                        $shortFileName = end($shortFileName);
+                                        $tempFileName = explode('_', $shortFileName);
+                                        $tempFileName = explode('.', end($tempFileName));
+                                        $fileDate = date('d.m.Y', $tempFileName[0]);
+                                        $shownFileName = \App\Models\Order::getDocTypeName($document->type, true).' №'.$document->order->id.'.'.$tempFileName[1];
+                                        ?>
+                                        {{ \App\Models\Order::getDocTypeName($document->type, true) }}, загруженный {{ $fileDate }}
+                                        <br>
+                                        {!! Form::open(['route' => 'downloadDoc', 'role' => 'form', 'class'=>'inlineForm']) !!}
+                                        {!! Form::hidden('shortFileName', $shortFileName) !!}
+                                        {!! Form::hidden('shownFileName', $shownFileName) !!}
+                                        {!! Form::hidden('download', true) !!}
+                                        {!! Form::submit('Скачать', ['class'=>'btn btn-success']) !!}
+                                        {!! Form::close() !!}
+                                        &nbsp;
+                                        {!! Form::open(['route' => 'downloadDoc', 'role' => 'form', 'class'=>'inlineForm']) !!}
+                                        {!! Form::hidden('shortFileName', $shortFileName) !!}
+                                        {!! Form::hidden('shownFileName', $shownFileName) !!}
+                                        {!! Form::hidden('download', false) !!}
+                                        {!! Form::hidden('content', $tempFileName[1]) !!}
+                                        {!! Form::submit('Посмотреть', ['class'=>'btn btn-success']) !!}
+                                        {!! Form::close() !!}
+                                    </td>
+                                    <td>{{ $document->sended ? 'Да' : 'Нет'}}</td>
+                                    <td>{!! $document->sended ? null : Form::checkbox('forSend_'.$document->id, $document->id, null, ['class'=>'forSend']) !!}</td>
+                                </tr>
+                            @endforeach
+                            @foreach($documentTypes as $documentType)
+                                <tr>
+                                    <td>{{ \App\Models\Order::getDocTypeName($documentType, true) }}</td>
+                                    <td>Нет</td>
+                                    <td>Нет</td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                        </table>
+                        <input type="button" class="btn btn-info btnSendChecked" value="Отправить выбранные документы">
+                        <div>
+                            <p class="alert alert-success success hidden">Документы отправлены заказчику.. <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                            <p class="alert alert-danger danger hidden">Ошибка отправки документов. <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
                         </div>
+                        <br><br><br>
+
+                        <h4>Загрузить документ для этого заказа</h4>
+                        {!! Form::open(['action' => 'CreateDocumentsController@uploadDocument',
+                            'enctype' => 'multipart/form-data', 'role' => 'form']) !!}
+
+                        {!! Form::hidden('order_id', $order->id) !!}
+
+                        {!! Form::hidden('document_for', \App\Models\Order::DOCUMENT_FOR_SPARE_PART) !!}
+
+                        <p>
+                            <label for="docType">Тип документа:</label>
+                            <select name="docType" class="form-control" id="docType">
+                                <option value="{{ \App\Models\Order::INVOICE_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::INVOICE_TYPE, true) }}</option>
+                                <option value="{{ \App\Models\Order::INVOICE_ACCT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::INVOICE_ACCT_TYPE, true) }}</option>
+                                <option value="{{ \App\Models\Order::AUCTION_12_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::AUCTION_12_TYPE, true) }}</option>
+                                <option value="{{ \App\Models\Order::CONTRACT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::CONTRACT_TYPE, true) }}</option>
+                                <option value="{{ \App\Models\Order::SUPPLEMENTARY_AGREEMENT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::SUPPLEMENTARY_AGREEMENT_TYPE, true) }}</option>
+                            </select>
+                        </p>
+
+                        {!! Form::file('docFileName', ['class'=>'form-control', 'required'=>true]) !!}
+                        @if($errors->has('docFileName'))
+                            <div class="alert-danger alert">{!! $errors->first('docFileName') !!}</div>
+                        @endif
+
+                        {!! Form::submit('Загрузить документ', ['class'=>'btn btn-success']) !!}
+
+                        {!! Form::close() !!}
+                        <br>
 
                         {!! link_to_route('showOrdersToAdmin','Вернуться к списку заказов') !!}
                     </div>
@@ -72,4 +166,5 @@
 
 @section('jsScripts')
     <script src="{{ asset('/js/statusChange.js') }}"></script>
+    <script src="{{ asset('/js/checkboxesForSend.js') }}"></script>
 @stop

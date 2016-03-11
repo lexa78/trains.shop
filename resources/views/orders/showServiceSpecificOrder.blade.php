@@ -8,37 +8,31 @@
             <div class="sub-page-left box-9">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h3>Заказ № {{ $order->id }}</h3>
+                        <h2>Заказ № {{ $order->id }}</h2>
                         <p>Дата и время оформления заказа: <strong>{{ \App\Models\Order::formatDate($order->created_at, true) }}</strong></p>
-                        <p>Заказ в депо: <strong>{{ $order->products_in_order[0]->stantion_name }}</strong></p>
-                        <p>Статус заказа: <strong>{{ $order->status->status }}</strong></p>
+                        <p>Статус заказа: <strong>{{ $order->service_status->status }}</strong></p>
                         <br>
-                        <h4>Заказанные товары</h4>
+                        <h4>Заказанная услуга</h4>
                         <table width="100%">
                             <tr>
-                                <td>№ п/п</td>
-                                <td width="50%">Наименование товара</td>
+                                <td>Наименование</td>
                                 <td>Цена</td>
-                                <td>Количество</td>
-                                <td>Сумма</td>
+                                <td>Номера вагонов</td>
+                                @if($order->station_names)
+                                    <td>Наименования станций</td>
+                                @endif
                             </tr>
-                            <?
-                            $totalSum = 0;
-                            $tempSum = 0;
-                            ?>
-                            @foreach($order->products_in_order as $number => $product)
                                 <tr>
-                                    <td>{{ $number + 1 }}</td>
-                                    <td  width="50%">{{ $product->product_name }}</td>
-                                    <td>{{ $product->product_price }}</td>
-                                    <td>{{ $product->product_amount }}</td>
-                                    <td>{{ $tempSum = $product->product_price * $product->product_amount }}</td>
+                                    <td>{{ $order->service_name }}</td>
+                                    <td>{{ $order->service_price }}</td>
+                                    <td>{{ $order->more_info }}</td>
+                                    @if($order->station_names)
+                                        <td>{{ $order->station_names }}</td>
+                                    @endif
                                 </tr>
-                                <? $totalSum += $tempSum; ?>
-                            @endforeach
                         </table>
                         <br>
-                        <p>Сумма заказа: <b>{{ $totalSum }} руб.</b></p>
+                        <p>Сумма заказа: <b>{{ $order->service_price }} руб.</b></p>
                         <br>
                         @if(count($documents))
                             <h2>Документы</h2>
@@ -65,7 +59,7 @@
                                             $tempFileName = explode('_', $shortFileName);
                                             $tempFileName = explode('.', end($tempFileName));
                                             $fileDate = date('d.m.Y', $tempFileName[0]);
-                                            $shownFileName = \App\Models\Order::getDocTypeName($document->type, true).' №'.$document->order->id.'.'.$tempFileName[1];
+                                            $shownFileName = \App\Models\Order::getDocTypeName($document->type, true).' №'.$document->service_order->id.'.'.$tempFileName[1];
                                             ?>
                                             {{ \App\Models\Order::getDocTypeName($document->type, true) }}, загруженный {{ $fileDate }}
                                             <br>

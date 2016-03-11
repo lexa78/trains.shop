@@ -72,7 +72,7 @@ Route::get('confirmOrder/{user_id}', ['as'=>'confirmOrder', 'uses'=>'OrderContro
 //Route::get('storeOrder/{user_id}', ['as'=>'storeOrder', 'uses'=>'OrderController@store']);
 Route::post('store_order', ['as'=>'storeOrder', 'uses'=>'OrderController@store']);
 Route::get('showMyOrders', ['as'=>'showMyOrders', 'uses'=>'OrderController@showOrders']);
-Route::get('showSpecificOrder/{order_id}/{user_id}', ['as'=>'showSpecificOrder', 'uses'=>'OrderController@showSpecificOrder']);
+Route::get('showSpecificOrder/{order_id}/{user_id}/{order_type}', ['as'=>'showSpecificOrder', 'uses'=>'OrderController@showSpecificOrder']);
 Route::get('showOrdersToAdmin/{newOnly?}', ['as'=>'showOrdersToAdmin', 'uses'=>'OrderController@showOrdersToAdmin']);
 Route::get('showSpecificOrderToAdmin/{order_id}', ['as'=>'showSpecificOrderToAdmin', 'uses'=>'OrderController@showSpecificOrderToAdmin']);
 Route::post('changeStatus/{status_id}/{order_id}', ['as'=>'changeStatus', 'uses'=>'OrderController@changeStatus']);
@@ -85,3 +85,5 @@ Route::get('showMyDocs', ['as'=>'showMyDocs', 'uses'=>'CreateDocumentsController
 Route::get('createDoc/{order_id}/{is_torg}', ['as'=>'createDoc', 'uses'=>'CreateDocumentsController@create']);
 Route::post('download', ['as'=>'downloadDoc', 'uses'=>'CreateDocumentsController@download']);
 Route::post('uploadDoc', ['as'=>'uploadDoc', 'uses'=>'CreateDocumentsController@uploadDocument']);
+
+Route::post('admin/send_documents', ['as'=>'sendCheckedDocuments', 'uses'=>'OrderController@sendCheckedDocuments']);

@@ -2,6 +2,7 @@
 
 use App;
 use App\Commands\CreateInvoice;
+use App\Commands\SendEmailWithCheckedDocs;
 use App\Commands\SendEmailWithInvoices;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -20,6 +21,7 @@ use App\Models\ServiceStatus;
 use App\Models\Stantion;
 use App\Models\Status;
 use App\Models\User;
+use App\MyDesigns\Classes\Utils;
 use Bus;
 use DateTime;
 use DB;
@@ -263,7 +265,8 @@ class OrderController extends Controller {
     public function showOrders()
     {
         $orders = Order::latest('created_at')->with('products_in_order', 'status')->where('user_id',Auth::user()->id)->get();
-        return view('orders.showOrders',['p'=>'cabinet', 'orders'=>$orders]);
+        $serviceOrders = ServiceOrder::latest('created_at')->with('service_status')->where('user_id',Auth::user()->id)->get();;
+        return view('orders.showOrders',['p'=>'cabinet', 'orders'=>$orders, 'serviceOrders'=>$serviceOrders]);
     }
 
     public function showSpecificOrderToAdmin($orderId)
@@ -274,7 +277,12 @@ class OrderController extends Controller {
             $order->is_new = 0;
             $order->save();
         }
-        return view('orders.showSpecificOrderToAdmin',['order'=>$order, 'statuses'=>$statuses]);
+
+        $documents = Document::where('order_id',$orderId)->orderBy('type')->get();
+        $documentTypes = [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5];
+
+        return view('orders.showSpecificOrderToAdmin',['order'=>$order, 'statuses'=>$statuses,
+            'documents'=>$documents, 'documentTypes'=>$documentTypes]);
     }
 
     public function showServiceSpecificOrderToAdmin($orderId)
@@ -293,26 +301,26 @@ class OrderController extends Controller {
             'documents'=>$documents, 'documentTypes'=>$documentTypes]);
     }
 
-    public function showSpecificOrder($orderId, $userId)
+    public function showSpecificOrder($orderId, $userId, $orderType)
     {
         if(Auth::user()->id == (int) $userId) {
-            $order = Order::with('products_in_order.stantion', 'status')->where('id',$orderId)->first();
-
-//            $document = Document::where('user_id', Auth::user()->id)->where('order_id',$orderId)->first();
-//            if(! $document) {
-//                return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
-//            }
-//            $fileName = explode(DIRECTORY_SEPARATOR,$document->file_name);
-//            $fileName = end($fileName);
-//            $typeOfDoc = Order::getDocTypeName($document->type, true);
-//
-//            $shownFileName = $typeOfDoc.' № '. $document->order_id;
-            return view('orders.showSpecificOrder',[
-                                                    'p'=>'cabinet',
-                                                    'order'=>$order,
-//                                                    'shortFileName' => $fileName,
-//                                                    'shownFileName' => $shownFileName,
-                                                ]);
+            if($orderType == Order::DOCUMENT_FOR_SPARE_PART) {
+                $order = Order::with('products_in_order.stantion', 'status')->where('id',$orderId)->first();
+                $documents = Document::where('user_id', Auth::user()->id)->where('order_id',$orderId)->get();
+                return view('orders.showSpecificOrder',[
+                    'p'=>'cabinet',
+                    'order'=>$order,
+                    'documents'=>$documents
+                ]);
+            } else {
+                $order = ServiceOrder::with('service_status')->where('id',$orderId)->first();
+                $documents = Document::where('user_id', Auth::user()->id)->where('service_order_id',$orderId)->get();
+                return view('orders.showServiceSpecificOrder',[
+                    'p'=>'cabinet',
+                    'order'=>$order,
+                    'documents'=>$documents
+                ]);
+            }
         } else {
             return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
         }
@@ -378,15 +386,30 @@ class OrderController extends Controller {
         return view('orders.serviceSuccess',['p'=>'purchases', 'serviceName'=>$service->short_name]);
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
+	public function sendCheckedDocuments(Request $request)
 	{
-		//
+		$documentIds = json_decode($request->value);
+        $documents = Document::whereIn('id',$documentIds)->get();
+        $fileNames = [];
+        $orderId = 0;
+        $userId = 0;
+        foreach($documents as $document) {
+            $fileNames[] = ['type'=>$document->type, 'fName'=>$document->file_name];
+        }
+        $orderId = $document->order_id ? $document->order_id : $document->service_order_id;
+        $userId = $document->user_id;
+        $resOfSend = Bus::dispatch(new SendEmailWithCheckedDocs($fileNames, $orderId, $userId));
+        if($resOfSend == Utils::STR_SUCCESS) {
+            foreach($documents as $document) {
+                $document->sended = 1;
+                $document->save();
+            }
+            //return redirect()->back()->with('alert-success','Документы отправлены заказчику.');
+            echo 'success';
+        } else {
+            //return redirect()->back()->with('alert-danger','Ошибка отправки документов.');
+            echo 'danger';
+        }
 	}
 
 }

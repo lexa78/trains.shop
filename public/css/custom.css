@@ -393,3 +393,9 @@ table.forCheckbox td.labelForCheckbox {
     height: auto;
 }
 /*---------------------------------------------------------------------*/
+.inlineForm {
+    display: inline;
+}
+.myBg {
+    background-color: #d3d3d3;
+}

@@ -45,8 +45,15 @@ class CreateDocumentsController extends Controller {
         if($request->input('download')) {
             return Response::download($file->file_name, $request->input('shownFileName'), ['Content-Length: '. filesize($file->file_name)]);
         } else {
+            $contentType = 'application/pdf';
+            if($request->input('content')) {
+                $extension = strtolower($request->input('content'));
+                if($extension != 'pdf') {
+                    $contentType = 'image/'.$extension;
+                }
+            }
             return Response::make(file_get_contents($file->file_name), 200, [
-                'Content-Type' => 'application/pdf',
+                'Content-Type' => $contentType,
                 'Content-Disposition' => 'inline; '.$request->input('shortFileName'),
             ]);
         }
@@ -57,32 +64,36 @@ class CreateDocumentsController extends Controller {
         $docs = Document::where('user_id', Auth::user()->id)->get();
         $docsByTypesArr = [];
         foreach($docs as $doc) {
-            $fileName = explode(DIRECTORY_SEPARATOR,$doc->file_name);
-            $fileName = end($fileName);
+
+            $shortFileName = explode(DIRECTORY_SEPARATOR, $doc->file_name);
+            $shortFileName = end($shortFileName);
+            $tempFileName = explode('_', $shortFileName);
+            $tempFileName = explode('.', end($tempFileName));
+            $fileDate = date('d.m.Y', $tempFileName[0]);
             $typeOfDoc = Order::getDocTypeName($doc->type, true);
-
-            $date = DateTime::createFromFormat('Y-m-d H:i:s', $doc->created_at);
-            $date = $date->format('d F Y');
-
+            $docId = $doc->service_order ? $doc->service_order->id : $doc->order->id;
+            $extension = end($tempFileName);
+            //$shownFileName = $typeOfDoc.' №'.$docId.'.'.$tempFileName[1];
+            $shownFileName = $typeOfDoc.' №'.$docId.'.'.$extension;
             $docsByTypesArr[$typeOfDoc][] = [
-                                                'shortFileName' => $fileName,
-                                                'fileDate' => $date,
-                                                'orderNumber' => $doc->order_id
+                                                'shortFileName' => $shortFileName,
+                                                'shownFileName' => $shownFileName,
+                                                'extension' => $extension,
+                                                'fileDate' => $fileDate,
+                                                'orderNumber' => $doc->order_id ? $doc->order_id : $doc->service_order_id
                                             ];
         }
 
         return view('documents.showDocs', ['p'=>'cabinet', 'documentsByTypes' => $docsByTypesArr]);
     }
 
-    public function uploadDocument(Document $document, Request $request)
+    public function uploadDocument(Document $document, Requests\UploadDocument $request)
     {
-        //todo сделать Request с валидацией
         if($request->document_for == Order::DOCUMENT_FOR_SERVICE) {
             $order = ServiceOrder::find($request->order_id);
         } else {
             $order = Order::find($request->order_id);
         }
-
         $file = $request->file('docFileName'); //Сам файл
        if($pathToFile = Bus::dispatch(new UploadDocument($file, $order, $request->docType, $request->document_for))) {
            $document->type = $request->docType;

@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class StoreFactory extends Request {
+class UploadDocument extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -21,10 +21,11 @@ class StoreFactory extends Request {
 	 */
 	public function rules()
 	{
-		$id = $this->route('factories');
 		return [
-			'factory_name' => 'required|alpha_spaces_numbers|max:35|unique:factories,factory_name,'.$id,
-			'factory_code' => 'required|alpha_dash|max:15',
+			'order_id' => 'required|integer',
+			'document_for' => 'required|alpha',
+            'docType' => 'required|integer',
+            'docFileName' => 'required|mimes:pdf,gif,jpeg,pjpeg,png,bmp,svg+xml'
 		];
 	}
 

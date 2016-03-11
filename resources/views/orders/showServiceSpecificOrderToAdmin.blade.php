@@ -70,24 +70,32 @@
                                     @endif
                                     <td>
                                         <?
-                                            $shortFileName = explode('/', $document->file_name);
+                                            $shortFileName = explode(DIRECTORY_SEPARATOR, $document->file_name);
                                             $shortFileName = end($shortFileName);
                                             $tempFileName = explode('_', $shortFileName);
                                             $tempFileName = explode('.', end($tempFileName));
                                             $fileDate = date('d.m.Y', $tempFileName[0]);
+                                            $shownFileName = \App\Models\Order::getDocTypeName($document->type, true).' №'.$document->order->id.'.'.$tempFileName[1];
                                         ?>
                                         {{ \App\Models\Order::getDocTypeName($document->type, true) }}, загруженный {{ $fileDate }}
-                                        &nbsp;
-                                        {!! Form::open(['route' => 'downloadDoc', 'role' => 'form']) !!}
+                                        <br>
+                                        {!! Form::open(['route' => 'downloadDoc', 'role' => 'form', 'class'=>'inlineForm']) !!}
                                         {!! Form::hidden('shortFileName', $shortFileName) !!}
-                                        {!! Form::hidden('shownFileName', \App\Models\Order::getDocTypeName($document->type)) !!}
+                                        {!! Form::hidden('shownFileName', $shownFileName) !!}
                                         {!! Form::hidden('download', true) !!}
                                         {!! Form::submit('Скачать', ['class'=>'btn btn-success']) !!}
                                         {!! Form::close() !!}
-
+                                        &nbsp;
+                                        {!! Form::open(['route' => 'downloadDoc', 'role' => 'form', 'class'=>'inlineForm']) !!}
+                                        {!! Form::hidden('shortFileName', $shortFileName) !!}
+                                        {!! Form::hidden('shownFileName', $shownFileName) !!}
+                                        {!! Form::hidden('download', false) !!}
+                                        {!! Form::hidden('content', $tempFileName[1]) !!}
+                                        {!! Form::submit('Посмотреть', ['class'=>'btn btn-success']) !!}
+                                        {!! Form::close() !!}
                                     </td>
-                                    <td>нет</td>
-                                    <td>{!! Form::checkbox('q', 1) !!}</td>
+                                    <td>{{ $document->sended ? 'Да' : 'Нет'}}</td>
+                                    <td>{!! $document->sended ? null : Form::checkbox('forSend_'.$document->id, $document->id, null, ['class'=>'forSend']) !!}</td>
                                 </tr>
                             @endforeach
                             @foreach($documentTypes as $documentType)
@@ -99,7 +107,12 @@
                                 </tr>
                             @endforeach
                         </table>
-                        <br>
+                        <input type="button" class="btn btn-info btnSendChecked" value="Отправить выбранные документы">
+                        <div>
+                            <p class="alert alert-success success hidden">Документы отправлены заказчику.. <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                            <p class="alert alert-danger danger hidden">Ошибка отправки документов. <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                        </div>
+                        <br><br><br>
 
                         <h4>Загрузить документ для этого заказа</h4>
                         {!! Form::open(['action' => 'CreateDocumentsController@uploadDocument',
@@ -139,4 +152,5 @@
 
 @section('jsScripts')
     <script src="{{ asset('/js/statusChange.js') }}"></script>
+    <script src="{{ asset('/js/checkboxesForSend.js') }}"></script>
 @stop

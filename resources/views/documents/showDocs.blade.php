@@ -27,28 +27,24 @@
                             @foreach($documents as $key=>$document)
                                 <tr>
                                     <td>{{  $key +1 }}</td>
-                                    <? $shownFileName = $type.' № '. $document['orderNumber'];?>
-                                    <td>{{ $shownFileName }} от {{ $document['fileDate'] }}</td>
                                     <td>
-                                        {!! Form::open(['route' => 'downloadDoc', 'role' => 'form']) !!}
-
+                                        {{ $type.' № '. $document['orderNumber'] }}, от {{ $document['fileDate'] }}
+                                    </td>
+                                    <td>
+                                        {!! Form::open(['route' => 'downloadDoc', 'role' => 'form', 'class'=>'inlineForm']) !!}
                                         {!! Form::hidden('shortFileName', $document['shortFileName']) !!}
-                                        {!! Form::hidden('shownFileName', $shownFileName) !!}
+                                        {!! Form::hidden('shownFileName', $document['shownFileName']) !!}
                                         {!! Form::hidden('download', true) !!}
-
-                                        {!! Form::submit('Скачать', ['class'=>'button-3']) !!}
-
+                                        {!! Form::submit('Скачать', ['class'=>'button']) !!}
                                         {!! Form::close() !!}
                                     </td>
                                     <td>
-                                        {!! Form::open(['route' => 'downloadDoc', 'role' => 'form']) !!}
-
+                                        {!! Form::open(['route' => 'downloadDoc', 'role' => 'form', 'class'=>'inlineForm']) !!}
                                         {!! Form::hidden('shortFileName', $document['shortFileName']) !!}
-                                        {!! Form::hidden('shownFileName', $shownFileName) !!}
+                                        {!! Form::hidden('shownFileName', $document['shownFileName']) !!}
                                         {!! Form::hidden('download', false) !!}
-
-                                        {!! Form::submit('Посмотреть', ['class'=>'button-3']) !!}
-
+                                        {!! Form::hidden('content', $document['extension']) !!}
+                                        {!! Form::submit('Посмотреть', ['class'=>'button-2 myBg']) !!}
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>

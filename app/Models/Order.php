@@ -15,7 +15,7 @@ class Order extends Model {
     const CONTRACT_TYPE = 4; //договор
     const SUPPLEMENTARY_AGREEMENT_TYPE = 5; //доп. соглашение
     const DOCUMENT_FOR_SERVICE = 'service'; //документ для услуг
-    const DOCUMENT_FOR_SPARE_PART = 'spare_part'; //документ для запчастей
+    const DOCUMENT_FOR_SPARE_PART = 'sparePart'; //документ для запчастей
 
     private static $documentTypes = [
         self::INVOICE_TYPE => 'schet',

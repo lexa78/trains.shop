@@ -56,7 +56,7 @@ class UploadDocument extends Command implements SelfHandling {
 		$fileNameTemplate = Utils::mb_str_replace('{docType}', Order::getDocTypeName($this->docType), $fileNameTemplate);
 		$fileNameTemplate = Utils::mb_str_replace('{orderID}', $this->order->id, $fileNameTemplate);
 		if($this->documentFor == Order::DOCUMENT_FOR_SPARE_PART) {
-			$depoName = Stantion::find($this->order->products_in_order[0]->stantion_name);
+			$depoName = $this->order->products_in_order[0]->stantion_name;
 			$depoName = Utils::mb_str_replace(' ','',$depoName);
 			$depoName = Utils::translit($depoName);
 			$fileNameTemplate = Utils::mb_str_replace('{depoName}', $depoName, $fileNameTemplate);
@@ -64,6 +64,7 @@ class UploadDocument extends Command implements SelfHandling {
 		$fileNameTemplate = Utils::mb_str_replace('{currentDate}', time(), $fileNameTemplate);
 
 		$extension = $this->file->getClientOriginalExtension();
+
         try {
             Storage::disk('local')->put($clientFolder.DIRECTORY_SEPARATOR.$fileNameTemplate.'.'.$extension,  File::get($this->file));
         } catch(Exception $e) {
