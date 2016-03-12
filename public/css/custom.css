@@ -399,3 +399,9 @@ table.forCheckbox td.labelForCheckbox {
 .myBg {
     background-color: #d3d3d3;
 }
+* html .bg {
+    height: 100%;
+}
+.page-buffer {
+    height: 44px;
+}

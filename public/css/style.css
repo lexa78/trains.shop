@@ -11,7 +11,7 @@ body {
 	height:100%;
 }
 .ic {border:0;float:right;background:#fff;color:#f00;width:50%;line-height:10px;font-size:10px;margin:-220% 0 0 0;overflow:hidden;padding:0}
-.bg {background: url(../images/bg.jpg) center 0 repeat-y; width:100%; min-height:100%;}
+.bg {background: url(../images/bg.jpg) center 0 repeat-y; width:100%; min-height:100%;margin-bottom: -44px;}
 .main {width:960px; margin:0 auto;}
 /***********************************************************************/
 a {text-decoration:none; cursor:pointer;text-decoration:none; }
@@ -145,7 +145,7 @@ table td { padding:9px 10px 8px 20px;}/*отступы внутри таблиц
 table td:first-child {font-weight:bold;}
 
 /****************************footer************************/
-footer {width:960px; overflow:hidden; margin:0 auto; padding:10px 0; background:#fff; text-align:center; color:#000;}
+footer {width:960px; overflow:hidden; margin:0 auto; padding:10px 0; background:#fff; text-align:center; color:#000;height: 24px;}
 
 /**********************form**********************/
 .map {width:190px; height:247px; margin-top:13px; }
