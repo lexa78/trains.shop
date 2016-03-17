@@ -14,18 +14,12 @@
             </div>
 
             <div class="sub-page-left box-9">
-                <h2 class="p4 cnt">Подтверждение заказа услуги "{{ $service->short_name }}"</h2>
-                <p class="totalSum"><b>Компания - заказчик:</b> {{ $firm->organisation_name }}</p>
-                <p class="totalSum"><b>Контактное лицо:</b> {{ $firm->contact_face_fio }}</p>
-                <p class="totalSum"><b>Его телефон:</b> {{ $firm->phone }}</p>
+                <h2 class="p4 cnt">Оформление заказа услуги "{{ $service->short_name }}"</h2>
                 <hr>
 
-                <p><b>Короткое название услуги:&nbsp;&nbsp;&nbsp;</b>{{ $service->short_name }}</p>
-                <p><b>Полное название услуги:&nbsp;&nbsp;&nbsp;</b>{{ $service->full_name }}</p>
-                <p><b>Единица измерения:&nbsp;&nbsp;&nbsp;</b>{{ $service->unit }}</p>
+                <p><b>Название услуги:&nbsp;&nbsp;&nbsp;</b>{{ $service->full_name }}</p>
                 <p><b>Срок исполнения:&nbsp;&nbsp;&nbsp;</b>{{ $service->period }}</p>
                 <p><b>Требуемые документы:&nbsp;&nbsp;&nbsp;</b>{{ $service->documents }}</p>
-                <p><b>Цена услуги:&nbsp;&nbsp;&nbsp;</b>{{ $service->price }} руб.</p>
 
                 {!! Form::open(['action' => 'OrderController@storeServiceOrder', 'role' => 'form']) !!}
 

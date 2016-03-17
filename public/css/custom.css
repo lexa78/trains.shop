@@ -341,7 +341,7 @@ table.forCheckbox td.labelForCheckbox {
     -ms-transform: translate(-50%, 0);
     -o-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
-    top: 20%;
+    top: 35%;
 }
 /* элементы модального окна */
 .modal-dialog {
@@ -399,9 +399,9 @@ table.forCheckbox td.labelForCheckbox {
 .myBg {
     background-color: #d3d3d3;
 }
-* html .bg {
-    height: 100%;
+.sub-page {
+    min-height: calc(100vh - 194px);
 }
-.page-buffer {
-    height: 44px;
+.bold {
+    vertical-align: middle;
 }

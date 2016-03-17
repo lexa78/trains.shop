@@ -53,7 +53,7 @@
                                 <td></td>
                             </tr>
                             @foreach($prices as $key => $price)
-                                <tr align="center"><td colspan="5">{{ $key }}:</td></tr>
+                                <tr align="center"><td colspan="5"><b>{{ $key }}:</b></td></tr>
                                 @foreach($price as $item)
                                     <tr align="center">
                                         @if($item['stantion_id'] == $depoId)

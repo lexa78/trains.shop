@@ -31,13 +31,13 @@
                     <h3>Товаров нет в наличии</h3>
                     <br><br>
                 @else
-                    <table>
+                    <table width="100%">
                         <tr align="center">
                             {{--<td>№ п/п</td>--}}
-                            <td>Название</td>
-                            <td>Описание</td>
-                            <td>Цена</td>
-                            <td>В на-<br>личии</td>
+                            <td class="bold">Название</td>
+                            <td class="bold">Описание</td>
+                            <td class="bold">Цена</td>
+                            <td class="bold">В на-<br>личии</td>
                             <td></td>
                         </tr>
 
