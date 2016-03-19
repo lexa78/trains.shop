@@ -22,7 +22,7 @@
 
             <div class="sub-page-left box-9">
                 <div class="panel panel-default">
-                    <div class="totalSum cnt">Подробное описание товара {{$product->name}}</div>
+                    <div class="totalSum cnt">Информация о детали {{$product->name}}</div>
                     <div class="panel-body">
                         <div class="flash-message">
                             @foreach (['danger', 'warning', 'success', 'info'] as $msg)
@@ -37,7 +37,6 @@
                         <p><b>Артикул:&nbsp;</b>{{ $product->article }}</p>
                         <p><b>Описание:&nbsp;</b>{{ $product->description }}</p>
                         <p><b>Состояние:&nbsp;</b>{{ $productParams[0]->condition }}</p>
-                        <br>
                         <div class="totalSum cnt">Цены и количества в других депо</div>
                         @if(! $userID)
                             <p class="alert alert-warning">Чтобы появилась возможность добавлять товары в корзину,
@@ -47,9 +46,9 @@
                         @endif
                         <table border="1" width="100%">
                             <tr align="center">
-                                <td>Депо</td>
-                                <td>Цена</td>
-                                <td>В наличии</td>
+                                <td align="center" valign="middle">Депо</td>
+                                <td align="center" valign="middle">Цена</td>
+                                <td align="center" valign="middle">Наличие</td>
                                 <td></td>
                             </tr>
                             @foreach($prices as $key => $price)
@@ -57,12 +56,12 @@
                                 @foreach($price as $item)
                                     <tr align="center">
                                         @if($item['stantion_id'] == $depoId)
-                                            <td><b>{{ $item['stantion_name'] }}</b></td>
+                                            <td align="center" valign="middle"><b>{{ $item['stantion_name'] }}</b></td>
                                         @else
-                                            <td>{{ $item['stantion_name'] }}</td>
+                                            <td align="center" valign="middle">{{ $item['stantion_name'] }}</td>
                                         @endif
-                                        <td>{{ $item['price'] }}</td>
-                                        <td>{{ $item['amount'] }}</td>
+                                        <td align="center" valign="middle">{{ $item['price'] }}</td>
+                                        <td align="center" valign="middle">{{ $item['amount'] }}</td>
                                         <td>
                                             @if($userID)
                                                 <form method="POST" action="{!! action('ProductCartController@store',[

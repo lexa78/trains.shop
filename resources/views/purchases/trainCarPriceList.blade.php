@@ -20,7 +20,7 @@
             </div>
 
             <div class="sub-page-left box-9">
-                <h2 class="p4">Товары и цены в депо {{ $depoName }}</h2>
+                <h2 class="p4">Детали в депо {{ $depoName }}</h2>
                 @if(! $userID)
                     <p class="alert alert-warning">Чтобы появилась возможность добавлять товары в корзину,
                         необходимо <a href="{{ url('/auth/login') }}">Войти</a> или
@@ -37,7 +37,7 @@
                             <td class="bold">Название</td>
                             <td class="bold">Описание</td>
                             <td class="bold">Цена</td>
-                            <td class="bold">В на-<br>личии</td>
+                            <td class="bold">Наличие</td>
                             <td></td>
                         </tr>
 

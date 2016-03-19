@@ -32,22 +32,22 @@
                     <br><br>
                 @else
                     <table>
-                        <tr align="center">
-                            <td>№ п/п</td>
-                            <td>Короткое название</td>
-                            <td>Единица измерения</td>
-                            <td>Период</td>
-                            <td>Цена</td>
+                        <tr align="center" valign="middle">
+                            <td width="50" align="center" valign="middle">№ п/п</td>
+                            <td align="center" valign="middle">Короткое название</td>
+                            <td align="center" valign="middle">Единица измерения</td>
+                            <td align="center" valign="middle">Период</td>
+                            <td align="center" valign="middle">Цена</td>
                             <td></td>
                         </tr>
 
                         @foreach($services as $key => $service)
                             <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $service->short_name }}</td>
-                                <td>{{ $service->unit }}</td>
-                                <td>{{ $service->period }}</td>
-                                <td>{{ $service->price }}</td>
+                                <td align="center" valign="middle">{{ $key + 1 }}</td>
+                                <td align="center" valign="middle">{{ $service->short_name }}</td>
+                                <td align="center" valign="middle">{{ $service->unit }}</td>
+                                <td align="center" valign="middle">{{ $service->period }}</td>
+                                <td align="center" valign="middle">{{ $service->price }}</td>
                                 <td>
                                     <label class="button-3" for="modal-{{ $key + 1 }}">Подробно</label>
                                     @include('purchases._modal')

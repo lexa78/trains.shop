@@ -21,39 +21,38 @@
             </div>
 
             <div class="sub-page-left box-9">
-                <h2 class="p4">Наличие товаров из категории {{$category}} во всех депо</h2>
+                <h2 class="p4">Наличие деталей {{$category}} во всех депо</h2>
                 @if(! $userID)
                     <p class="alert alert-warning">Чтобы появилась возможность добавлять товары в корзину,
                         необходимо <a href="{{ url('/auth/login') }}">Войти</a> или
                         <a href="{{ url('/auth/register') }}">Зарегистрироваться</a>
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
                 @endif
-                <h2>Товары из категории {{ $category }}</h2>
-
-                <h3>Цены и количества</h3>
                 <table border="1" width="100%">
                     <tr align="center">
-                        <td>Товар</td>
-                        <td>Цена</td>
-                        <td>В наличии</td>
+                        <td align="center" valign="middle">Товар</td>
+                        <td align="center" valign="middle">Описание</td>
+                        <td align="center" valign="middle">Цена</td>
+                        <td align="center" valign="middle">Наличие</td>
                         <td></td>
                     </tr>
                     @foreach($productsArr as $trainRoadName => $trainRoad)
-                        <tr align="center"><td colspan="4"><b>{{ $trainRoadName }}</b></td></tr>
+                        <tr align="center"><td colspan="5"><b>{{ $trainRoadName }}</b></td></tr>
                         @foreach($trainRoad as $depoName => $depo)
                             <? $flag = false; ?>
                             @if($depoName == $whatDepoNameWeAre)
-                                <tr align="center" bgcolor="#daa520"><td colspan="4">{{ $depoName }}</td></tr>
+                                <tr align="center" bgcolor="#daa520"><td colspan="5">{{ $depoName }}</td></tr>
                                 <? $flag = true; ?>
                             @else
-                                <tr align="center"><td colspan="4">{{ $depoName }}</td></tr>
+                                <tr align="center"><td colspan="5">{{ $depoName }}</td></tr>
                             @endif
 
                             @foreach($depo as $item)
                                 <tr align="center" bgcolor={{ $flag ?  '#daa520' : 'white'}}>
-                                    <td>{{ $item['name'] }}</td>
-                                    <td>{{ $item['price'] }}</td>
-                                    <td>{{ $item['amount'] }}</td>
+                                    <td align="center" valign="middle">{{ $item['name'] }}</td>
+                                    <td align="center" valign="middle">{{$item['description']}}</td>
+                                    <td align="center" valign="middle">{{ $item['price'] }}</td>
+                                    <td align="center" valign="middle">{{ $item['amount'] }}</td>
                                     <td>
                                         @if($userID)
                                             <form method="POST" action="{!! action('ProductCartController@store',[

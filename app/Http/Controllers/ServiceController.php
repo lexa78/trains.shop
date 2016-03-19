@@ -46,7 +46,7 @@ class ServiceController extends Controller {
 		//dd($id);
 		$validationRules = [
 			'short_name' => 'required|alpha_spaces_numbers_etc|max:255|unique:services',
-			'full_name' => 'required|alpha_spaces_numbers_etc',
+//			'full_name' => 'required|alpha_spaces_numbers_etc',
 			'unit' => 'required|alpha_spaces_numbers_etc|max:50',
 			'period' => 'required|alpha_spaces_numbers_etc|max:100',
 			'documents' => 'required|alpha_spaces_numbers_etc',
@@ -126,7 +126,7 @@ class ServiceController extends Controller {
 		$id = $request->route('services');
 		$validationRules = [
 			'short_name' => 'required|alpha_spaces_numbers_etc|max:255|unique:services,short_name,'.$id,
-			'full_name' => 'required|alpha_spaces_numbers_etc',
+//			'full_name' => 'required|alpha_spaces_numbers_etc',
 			'unit' => 'required|alpha_spaces_numbers_etc|max:50',
 			'period' => 'required|alpha_spaces_numbers_etc|max:100',
 			'documents' => 'required|alpha_spaces_numbers_etc',

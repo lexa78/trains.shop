@@ -192,6 +192,7 @@ position:relative;
 .button-4 {
     background: #808080;
     margin-top: 10px;
+    width: 85px;
 }
 .float-r {
     float: right;
@@ -341,7 +342,7 @@ table.forCheckbox td.labelForCheckbox {
     -ms-transform: translate(-50%, 0);
     -o-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
-    top: 35%;
+    top: 25%;
 }
 /* элементы модального окна */
 .modal-dialog {
@@ -404,4 +405,7 @@ table.forCheckbox td.labelForCheckbox {
 }
 .bold {
     vertical-align: middle;
+}
+.withWidth {
+    width: 117px;
 }
