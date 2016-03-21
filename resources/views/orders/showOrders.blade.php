@@ -5,6 +5,7 @@
         <div class="sub-page">
             <div class="sub-page-left box-9">
                 <h2 class="p5">Мои заказы</h2>
+                @if(count($orders) || count($serviceOrders))
                 <table>
                     <tr>
                         <td align="center"><h3 class="p5">Заказы запчастей</h3></td>
@@ -42,6 +43,9 @@
                         </td>
                     </tr>
                 </table>
+                @else
+                    <b>Заказов пока нет</b>
+                @endif
             </div>
         </div>
     </section>

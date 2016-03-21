@@ -17,7 +17,7 @@
                 <h2 class="p4 cnt">Оформление заказа услуги "{{ $service->short_name }}"</h2>
                 <hr>
 
-                <p><b>Название услуги:&nbsp;&nbsp;&nbsp;</b>{{ $service->full_name }}</p>
+                <p><b>Название услуги:&nbsp;&nbsp;&nbsp;</b>{!! $service->full_name  !!}</p>
                 <p><b>Срок исполнения:&nbsp;&nbsp;&nbsp;</b>{{ $service->period }}</p>
                 <p><b>Требуемые документы:&nbsp;&nbsp;&nbsp;</b>{{ $service->documents }}</p>
 
