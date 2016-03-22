@@ -23,7 +23,7 @@ class StoreStation extends Request {
 	{
 		$id = $this->route('stations');
 		return [
-			'stantion_name' => 'required|alpha_spaces_numbers|max:35|unique:stantions,stantion_name,'.$id,
+			'stantion_name' => 'required|alpha_spaces_numbers_etc|max:35|unique:stantions,stantion_name,'.$id,
 			'train_road_id' => 'required|integer',
 		];
 	}
