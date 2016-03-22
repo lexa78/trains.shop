@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider {
 		});
 		Validator::extend('alpha_spaces_numbers_etc', function($attribute, $value)
 		{
-			return preg_match('/^[\pL\s\d.,:();№\'\"\-\/]+$/u', $value);
+			return preg_match('/^[\pL\s\d.,:();№\'\"\-\/\+]+$/u', $value);
 		});
 
 		Validator::extend('chars_numbers_spaces', function($attribute, $value)
@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider {
 		});
 		Validator::extend('numbers_brackets_defis_spaces', function($attribute, $value)
 		{
-			return preg_match('/^[\d\s\-()]+$/u', $value);
+			return preg_match('/^[\d\s\-()\+]+$/u', $value);
 		});
 
 	}
