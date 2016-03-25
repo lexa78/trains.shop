@@ -19,7 +19,7 @@ class AdminAccess {
 			if (Auth::user()->role_id == User::ADMIN) {
 				return $next($request);
 			} else {
-				return redirect()->guest('auth/login');
+				return redirect()->guest('/');
 			}
 		} else {
 			return redirect()->guest('auth/login');

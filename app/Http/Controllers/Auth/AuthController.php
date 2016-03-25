@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller {
 
+    protected $redirectTo = '/';
+    protected $redirectPath = '/admin';
 	/*
 	|--------------------------------------------------------------------------
 	| Registration & Login Controller
