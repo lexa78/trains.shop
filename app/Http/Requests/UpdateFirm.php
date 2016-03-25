@@ -39,7 +39,7 @@ class UpdateFirm extends Request {
 			'post_address' => 'required|alpha_spaces_numbers_etc|max:255',
 			'contact_face_fio' => 'required|alpha_spaces_numbers_etc|max:255',
 			'accountant_fio' => 'alpha_spaces_numbers_etc|max:255',
-			'phone' => 'required|numbers_brackets_defis_spaces|max:20',
+			'phone' => 'required|alpha_spaces_numbers_etc|max:100',
 		];
 	}
 

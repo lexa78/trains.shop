@@ -13,9 +13,9 @@
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label">Ваше имя</label>
+                                        <label class="col-md-4 control-label">Ваши ФИО</label>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Всеволод">
+                                            <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Петров Всеволод Станиславович">
                                             <p>допускается вводить только буквы</p>
                                             @if($errors->has('name'))
                                                 <div class="alert-danger alert">{!! $errors->first('name') !!}</div>
@@ -104,7 +104,7 @@
                                         <label class="col-md-4 control-label">ИНН</label>
                                         <div class="col-md-6">
                                             <input type="text" class="form-control" name="inn" value="{{ old('inn') }}" placeholder="4746595421349">
-                                            <p>допускается вводить только цифры (13 цифр)</p>
+                                            <p>допускается вводить только цифры (10 цифр)</p>
                                             @if($errors->has('inn'))
                                                 <div class="alert-danger alert">{!! $errors->first('inn') !!}</div>
                                             @endif
