@@ -14,6 +14,17 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class ProductCartController extends Controller {
 
 	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this->middleware('auth',['except'=>'index']);
+		$this->middleware('general',['only'=>'index']);
+	}
+
+	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response

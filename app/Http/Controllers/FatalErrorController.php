@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 class FatalErrorController extends Controller {
 
 	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this->middleware('general');
+	}
+
+	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response

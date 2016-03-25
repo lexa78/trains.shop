@@ -37,7 +37,20 @@ use View;
 
 class OrderController extends Controller {
 
-	/**
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except'=>['showOrdersToAdmin', 'changeStatus', 'sendCheckedDocuments',
+            'showServiceOrdersToAdmin', 'showServiceSpecificOrderToAdmin', 'showSpecificOrderToAdmin']]);
+        $this->middleware('admin', ['only'=>['showOrdersToAdmin', 'changeStatus', 'sendCheckedDocuments',
+            'showServiceOrdersToAdmin', 'showServiceSpecificOrderToAdmin', 'showSpecificOrderToAdmin']]);
+    }
+
+    /**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response

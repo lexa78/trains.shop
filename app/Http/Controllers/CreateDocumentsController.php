@@ -20,7 +20,18 @@ use Response;
 
 class CreateDocumentsController extends Controller {
 
-	/**
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except'=>['create', 'uploadDocument']]);
+        $this->middleware('admin', ['only'=>['create', 'uploadDocument']]);
+    }
+
+    /**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response

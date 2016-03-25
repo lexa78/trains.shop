@@ -43,9 +43,9 @@ Route::resource('service_statuses', 'ServiceStatusController', ['except' => ['sh
 Route::resource('trainRoads', 'TrainRoadsController');
 Route::resource('stations', 'StationController');
 
-Route::resource('years', 'YearController', ['except' => ['show']]);
+//Route::resource('years', 'YearController', ['except' => ['show']]);
 Route::resource('conditions', 'ConditionController', ['except' => ['show']]);
-Route::resource('factories', 'FactoryController', ['except' => ['show']]);
+//Route::resource('factories', 'FactoryController', ['except' => ['show']]);
 
 Route::resource('categories', 'CategoryController', ['except' => ['show']]);
 Route::resource('products', 'ProductController');

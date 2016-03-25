@@ -19,15 +19,15 @@ use Auth;
 
 class PurchasesController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-//	public function index()
-//	{
-//		return view('purchases.purchases');
-//	}
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('general');
+    }
 
 	public function trainCar(Region $region, ProductCart $productCart)
 	{

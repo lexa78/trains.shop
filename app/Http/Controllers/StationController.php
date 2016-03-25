@@ -15,6 +15,16 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class StationController extends Controller {
 
 	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this->middleware('admin');
+	}
+
+	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
