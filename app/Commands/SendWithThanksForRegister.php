@@ -28,9 +28,9 @@ class SendWithThanksForRegister extends Command implements SelfHandling {
 	{
         Mail::send('emails.thanksForRegister', $this->messageData, function($message)
         {
-            $message->from('support@transgarant.com', 'transgarant');
+           // $message->from('support@transgarant.com', 'transgarant');
 
-            $message->to(Auth::user()->email)->subject('Вы успешно зарегистрировались на сайте transgarant.com');
+            $message->to(Auth::user()->email)->subject('Вы успешно зарегистрировались на сайте transgtis.com');
         });
 	}
 

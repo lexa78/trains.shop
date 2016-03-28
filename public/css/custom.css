@@ -409,3 +409,6 @@ table.forCheckbox td.labelForCheckbox {
 .withWidth {
     width: 117px;
 }
+.with-border {
+    border: ridge 2px;
+}

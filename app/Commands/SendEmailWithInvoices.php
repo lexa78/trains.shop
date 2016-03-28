@@ -30,8 +30,6 @@ class SendEmailWithInvoices extends Command implements SelfHandling {
 	{
         Mail::send('emails.thanksForOrder', $this->emailMessage, function($message)
         {
-            $message->from('support@transgarant.com', 'transgarant');
-
             $message->to(Auth::user()->email)->subject('Заказ оформлен. Спасибо за заказ');
 
             foreach($this->fileNames as $fileName) {

@@ -43,9 +43,8 @@ class SendEmailWithCheckedDocs extends Command implements SelfHandling {
 
         try {
             Mail::send('emails.sendDocs', $emailData, function ($message) use ($user) {
-                $message->from('support@transgarant.com', 'transgarant');
 
-                $message->to($user->email)->subject('Докоменты загружены');
+                $message->to($user->email)->subject('Документы загружены.');
 
                 foreach ($this->fileNames as $item) {
                     $partsOfFile = self::getFileNameInParts($item['fName'], $item['type']);

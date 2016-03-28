@@ -42,8 +42,6 @@ class SendEmailWithPaymentDocs extends Command implements SelfHandling {
 
         Mail::send('emails.auction12', $emailData, function($message) use($user)
         {
-            $message->from('support@transgarant.com', 'transgarant');
-
             $message->to($user->email)->subject('Ваш заказ выполнен.');
 
             $tempFileNameArr = explode(DIRECTORY_SEPARATOR,$this->fileName);

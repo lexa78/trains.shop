@@ -145,7 +145,7 @@ table td { padding:3px 10px 3px 20px;}/*отступы внутри таблиц
 table tr:first-child {font-weight:bolder;}
 
 /****************************footer************************/
-footer {width:100%; overflow:hidden; margin:0 auto; padding:10px 0; background:#fff; text-align:center; color:#000; font-size: 95%;}
+footer {width:100%; overflow:hidden; margin:0 auto; padding:10px 0; background:#fff; text-align:center; color:#000; font-size: 95%; background: url(../images/footer.jpg) 0 top repeat-x;}
 
 /**********************form**********************/
 .map {width:190px; height:247px; margin-top:13px; }

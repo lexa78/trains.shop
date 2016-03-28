@@ -51,7 +51,7 @@
                                         <div class="col-md-6 col-md-offset-4">
                                             <button type="submit" class="button">Войти</button>
 
-                                            <a class="button-2" href="{{ url('/password/email') }}">Забыли пароль?</a>
+                                            <a class="button-2 with-border" href="{{ url('/password/email') }}">Забыли пароль?</a>
                                         </div>
                                     </div>
                                 </form>
