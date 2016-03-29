@@ -98,6 +98,7 @@ class CreateInvoice extends Command implements SelfHandling {
         $docs->user_id = Auth::user()->id;
         $docs->order_id = $this->order->id;
         $docs->file_name = $clientFolder.'/'.$fileNameTemplate;
+        $docs->sended = 1;
         $docs->save();
     }
 

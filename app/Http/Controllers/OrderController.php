@@ -165,29 +165,29 @@ class OrderController extends Controller {
                     }
                     $newProductsByDepoArr[$order->id] = $productsArr;
                     //Запускаем команду на формирование счета
-//                    Bus::dispatch(new CreateInvoice($order, Stantion::find($depoID)));
+                    Bus::dispatch(new CreateInvoice($order, Stantion::find($depoID)));
                 }
 
 				ProductCart::where('user_id',$userID)->delete();
 			});
 
-//            $files = Document::where('user_id',Auth::user()->id)->where(
-//                function($query) use($orderNumbers) {
-//                    foreach($orderNumbers as $number) {
-//                        $query->orWhere('file_name', 'like', '%'.Order::getDocTypeName(Order::INVOICE_TYPE).'_'.$number.'_%');
-//                    }
-//                })->get();
-//
-//            $fileNames = [];
-//            foreach($files as $file) {
-//                $fileNames[] = $file->file_name;
-//            }
+            $files = Document::where('user_id',Auth::user()->id)->where(
+                function($query) use($orderNumbers) {
+                    foreach($orderNumbers as $number) {
+                        $query->orWhere('file_name', 'like', '%'.Order::getDocTypeName(Order::INVOICE_TYPE).'_'.$number.'_%');
+                    }
+                })->get();
+
+            $fileNames = [];
+            foreach($files as $file) {
+                $fileNames[] = $file->file_name;
+            }
 
             $messageParams = [];
             $messageParams['productByDepoWithOrderIdAsKey'] = $newProductsByDepoArr;
 //            //Запускаем команду на отправку email
-//            Bus::dispatch(new SendEmailWithInvoices($messageParams, $fileNames));
-            Bus::dispatch(new SendWithTanksForOrder($messageParams));
+            Bus::dispatch(new SendEmailWithInvoices($messageParams, $fileNames));
+//            Bus::dispatch(new SendWithTanksForOrder($messageParams));
 
 			return view('orders.success',['p'=>'purchases', 'ordersAmount'=>count($productsByDepoArr)]);
 		} else {
@@ -400,7 +400,6 @@ class OrderController extends Controller {
             $serviceOrder->station_names = $request->station_names;
         }
         $serviceOrder->save();
-        //todo нужно ли создавать документы?
         $messageParams['service'] = $serviceOrder;
         Bus::dispatch(new SendWithTanksForServiceOrder($messageParams));
         return view('orders.serviceSuccess',['p'=>'purchases', 'serviceName'=>$service->short_name]);

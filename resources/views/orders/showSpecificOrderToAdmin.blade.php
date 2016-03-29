@@ -56,7 +56,7 @@
                         <br>
                         <p>Сумма заказа: <b>{{ $totalSum }} руб.</b></p>
                         <br>
-
+                        <hr><hr>
                         {{--<div class="buttons_to_create {{ ($order->status->id == \App\Models\Order::COMPLETED) ? 'display_show' : 'display_none' }}">--}}
                             {{--{!! link_to_route('createDoc','Создать Торг-12',['order_id'=>$order->id, 'is_torg'=>1],['class'=>'btn btn-success']) !!}--}}
                             {{--{!! link_to_route('createDoc','Создать Счет-фактуру',['order_id'=>$order->id, 'is_torg'=>0],['class'=>'btn btn-success']) !!}--}}
@@ -120,13 +120,14 @@
                                 </tr>
                             @endforeach
                         </table>
+                        <br>
                         <input type="button" class="btn btn-info btnSendChecked" value="Отправить выбранные документы">
                         <div>
                             <p class="alert alert-success success hidden">Документы отправлены заказчику.. <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
                             <p class="alert alert-danger danger hidden">Ошибка отправки документов. <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
                         </div>
-                        <br><br><br>
-
+                        <br><br>
+                        <hr><hr>
                         <h4>Загрузить документ для этого заказа</h4>
                         {!! Form::open(['action' => 'CreateDocumentsController@uploadDocument',
                             'enctype' => 'multipart/form-data', 'role' => 'form']) !!}
