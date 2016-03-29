@@ -412,3 +412,6 @@ table.forCheckbox td.labelForCheckbox {
 .with-border {
     border: ridge 2px;
 }
+.bigger {
+    font-size: 110%;
+}

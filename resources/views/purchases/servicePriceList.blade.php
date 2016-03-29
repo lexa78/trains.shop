@@ -47,7 +47,7 @@
                                 <td align="center" valign="middle">{{ $service->short_name }}</td>
                                 <td align="center" valign="middle">{{ $service->unit }}</td>
                                 <td align="center" valign="middle">{{ $service->period }}</td>
-                                <td align="center" valign="middle">{{ $service->price }}</td>
+                                <td align="right" valign="middle">{{ $service->price }}&nbsp;р.</td>
                                 <td>
                                     <label class="button-3" for="modal-{{ $key + 1 }}">Подробно</label>
                                     @include('purchases._modal')

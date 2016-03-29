@@ -48,7 +48,7 @@
                                     {{--<td>{{  $key +1 }}</td>--}}
                                     <td>{!! link_to_route('showTrainCarProduct',$product['name'],['id'=>$product['product_id'], 'depoId'=>$product['depo_id']]) !!}</td>
                                     <td>{{$product['description']}}</td>
-                                    <td>{{$product['price']}}</td>
+                                    <td align="right">{{$product['price']}}&nbsp;р.</td>
                                     <td align="center" class="prod{{ $product['product_id'] }}">{{$product['amount']}}</td>
                                     <td>
                                         @if($userID)

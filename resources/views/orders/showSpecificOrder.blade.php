@@ -8,7 +8,7 @@
             <div class="sub-page-left box-9">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h3>Заказ № {{ $order->id }}</h3>
+                        <h3 class="bigger">Заказ № {{ $order->id }}</h3>
                         <p>Дата и время оформления заказа: <strong>{{ \App\Models\Order::formatDate($order->created_at, true) }}</strong></p>
                         <p>Заказ в депо: <strong>{{ $order->products_in_order[0]->stantion_name }}</strong></p>
                         <p>Статус заказа: <strong>{{ $order->status->status }}</strong></p>
@@ -29,16 +29,16 @@
                                 <tr>
                                     <td>{{ $number + 1 }}</td>
                                     <td  width="50%">{{ $product->product_name }}</td>
-                                    <td>{{ $product->product_price }}</td>
-                                    <td>{{ $product->product_amount }}</td>
-                                    <td>{{ $tempSum = $product->product_price * $product->product_amount }}</td>
+                                    <td align="right">{{ sprintf("%0.2f", $product->product_price) }}</td>
+                                    <td align="center">{{ $product->product_amount }}</td>
+                                    <td align="right">{{ sprintf("%0.2f", ($tempSum = $product->product_price * $product->product_amount)) }}</td>
                                 </tr>
                                 <? $totalSum += $tempSum; ?>
                             @endforeach
                         </table>
-                        <p>Сумма заказа: <b>{{ $totalSum }} руб.</b></p>
+                        <p>Сумма заказа: <b>{{ sprintf("%0.2f", $totalSum) }} руб.</b></p>
                         @if(count($documents))
-                            <h2>Документы</h2>
+                            <h4>Документы</h4>
                             <table width="100%">
                                 <tr>
                                     <td>Тип документа</td>

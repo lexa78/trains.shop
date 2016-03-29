@@ -55,6 +55,12 @@
             top: -20px;
             left: 180px;
         }
+        .text-right {
+            text-align: right;
+        }
+        .text-center {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -132,8 +138,8 @@
                         <td class="border">{{$item['product_name']}}</td>
                         <td class="border text-center">шт.</td>
                         <td class="border text-right">{{$item['product_amount']}}</td>
-                        <td class="border text-right">{{$item['product_price']}}</td>
-                        <td class="border text-right">{{ $sumInDepo = $item['product_price'] * $item['product_amount'] }}</td>
+                        <td class="border text-right">{{sprintf("%0.2f", $item['product_price'])}}</td>
+                        <td class="border text-right">{{ sprintf("%0.2f", ($sumInDepo = $item['product_price'] * $item['product_amount'])) }}</td>
                     </tr>
                     <?
                         $totalSumInDepo += $sumInDepo;
@@ -146,7 +152,7 @@
 
             <tr>
                 <td class="text-right" colspan="5"><b>Итого:</b></td>
-                <td class="border text-right"><b>{{ $totalSum }} руб.</b></td>
+                <td class="border text-right"><b>{{ sprintf("%0.2f", $totalSum) }} руб.</b></td>
             </tr>
             <tr>
                 <td class="text-right" colspan="5"><b>Без налога (НДС).</b></td>
@@ -155,10 +161,10 @@
             </tr>
             <tr>
                 <td class="text-right" colspan="5"><b>Всего к оплате:</b></td>
-                <td class="border text-right"><b>{{ $totalSum }} руб.</b></td>
+                <td class="border text-right"><b>{{ sprintf("%0.2f", $totalSum) }} руб.</b></td>
             </tr>
         </table>
-        Всего наименований {{ $productCount }}, на сумму {{ $totalSum }} руб.            <br>
+        Всего наименований {{ $productCount }}, на сумму {{ sprintf("%0.2f", $totalSum) }} руб.            <br>
         <b>{{ \App\Models\Order::num2str($totalSum) }}</b>
         {{--<div class="signBlock">--}}
             {{--<div class="signTitle">Руководитель предприятия</div> <div class="stamp">_______________</div> <div class="signTitle">({{ $selfFirm->face_fio }})</div>--}}

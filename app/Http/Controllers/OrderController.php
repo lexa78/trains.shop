@@ -195,69 +195,6 @@ class OrderController extends Controller {
 		}
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-//	public function invoice($orderNumber, $depoName, $look)
-//	{
-//		$selfFirmUser = User::with('firm')->where('role_id',1)->first();
-//
-//		$order = Order::where('id',$orderNumber)->first();
-//		$userCompany = User::with('firm')->where('id',$order->user_id)->first();
-//
-//		$products = unserialize($order->products);
-//		$firm = $userCompany->firm;
-//
-//		$productsArr = [];
-//		foreach($products as $productCart) {
-//            if($depoName == $productCart->price->stantion[0]->stantion_name) {
-//                $productsArr[$depoName][] = [
-//                    'product_name' => $productCart->product->name,
-//                    'product_amount' => $productCart->product_count,
-//                    'product_price' => $productCart->price->price
-//                ];
-//            }
-//		}
-//
-//		$date = DateTime::createFromFormat('Y-m-d H:i:s', $order->updated_at);
-//		$date = strtotime($date->format('d F Y'));
-//
-//		$pdf = App::make('dompdf.wrapper');
-//		$pdf->loadView('test',[
-//            'orderNumber'=>$order->id,
-//            'orderDate'=>date('d.m.Y',$date),
-//            'firm'=>$firm,
-//            'selfFirm'=>$selfFirmUser->firm,
-//            'products'=>$productsArr,
-//            'depoName'=>$depoName
-//        ]);
-//		//$pdf->save('invoices/invoice.pdf');
-//		if($look) {
-//			return $pdf->stream();
-//		} else {
-//			return $pdf->download('invoice.pdf');
-//		}
-//
-////		$selfFirmUser = User::with('firm')->where('role_id',1)->first();
-////
-////  //      $file = 'invoice.pdf';
-////
-////		$pdf = App::make('dompdf.wrapper');
-//////		$pdf->loadHTML('');
-////		$pdf->loadView('test',['orderNumber'=>5864, 'firm'=>$firm, 'selfFirm'=>$selfFirmUser->firm]);
-//////		$view =  View::make('test',['orderNumber'=>5864])->render();
-//////		$pdf->loadHTML($view);
-////	//	return $pdf->download('invoice.pdf');
-////   //     file_put_contents($file, $view);
-//////        $pdf->loadFile('C:\OpenServer\domains\trains.shop\public\invoices\invoice.html');
-////		return $pdf->stream();
-//////		return $pdf->save();
-////	//	dd($view);
-//	}
-
     public function showOrdersToAdmin($newOnly=false)
     {
         if($newOnly) {
