@@ -54,7 +54,7 @@
                 {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
                 {!! Form::open(['action' => 'OrderController@store', 'role' => 'form']) !!}
                 <div class="form-group">
-                    <label class="totalSum" for="oferta">Нажимая кнопку "Подтвердить", я принимаю условия <a href="#">Договора оферты</a></label>
+                    <label class="totalSum" for="oferta">Нажимая кнопку "Подтвердить", я принимаю условия <a href="/showOferta" target="_blank">Договора оферты</a></label>
                     <input type="checkbox" class="qwe" name="oferta" id="oferta">
                     <div class="col-md-6">
                         @if($errors->has('oferta'))

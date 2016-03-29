@@ -86,4 +86,8 @@ Route::get('createDoc/{order_id}/{is_torg}', ['as'=>'createDoc', 'uses'=>'Create
 Route::post('download', ['as'=>'downloadDoc', 'uses'=>'CreateDocumentsController@download']);
 Route::post('uploadDoc', ['as'=>'uploadDoc', 'uses'=>'CreateDocumentsController@uploadDocument']);
 
+Route::get('uploadOferta', ['as'=>'uploadOferta.index', 'uses'=>'CreateDocumentsController@uploadOfertaIndex']);
+Route::post('uploadOferta', ['as'=>'uploadOferta', 'uses'=>'CreateDocumentsController@uploadOferta']);
+Route::get('showOferta', ['as'=>'showOferta', 'uses'=>'CreateDocumentsController@showOferta']);
+
 Route::post('admin/send_documents', ['as'=>'sendCheckedDocuments', 'uses'=>'OrderController@sendCheckedDocuments']);

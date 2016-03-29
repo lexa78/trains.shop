@@ -17,6 +17,7 @@ use Config;
 use DateTime;
 use Illuminate\Http\Request;
 use Response;
+use Storage;
 
 class CreateDocumentsController extends Controller {
 
@@ -27,8 +28,8 @@ class CreateDocumentsController extends Controller {
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except'=>['create', 'uploadDocument']]);
-        $this->middleware('admin', ['only'=>['create', 'uploadDocument']]);
+        $this->middleware('auth', ['except'=>['create', 'uploadDocument', 'uploadOfertaIndex', 'uploadOferta']]);
+        $this->middleware('admin', ['only'=>['create', 'uploadDocument', 'uploadOfertaIndex', 'uploadOferta']]);
     }
 
     /**
@@ -120,6 +121,41 @@ class CreateDocumentsController extends Controller {
        } else {
            return redirect()->back()->withInput()->with('alert-danger','Ошибка загрузки файла. Файл не загружен.');
        }
+    }
 
+    public function uploadOfertaIndex() {
+        return view('documents.oferta');
+    }
+
+    public function uploadOferta(Document $document, Requests\UploadOferta $request) {
+        $file = $request->file('docFileName'); //Сам файл
+        if($pathToFile = Bus::dispatch(new App\Commands\UploadOferta($file))) {
+            return redirect()->back()->with('alert-success','Файл загружен.');
+        } else {
+            return redirect()->back()->withInput()->with('alert-danger','Ошибка загрузки файла. Файл не загружен.');
+        }
+    }
+
+    public function showOferta()
+    {
+        $files = Storage::files(DIRECTORY_SEPARATOR.'documents'.DIRECTORY_SEPARATOR.'oferta');
+        $file = array_shift($files);
+        $file = storage_path().DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.$file;
+
+        $extension = explode('.',$file);
+        $extension = strtolower(end($extension));
+
+        $contentType = 'application/pdf';
+        if($extension != 'pdf') {
+            $contentType = 'image/'.$extension;
+        }
+
+        $shortFileName = explode('/',$file);
+        $shortFileName = end($shortFileName);
+
+        return Response::make(file_get_contents($file), 200, [
+            'Content-Type' => $contentType,
+            'Content-Disposition' => 'inline; '.$shortFileName,
+        ]);
     }
 }
