@@ -48,7 +48,7 @@ class SendEmailWithCheckedDocs extends Command implements SelfHandling {
 
                 foreach ($this->fileNames as $item) {
                     $partsOfFile = self::getFileNameInParts($item['fName'], $item['type']);
-                    $message->attach($item['fName'], ['as' => $partsOfFile['fNameForUser'] . $this->orderId, 'mime' => $partsOfFile['mime']]);
+                    $message->attach($item['fName'], ['as' => $partsOfFile['fNameForUser'] . $this->orderId.'.'.$partsOfFile['extension'], 'mime' => $partsOfFile['mime']]);
                 }
             });
         } catch(Exception $e) {
@@ -70,7 +70,7 @@ class SendEmailWithCheckedDocs extends Command implements SelfHandling {
             $mime = 'image/'.$extension;
         }
         $fNameForUser = Order::getDocTypeName($type, true).' для заказа №';
-        return ['fNameForUser'=>$fNameForUser, 'mime'=>$mime];
+        return ['fNameForUser'=>$fNameForUser, 'mime'=>$mime, 'extension'=>$extension];
     }
 
 }

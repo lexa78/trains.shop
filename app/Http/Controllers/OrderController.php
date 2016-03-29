@@ -4,6 +4,8 @@ use App;
 use App\Commands\CreateInvoice;
 use App\Commands\SendEmailWithCheckedDocs;
 use App\Commands\SendEmailWithInvoices;
+use App\Commands\SendWithTanksForOrder;
+use App\Commands\SendWithTanksForServiceOrder;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -114,10 +116,11 @@ class OrderController extends Controller {
 		if(Auth::user()->id == (int) $userID) {
 
             $productsByDepoArr = [];
+            $newProductsByDepoArr = [];
             $orderNumbers = [];
 
 			DB::transaction(function()
-				use($userID, &$productsByDepoArr, &$orderNumbers)
+				use($userID, &$productsByDepoArr, &$orderNumbers, &$newProductsByDepoArr)
 			{
                 $products = ProductCart::with('product.condition','price.stantion')->where('user_id',$userID)->get();
 
@@ -160,6 +163,7 @@ class OrderController extends Controller {
                         $productsInOrder->stantion_name = $product[5];
                         $productsInOrder->save();
                     }
+                    $newProductsByDepoArr[$order->id] = $productsArr;
                     //Запускаем команду на формирование счета
 //                    Bus::dispatch(new CreateInvoice($order, Stantion::find($depoID)));
                 }
@@ -179,10 +183,11 @@ class OrderController extends Controller {
 //                $fileNames[] = $file->file_name;
 //            }
 
-//            $messageParams = [];
-//            $messageParams['productByDepoAsKey'] = $productsByDepoArr;
+            $messageParams = [];
+            $messageParams['productByDepoWithOrderIdAsKey'] = $newProductsByDepoArr;
 //            //Запускаем команду на отправку email
 //            Bus::dispatch(new SendEmailWithInvoices($messageParams, $fileNames));
+            Bus::dispatch(new SendWithTanksForOrder($messageParams));
 
 			return view('orders.success',['p'=>'purchases', 'ordersAmount'=>count($productsByDepoArr)]);
 		} else {
@@ -395,7 +400,9 @@ class OrderController extends Controller {
             $serviceOrder->station_names = $request->station_names;
         }
         $serviceOrder->save();
-        //todo нужно ли отправлять письмо и создавать документы?
+        //todo нужно ли создавать документы?
+        $messageParams['service'] = $serviceOrder;
+        Bus::dispatch(new SendWithTanksForServiceOrder($messageParams));
         return view('orders.serviceSuccess',['p'=>'purchases', 'serviceName'=>$service->short_name]);
 	}
 

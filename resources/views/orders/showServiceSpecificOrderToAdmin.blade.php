@@ -75,7 +75,7 @@
                                             $tempFileName = explode('_', $shortFileName);
                                             $tempFileName = explode('.', end($tempFileName));
                                             $fileDate = date('d.m.Y', $tempFileName[0]);
-                                            $shownFileName = \App\Models\Order::getDocTypeName($document->type, true).' №'.$document->order->id.'.'.$tempFileName[1];
+                                            $shownFileName = \App\Models\Order::getDocTypeName($document->type, true).' №'.$document->service_order->id.'.'.$tempFileName[1];
                                         ?>
                                         {{ \App\Models\Order::getDocTypeName($document->type, true) }}, загруженный {{ $fileDate }}
                                         <br>

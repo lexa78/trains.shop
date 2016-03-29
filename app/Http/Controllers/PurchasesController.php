@@ -31,16 +31,73 @@ class PurchasesController extends Controller {
 
 	public function trainCar(Region $region, ProductCart $productCart)
 	{
-		$regions = $region->all();
-		$regionsWithRelations = [];
-		foreach($regions as $oneRegion) {
-			$regionsWithRelations[] = $region->with('train_road.stantion')->where('id',$oneRegion->id)->first();
-		}
+		$regionsWithRelations = $region->with('train_road.stantion')->get();
+//		$regions = $region->all();
+//		$regionsWithRelations = [];
+//		foreach($regions as $key => $oneRegion) {
+//			$regionsWithRelations[$key] = $region->with('train_road.stantion')->where('id',$oneRegion->id)->first();
+//		}
 		$sumAndCount = $this->getGeneralViewOfCart($productCart);
+
+        $regionsWithoutEmptyDepos = [];
+		$keysForUnset = [];
+//**********************************************************************
+        foreach($regionsWithRelations as $oneRegion) {
+            foreach($oneRegion->train_road as $trKey => $tr ) {
+                if(count($tr->stantion)) {
+					if( ! isset($regionsWithoutEmptyDepos[$oneRegion->id])) {
+						$regionsWithoutEmptyDepos[$oneRegion->id] = $oneRegion;
+					}
+					foreach($tr->stantion as $depoKey => $depo) {
+						$flag = true;
+						foreach($depo->price as $price) {
+							if($price->amount) {
+								$flag = true;
+							} else {
+								$flag = false;
+							}
+						}
+						if( ! $flag) {
+							$keysForUnset[] = ['region'=>$oneRegion->id, 'tr'=>$trKey, 'depo'=>$depoKey];
+						}
+					}
+                } /*else {
+					$keysForUnset[] = ['region'=>$oneRegion->id, 'tr'=>$trKey];
+				}*/
+            }
+        }
+		foreach($keysForUnset as $key) {
+			if(isset($regionsWithoutEmptyDepos[$key['region']])) {
+				unset($regionsWithoutEmptyDepos[$key['region']]->train_road[$key['tr']]->stantion [$key['depo']]);
+			}
+		}
+//************************************************************************
+
+		$regionsWithoutEmptyDeposNew = [];
+		$keysForUnset = [];
+//**************************************************
+        foreach($regionsWithoutEmptyDepos as $oneRegion) {
+            foreach($oneRegion->train_road as $trKey => $tr ) {
+                if(count($tr->stantion)) {
+					if( ! isset($regionsWithoutEmptyDeposNew[$oneRegion->id])) {
+						$regionsWithoutEmptyDeposNew[$oneRegion->id] = $oneRegion;
+					}
+                } else {
+					$keysForUnset[] = ['region'=>$oneRegion->id, 'tr'=>$trKey];
+				}
+            }
+        }
+
+		foreach($keysForUnset as $key) {
+			if(isset($regionsWithoutEmptyDepos[$key['region']])) {
+				unset($regionsWithoutEmptyDepos[$key['region']]->train_road [$key['tr']]);
+			}
+		}
 
 		return view('purchases.trainCar', [
 			                                'p'=>'purchases',
-											'regions'=>$regionsWithRelations,
+//											'regions'=>$regionsWithRelations,
+											'regions'=>$regionsWithoutEmptyDeposNew,
 											'productsCount'=>$sumAndCount['productsCount'],
 											'productsSum'=>$sumAndCount['productsSum']
 		]);

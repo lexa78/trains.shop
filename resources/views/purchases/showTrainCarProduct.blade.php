@@ -37,7 +37,7 @@
                         <p><b>Артикул:&nbsp;</b>{{ $product->article }}</p>
                         <p><b>Описание:&nbsp;</b>{{ $product->description }}</p>
                         <p><b>Состояние:&nbsp;</b>{{ $productParams[0]->condition }}</p>
-                        <div class="totalSum cnt">Цены и количества в других депо</div>
+                        <div class="totalSum cnt">Цены и количества в депо</div>
                         @if(! $userID)
                             <p class="alert alert-warning">Чтобы появилась возможность добавлять товары в корзину,
                                 необходимо <a href="{{ url('/auth/login') }}">Войти</a> или
@@ -55,11 +55,7 @@
                                 <tr align="center"><td colspan="5"><b>{{ $key }}:</b></td></tr>
                                 @foreach($price as $item)
                                     <tr align="center">
-                                        @if($item['stantion_id'] == $depoId)
-                                            <td align="center" valign="middle"><b>{{ $item['stantion_name'] }}</b></td>
-                                        @else
-                                            <td align="center" valign="middle">{{ $item['stantion_name'] }}</td>
-                                        @endif
+                                        <td align="center" valign="middle">{{ $item['stantion_name'] }}</td>
                                         <td align="center" valign="middle">{{ $item['price'] }}</td>
                                         <td align="center" valign="middle">{{ $item['amount'] }}</td>
                                         <td>

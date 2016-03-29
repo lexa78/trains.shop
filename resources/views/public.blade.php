@@ -69,6 +69,12 @@
             <div class="clear"></div>
         </nav>
     </header>
+    @if (session('successRegister'))
+        <div class="alert alert-success">
+            {{ session('successRegister') }}
+        </div>
+    @endif
+
     <!--==============================content================================-->
     @yield('content')
     <!--==============================footer=================================-->

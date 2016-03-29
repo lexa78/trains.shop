@@ -5,10 +5,10 @@
 <?
     $totalSum = 0;
 ?>
-@foreach($productByDepoAsKey as $depoID => $products)
-    <h2>Номер заказа: {{ $depoID }}</h2>
-    <p>Заказ в депо {{ \App\Models\Stantion::find($depoID)->first()->stantion_name }}</p>
-    <br>
+@foreach($productByDepoWithOrderIdAsKey as $orderID => $products)
+    <h2>Номер заказа: {{ $orderID }}</h2>
+    {{--<p>Заказ в депо {{ \App\Models\Stantion::find($depoID)->first()->stantion_name }}</p>--}}
+    <p>Заказ в депо {{ $products[0][5] }}</p>
     <h3>Заказанные продукты:</h3>
     <ol>
         <?
