@@ -59,16 +59,11 @@ class AdminController extends Controller {
 				    'statusesCount'=>$statusesCount, 'newOrdersCount'=>$newOrdersCount, 'serviceStatusesCount'=>$serviceStatusesCount,
 		            'newServiceOrdersCount'=>$newServiceOrdersCount]);
 	}
-//
-//	/**
-//	 * Show the form for creating a new resource.
-//	 *
-//	 * @return Response
-//	 */
-//	public function create()
-//	{
-//		//
-//	}
+
+	public function pageTexts()
+	{
+		return view('admin.pageTexts');
+	}
 //
 //	/**
 //	 * Store a newly created resource in storage.

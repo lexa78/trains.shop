@@ -1,5 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\AboutPage;
+use App\Models\ContactPage;
+use App\Models\MainPage;
+use App\Models\ProviderPage;
 use Auth;
 
 class WelcomeController extends Controller {
@@ -32,22 +36,39 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('static.welcome', ['p'=>'main']);
+        $main = MainPage::find(1);
+        if( ! $main) {
+            abort(404);
+        }
+        return view('static.welcome', ['p'=>'main', 'text'=>$main->text,
+                'l_p_text'=>$main->l_p_text, 'r_p_text'=>$main->r_p_text]);
 	}
 
 	public function about()
     {
-        return view('static.about', ['p'=>'about']);
+        $about = AboutPage::find(1);
+        if( ! $about) {
+            abort(404);
+        }
+        return view('static.about', ['p'=>'about', 'text'=>$about->text]);
     }
 
 	public function info()
     {
-        return view('static.info', ['p'=>'info']);
+        $info = ProviderPage::find(1);
+        if( ! $info) {
+            abort(404);
+        }
+        return view('static.info', ['p'=>'info', 'text'=>$info->text]);
     }
 
 	public function contacts()
     {
-        return view('static.contacts', ['p'=>'contacts']);
+		$contacts = ContactPage::find(1);
+        if( ! $contacts) {
+            abort(404);
+        }
+        return view('static.contacts', ['p'=>'contacts', 'text'=>$contacts->text]);
     }
 
 }

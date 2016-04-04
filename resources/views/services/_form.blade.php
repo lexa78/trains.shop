@@ -14,7 +14,7 @@
         @endif
     </div>
     <div class="form-group">
-        {!! Form::textArea('full_name', $service ? $service->full_name : $service, ['placeholder'=>'Полное название услуги', 'class'=>'form-control', 'required'=>true]) !!}
+        {!! Form::textArea('full_name', $service ? $service->full_name : $service, ['placeholder'=>'Полное название услуги', 'class'=>'form-control', 'id'=>'withTags', 'required'=>true]) !!}
         @if($errors->has('full_name'))
             <div class="alert-danger alert">{!! $errors->first('full_name') !!}</div>
         @endif
