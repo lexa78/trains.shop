@@ -28,8 +28,9 @@ class CreateDocumentsController extends Controller {
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except'=>['create', 'uploadDocument', 'uploadOfertaIndex', 'uploadOferta']]);
+        $this->middleware('auth', ['except'=>['create', 'uploadDocument', 'uploadOfertaIndex', 'uploadOferta', 'showOferta']]);
         $this->middleware('admin', ['only'=>['create', 'uploadDocument', 'uploadOfertaIndex', 'uploadOferta']]);
+        $this->middleware('general', ['only'=>['showOferta']]);
     }
 
     /**

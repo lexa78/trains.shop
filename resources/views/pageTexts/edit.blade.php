@@ -23,6 +23,7 @@
     <script type="text/javascript" src="{{ asset('/js/tinymce/tinymce.min.js') }}"></script>
     <script type="text/javascript">
         tinymce.init({
+            content_css : "/css/tinyMce_content.css",
             language : "ru",
             selector : "textarea",
             plugins : ["advlist autolink lists link image charmap print preview anchor", "searchreplace visualblocks code fullscreen", "insertdatetime media table contextmenu paste"],

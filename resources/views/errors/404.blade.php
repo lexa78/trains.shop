@@ -45,7 +45,7 @@
                 </li>
                 <li>{!! link_to_route('contacts','Контакты') !!}</li>
                 @if (Auth::guest())
-                    <li  class="{{ ($p == 'login') ? 'current' : null}}">
+                    <li>
                         <a href="{{ url('/auth/login') }}">Войти</a>
                         <ul>
                             <li><a href="{{ url('/auth/register') }}">Зарегистрироваться</a></li>
@@ -84,43 +84,14 @@
 
                             <h3>Попробуйте поискать нужную Вам информацию в других разделах нашего сайта</h3>
 
-                            <div class="row-fluid">
-                                <div class="span10">
-                                    <p>{!! link_to_route('about','О компании') !!} - на этой странице Вы найдете информацию о нашей компании.</p>
-                                </div>
-                            </div>
-
                             <hr>
 
                             <div class="row-fluid">
                                 <div class="span10">
-                                    <p>{!! link_to_route('info','Для поставщиков') !!} - если Вы являетесь поставщиком, тогда, Вам обязательно нужно посетить эту страницу.</p>
+                                    <p>Начните с {!! link_to_route('main','Главной') !!} - страницы.</p>
                                 </div>
                             </div>
 
-                            <hr>
-
-                            <div class="row-fluid">
-                                <div class="span10">
-                                    <p>{!! link_to_route('contacts','Контакты') !!} - вся информация о нашей компании предоставлена на этой странице.</p>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="row-fluid">
-                                <div class="span10">
-                                    <p>{!! link_to_route('trainCar','Каталог запчастей грузовых вагонов') !!} - на этой странице Вы найдете цены и количества запчастей в разных депо.</p>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="row-fluid">
-                                <div class="span10">
-                                    <p>{!! link_to_route('trainCarService','Услуги по грузовым вагонам') !!} - ознакомиться с услугами, которые мы предоставляем, можно на этой странице.</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
