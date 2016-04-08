@@ -49,14 +49,13 @@
                     @endforeach
                 </table>
                 <p class="totalSum">Итого на сумму <b>{{ $totalSum }}</b> руб.</p>
-                <br>
                 {{--<form class="form-horizontal" role="form" method="POST" action="{{ url('/store_order') }}">--}}
                 {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
                 {!! Form::open(['action' => 'OrderController@store', 'role' => 'form']) !!}
                 <div class="form-group">
                     <label class="totalSum" for="oferta">Нажимая кнопку "Подтвердить", я принимаю условия <a href="{{ url('/showOferta') }}" target="_blank">Договора оферты</a></label>
                     <input type="checkbox" class="qwe" name="oferta" id="oferta">
-                    <div class="col-md-6">
+                    <div>
                         @if($errors->has('oferta'))
                             <div class="alert-danger alert">{!! $errors->first('oferta') !!}</div>
                         @endif
@@ -75,7 +74,7 @@
                 {{--</div>--}}
                 {{--</div>--}}
                 {{--</form>--}}
-                <div class="gasket"></div>
+                {{--<div class="gasket"></div>--}}
                 {!! Form::submit('Подтвердить', ['class'=>'button float-l']) !!}
                 {!! Form::close() !!}
 

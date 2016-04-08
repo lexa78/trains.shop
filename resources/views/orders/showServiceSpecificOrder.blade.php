@@ -35,21 +35,21 @@
                             <h2>Документы</h2>
                             <table width="100%">
                                 <tr>
-                                    <td>Тип документа</td>
-                                    <td>Загружен</td>
+                                    <td align="center">Тип документа</td>
+                                    <td align="center">Загружен</td>
                                 </tr>
                                 <? $tempType = 0;?>
                                 @foreach($documents as $document)
                                     <tr>
                                         @if($document->type != $tempType)
-                                            <td>{{ \App\Models\Order::getDocTypeName($document->type, true) }}</td>
+                                            <td valign="middle" align="center">{{ \App\Models\Order::getDocTypeName($document->type, true) }}</td>
                                             <?
                                             $tempType = $document->type;
                                             ?>
                                         @else
                                             <td></td>
                                         @endif
-                                        <td>
+                                        <td valign="middle">
                                             <?
                                             $shortFileName = explode(DIRECTORY_SEPARATOR, $document->file_name);
                                             $shortFileName = end($shortFileName);
@@ -58,21 +58,25 @@
                                             $fileDate = date('d.m.Y', $tempFileName[0]);
                                             $shownFileName = \App\Models\Order::getDocTypeName($document->type, true).' №'.$document->service_order->id.'.'.$tempFileName[1];
                                             ?>
-                                            {{ \App\Models\Order::getDocTypeName($document->type, true) }}, загруженный {{ $fileDate }}
-                                            {!! Form::open(['route' => 'downloadDoc', 'role' => 'form', 'class'=>'inlineForm']) !!}
-                                            {!! Form::hidden('shortFileName', $shortFileName) !!}
-                                            {!! Form::hidden('shownFileName', $shownFileName) !!}
-                                            {!! Form::hidden('download', true) !!}
-                                            {!! Form::submit('Скачать', ['class'=>'button withWidth']) !!}
-                                            {!! Form::close() !!}
-                                            &nbsp;
-                                            {!! Form::open(['route' => 'downloadDoc', 'role' => 'form', 'class'=>'inlineForm']) !!}
-                                            {!! Form::hidden('shortFileName', $shortFileName) !!}
-                                            {!! Form::hidden('shownFileName', $shownFileName) !!}
-                                            {!! Form::hidden('download', false) !!}
-                                            {!! Form::hidden('content', $tempFileName[1]) !!}
-                                            {!! Form::submit('Посмотреть', ['class'=>'button-2 myBg withWidth']) !!}
-                                            {!! Form::close() !!}
+                                            <div class="float-l withMarginTop5">
+                                                {{ \App\Models\Order::getDocTypeName($document->type, true) }}, загруженный {{ $fileDate }}
+                                            </div>
+                                            <div class="float-r">
+                                                {!! Form::open(['route' => 'downloadDoc', 'role' => 'form', 'class'=>'inlineForm']) !!}
+                                                {!! Form::hidden('shortFileName', $shortFileName) !!}
+                                                {!! Form::hidden('shownFileName', $shownFileName) !!}
+                                                {!! Form::hidden('download', true) !!}
+                                                {!! Form::submit('Скачать', ['class'=>'button-fucking-1 withWidth']) !!}
+                                                {!! Form::close() !!}
+                                                &nbsp;
+                                                {!! Form::open(['route' => 'downloadDoc', 'role' => 'form', 'class'=>'inlineForm']) !!}
+                                                {!! Form::hidden('shortFileName', $shortFileName) !!}
+                                                {!! Form::hidden('shownFileName', $shownFileName) !!}
+                                                {!! Form::hidden('download', false) !!}
+                                                {!! Form::hidden('content', $tempFileName[1]) !!}
+                                                {!! Form::submit('Посмотреть', ['class'=>'button-fucking-2 myBg withWidth']) !!}
+                                                {!! Form::close() !!}
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
