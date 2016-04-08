@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Factory;
+use App\Models\Firm;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Region;
@@ -15,6 +16,7 @@ use App\Models\ServiceStatus;
 use App\Models\Stantion;
 use App\Models\Status;
 use App\Models\TrainRoad;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Year;
 
@@ -54,69 +56,16 @@ class AdminController extends Controller {
 		$newOrdersCount = Order::where('is_new',1)->count();
 		$newServiceOrdersCount = ServiceOrder::where('is_new',1)->count();
 
+        $customers = Firm::where('accountant_fio',null)->get();
+
 		return view('admin.adminArea',['regionsCount'=>$regionsCount, 'tRoadsCount'=>$tRoadsCount, 'stationsCount'=>$stationsCount,
 					'condCount'=>$condCount, 'catCount'=>$catCount, 'productsCount'=>$productsCount, 'servicesCount'=>$servicesCount,
 				    'statusesCount'=>$statusesCount, 'newOrdersCount'=>$newOrdersCount, 'serviceStatusesCount'=>$serviceStatusesCount,
-		            'newServiceOrdersCount'=>$newServiceOrdersCount]);
+		            'newServiceOrdersCount'=>$newServiceOrdersCount, 'customers'=>$customers]);
 	}
 
 	public function pageTexts()
 	{
 		return view('admin.pageTexts');
 	}
-//
-//	/**
-//	 * Store a newly created resource in storage.
-//	 *
-//	 * @return Response
-//	 */
-//	public function store()
-//	{
-//		//
-//	}
-//
-//	/**
-//	 * Display the specified resource.
-//	 *
-//	 * @param  int  $id
-//	 * @return Response
-//	 */
-//	public function show($id)
-//	{
-//		//
-//	}
-//
-//	/**
-//	 * Show the form for editing the specified resource.
-//	 *
-//	 * @param  int  $id
-//	 * @return Response
-//	 */
-//	public function edit($id)
-//	{
-//		//
-//	}
-//
-//	/**
-//	 * Update the specified resource in storage.
-//	 *
-//	 * @param  int  $id
-//	 * @return Response
-//	 */
-//	public function update($id)
-//	{
-//		//
-//	}
-//
-//	/**
-//	 * Remove the specified resource from storage.
-//	 *
-//	 * @param  int  $id
-//	 * @return Response
-//	 */
-//	public function destroy($id)
-//	{
-//		//
-//	}
-
 }

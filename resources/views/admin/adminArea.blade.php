@@ -19,6 +19,20 @@
                                         <p>Новых заказов запчастей нет.</p>
                                     @endif
                                     <p>{!! link_to_route('showOrdersToAdmin', 'Посмотреть все заказы запчастей') !!}</p>
+                                    <hr>
+                                    <p>
+                                        {!! Form::open(['action' => ['OrderController@showFilteredOrdersToAdmin'], 'role' => 'form']) !!}
+                                        <label for="filter">Фильтр по заказчику</label><br>
+                                        <select id="filter" name="customer_firm">
+                                        @foreach($customers as $customer)
+                                            <option value="{{ $customer->id }}">{{ $customer->organisation_name }}</option>
+                                        @endforeach
+                                        </select>
+                                        <br>
+                                        <br>
+                                        {!! Form::submit( 'Посмотреть',['class'=>'btn btn-success']) !!}
+                                        {!! Form::close() !!}
+                                    </p>
                                 </td>
                                 <td>
                                     <h3>Заказы услуг</h3>
@@ -29,6 +43,20 @@
                                         <p>Новых заказов услуг нет.</p>
                                     @endif
                                     <p>{!! link_to_route('showServiceOrdersToAdmin', 'Посмотреть все заказы услуг') !!}</p>
+                                    <hr>
+                                    <p>
+                                        {!! Form::open(['action' => ['OrderController@showServiceFilteredOrdersToAdmin'], 'role' => 'form']) !!}
+                                        <label for="filter">Фильтр по заказчику</label><br>
+                                        <select id="filter" name="customer_firm">
+                                            @foreach($customers as $customer)
+                                                <option value="{{ $customer->id }}">{{ $customer->organisation_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <br>
+                                        <br>
+                                        {!! Form::submit( 'Посмотреть',['class'=>'btn btn-success']) !!}
+                                        {!! Form::close() !!}
+                                    </p>
                                 </td>
                             </tr>
                         </table>

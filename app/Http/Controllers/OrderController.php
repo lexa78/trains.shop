@@ -206,6 +206,19 @@ class OrderController extends Controller {
         }
     }
 
+    public function showFilteredOrdersToAdmin(Request $request)
+    {
+        $firmId = (int)$request->customer_firm;
+        if( ! $firmId) {
+            return redirect('fatal_error')->with('alert-danger','Запрашиваемой организации не найдено');
+        }
+        $firm = Firm::find($firmId);
+        $orders = Order::latest('created_at')->with('products_in_order.stantion','status','firm')
+                ->where('firm_id',$firmId)
+                ->get();
+        return view('orders.showOrdersToAdmin',['orders'=>$orders, 'newOnly'=>false, 'firm'=>$firm->organisation_name]);
+    }
+
     public function showServiceOrdersToAdmin($newOnly=false)
     {
         if($newOnly) {
@@ -215,6 +228,20 @@ class OrderController extends Controller {
             $orders = ServiceOrder::latest('created_at')->with('service_status','firm')->get();
             return view('orders.showServiceOrdersToAdmin',['orders'=>$orders, 'newOnly'=>$newOnly]);
         }
+    }
+
+    public function showServiceFilteredOrdersToAdmin(Request $request)
+    {
+        $firmId = (int)$request->customer_firm;
+        if( ! $firmId) {
+            return redirect('fatal_error')->with('alert-danger','Запрашиваемой организации не найдено');
+        }
+        $firm = Firm::find($firmId);
+
+        $orders = ServiceOrder::latest('created_at')->with('service_status','firm')
+                ->where('firm_id',$firmId)
+                ->get();
+        return view('orders.showServiceOrdersToAdmin',['orders'=>$orders, 'newOnly'=>false, 'firm'=>$firm->organisation_name]);
     }
 
     public function showOrders()
