@@ -17,7 +17,8 @@
                         <table border="1" width="100%">
                             <tr align="center">
                                 <td>Депо</td>
-                                <td>Цена</td>
+                                <td>Ставка НДС</td>
+                                <td>Цена с НДС</td>
                                 <td>Количество</td>
                             </tr>
                             @foreach($prices as $key => $price)
@@ -25,6 +26,7 @@
                                 @foreach($price as $item)
                                     <tr align="center">
                                         <td>{{ $item['stantion_name'] }}</td>
+                                        <td>{{ $item['nds'] }}</td>
                                         <td>{{ $item['price'] }}</td>
                                         <td>{{ $item['amount'] }}</td>
                                     </tr>

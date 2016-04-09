@@ -54,7 +54,8 @@
             <table border="1" width="100%">
                 <tr align="center">
                     <td>Депо</td>
-                    <td>Цена</td>
+                    <td>Ставка НДС</td>
+                    <td>Цена с НДС</td>
                     <td>Количество</td>
                 </tr>
             @foreach($prices as $key => $price)
@@ -70,6 +71,16 @@
                 @foreach($price[$trName] as $item)
                     <tr align="center">
                         <td>{{ $item['stantion_name'] }}</td>
+                        <td>
+                            <select name="vat{{ $item['stantion_id'] }}" class="form-control">
+                                @foreach($VAT_rate as $key => $vat)
+                                    <option value="{{ $key }}" {{ ($key == $item['nds']) ? 'selected' : null }}>{{ $vat }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('vat'.$item['stantion_id']))
+                                <div class="alert-danger alert">{!! $errors->first('vat'.$item['stantion_id']) !!}</div>
+                            @endif
+                        </td>
                         <td>
                             {!! Form::text('price'.$item['stantion_id'], $item['price'], ['placeholder'=>'Цена товара в депо '.$item['stantion_name'], 'class'=>'form-control priceForAll'.$key, 'required'=>true]) !!}
                             @if($errors->has('price'.$item['stantion_id']))
@@ -101,12 +112,23 @@
                             <table border="1" width="100%">
                                 <tr>
                                     <td>Депо</td>
-                                    <td>Цена</td>
+                                    <td>Ставка НДС</td>
+                                    <td>Цена с НДС</td>
                                     <td>Количество</td>
                                 </tr>
                                 @foreach($trainRoad->stantion as $depo)
                                         <tr>
                                             <td>{{ $depo->stantion_name }}</td>
+                                            <td>
+                                                <select name="vat{{ $depo->id }}" class="form-control">
+                                                    @foreach($VAT_rate as $key => $vat)
+                                                        <option value="{{ $key }}">{{ $vat }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if($errors->has('vat'.$depo->id))
+                                                    <div class="alert-danger alert">{!! $errors->first('vat'.$depo->id) !!}</div>
+                                                @endif
+                                            </td>
                                             <td>
                                                 {!! Form::text('price'.$depo->id, 0.00, ['placeholder'=>'Цена товара в депо '.$depo->stantion_name, 'class'=>'form-control priceForAll'.$trainRoad->id, 'required'=>true]) !!}
                                                 @if($errors->has('price'.$depo->id))

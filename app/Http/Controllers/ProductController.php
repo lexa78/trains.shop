@@ -50,10 +50,12 @@ class ProductController extends Controller {
 		$conditions = $condition->all();
 		$categories = $category->all();
 		$trainRoads = $trainRoad->with('stantion')->get();
+		$VAT_rate = Product::getAllVAT_rate();
 
 		return view('products.create',['product'=>null,
 			        'conditions'=>$conditions, 'conditionID'=>null, 'categories'=>$categories,
-					'categoryID'=>null, 'trainRoads'=>$trainRoads, 'pricesArr'=>null]);
+					'categoryID'=>null, 'trainRoads'=>$trainRoads, 'pricesArr'=>null,
+                    'VAT_rate'=>$VAT_rate,]);
 	}
 
 	/**
@@ -76,6 +78,7 @@ class ProductController extends Controller {
 		foreach($depos as $depo) {
 			$validationRules['price'.$depo->id] = 'required|numeric';
 			$validationRules['amount'.$depo->id] = 'required|numeric';
+			$validationRules['vat'.$depo->id] = 'required|numeric';
 		}
 
 		$v = Validator::make($request->all(), $validationRules);
@@ -104,8 +107,10 @@ class ProductController extends Controller {
 				$price = new Price();
 				$priceInputName = 'price'.$depo->id;
 				$priceInputAmount = 'amount'.$depo->id;
+				$priceInputVAT = 'vat'.$depo->id;
 				$price->price = $request->$priceInputName;
 				$price->amount = $request->$priceInputAmount;
+				$price->nds = $request->$priceInputVAT;
 				$price->save();
 
 				$depo->price()->attach($price->id);
@@ -148,6 +153,7 @@ class ProductController extends Controller {
 				'stantion_name' => $price->stantion[0]->stantion_name,
 				'price' => $price->price,
 				'amount' => $price->amount,
+				'nds' => Product::getAllVAT_rateByKey($price->nds),
 			];
 		}
 		unset($prices);
@@ -172,6 +178,8 @@ class ProductController extends Controller {
 			abort(404);
 		}
 
+        $VAT_rate = Product::getAllVAT_rate();
+
 		$conditions = $condition->all();
 		$categories = $category->all();
 
@@ -184,13 +192,15 @@ class ProductController extends Controller {
 				'stantion_id' => $price->stantion[0]->id,
 				'price' => $price->price,
 				'amount' => $price->amount,
+				'nds' => $price->nds,
 			];
 		}
 		unset($prices);
 
 		return view('products.edit',['product'=>$product, 'conditions'=>$conditions,
             'conditionID'=>$product->condition_id, 'categories'=>$categories,
-			'categoryID'=>$product->category_id, 'id'=>$product->id, 'prices'=>$pricesArr]);
+			'categoryID'=>$product->category_id, 'id'=>$product->id, 'prices'=>$pricesArr,
+            'VAT_rate'=>$VAT_rate]);
 	}
 
 	/**
@@ -223,6 +233,7 @@ class ProductController extends Controller {
 		foreach($depos as $depo) {
 			$validationRules['price'.$depo->id] = 'required|numeric';
 			$validationRules['amount'.$depo->id] = 'required|numeric';
+			$validationRules['vat'.$depo->id] = 'required|numeric';
 		}
 
 		$v = Validator::make($request->all(), $validationRules);
@@ -251,8 +262,10 @@ class ProductController extends Controller {
 			foreach($prices as $price) {
 				$priceInputName = 'price'.$price->stantion[0]->id;
 				$priceInputAmount = 'amount'.$price->stantion[0]->id;
+				$priceInputVAT = 'vat'.$price->stantion[0]->id;
 				$price->price = $request->$priceInputName;
 				$price->amount = $request->$priceInputAmount;
+				$price->nds = $request->$priceInputVAT;
 				$price->save();
 			}
 		});

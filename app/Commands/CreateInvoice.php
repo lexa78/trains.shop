@@ -5,6 +5,7 @@ use App\Commands\Command;
 
 use App\Models\Document;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Stantion;
 use App\Models\User;
 use App\MyDesigns\Classes\Utils;
@@ -51,7 +52,8 @@ class CreateInvoice extends Command implements SelfHandling {
             $productsArr[$this->depo->id][] = [
                 'product_name' => $product->product_name,
                 'product_amount' => $product->product_amount,
-                'product_price' => $product->product_price
+                'product_price' => $product->product_price,
+                'product_nds' => Product::getVAT_calculationByKey($product->nds),
             ];
         }
 

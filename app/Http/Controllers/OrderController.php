@@ -133,6 +133,8 @@ class OrderController extends Controller {
                         $productCart->product->id,
 //добавление stantion_name в products_in_order
                         $productCart->price->stantion[0]->stantion_name,
+//добавление nds в products_in_order
+                        $productCart->price->nds,
                     ];
                     $productCart->price->amount -= $productCart->product_count;
                     $productCart->price->save();
@@ -161,6 +163,7 @@ class OrderController extends Controller {
                         $productsInOrder->price_id = $product[3];
                         $productsInOrder->product_id = $product[4];
                         $productsInOrder->stantion_name = $product[5];
+                        $productsInOrder->nds = $product[6];
                         $productsInOrder->save();
                     }
                     $newProductsByDepoArr[$order->id] = $productsArr;

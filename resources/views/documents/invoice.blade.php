@@ -67,9 +67,9 @@
 <body>
 <div class="container">
         <p><b>Внимание! Оплата данного счета  означает согласие с условиями поставки товара. Уведомление об оплате<br>обязательно, в противном случае не гарантируется наличие товара на складе. Товар отпускается по факту<br>прихода денег на р/с Поставщика.</b></p>
-        <p><b>Счет действителен при выполнении следующих условий:</b></p>
-        <p class="offset1">- сумма платежа строго соответствует указанной в счете и составляет 0,00 руб.;</p>
-        <p class="offset1">- платеж произведен в течение 3-х банковских дней с даты его выставления.</p>
+        {{--<p><b>Счет действителен при выполнении следующих условий:</b></p>--}}
+        {{--<p class="offset1">- сумма платежа строго соответствует указанной в счете и составляет 0,00 руб.;</p>--}}
+        {{--<p class="offset1">- платеж произведен в течение 3-х банковских дней с даты его выставления.</p>--}}
         <p class="text-center"><b>Образец заполнения платежного поручения</b></p>
         <table class="pp border">
             <tr>
@@ -125,12 +125,15 @@
             <?
                 $totalSum = 0;
                 $productCount = 0;
+                $totalVAT = 0;
+                $withoutVAT = false;
             ?>
             @foreach($products as $stKey=>$stationsArr)
                 {{--<tr align="center"><td colspan="6"><hr><b>Заказанные товары в депо {{$stKey}}</b><hr></td></tr>--}}
                 <?
                     $sumInDepo = 0;
                     $totalSumInDepo = 0;
+                    $totalVATInDepo = 0;
                 ?>
                 @foreach($stationsArr as $key=>$item)
                     <tr>
@@ -142,12 +145,22 @@
                         <td class="border text-right">{{ sprintf("%0.2f", ($sumInDepo = $item['product_price'] * $item['product_amount'])) }}</td>
                     </tr>
                     <?
+                        if($item['product_nds'] == -1) {
+                            $withoutVAT = true;
+                        } else {
+                            $withoutVAT = false;
+                        }
                         $totalSumInDepo += $sumInDepo;
+                        $VAT_rate = $withoutVAT ? 0 : $item['product_nds'];
+                        $totalVATInDepo += $sumInDepo/(100+$VAT_rate)*$VAT_rate;
                         $productCount++;
                     ?>
                 @endforeach
                 {{--<tr align="right"><td colspan="6"><b>Сумма по депо {{ $totalSumInDepo }} руб.</b></td></tr>--}}
-                <? $totalSum += $totalSumInDepo; ?>
+                <?
+                    $totalSum += $totalSumInDepo;
+                    $totalVAT += $totalVATInDepo;
+                ?>
             @endforeach
 
             <tr>
@@ -155,9 +168,8 @@
                 <td class="border text-right"><b>{{ sprintf("%0.2f", $totalSum) }} руб.</b></td>
             </tr>
             <tr>
-                <td class="text-right" colspan="5"><b>Без налога (НДС).</b></td>
-                <td class="border text-right"><b>
-                        -</b></td>
+                <td class="text-right" colspan="5"><b>В том числе НДС:</b></td>
+                <td class="border text-right"><b>{{ $withoutVAT ? 'без НДС' : sprintf("%0.2f", $totalVAT) }}</b></td>
             </tr>
             <tr>
                 <td class="text-right" colspan="5"><b>Всего к оплате:</b></td>
@@ -172,7 +184,6 @@
         {{--</div>--}}
         <div class="signBlock">
             <div>Руководитель предприятия_______________({{ $selfFirm->face_fio }})</div>
-            <div>Главный бухгалтер_______________({{ $selfFirm->accountant_fio }})</div>
             <div class="stamp qwe"></div>
         </div>
 </div>
