@@ -20,6 +20,16 @@ class Product extends Model {
         4 => -1
     ];
 
+    public static function isWithoutVAT(array $arrOfVATCalculation)
+    {
+        foreach($arrOfVATCalculation as $item) {
+            if($item >= 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static function getAllVAT_rate()
     {
         return self::$VAT_rate;

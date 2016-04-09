@@ -126,7 +126,6 @@
                 $totalSum = 0;
                 $productCount = 0;
                 $totalVAT = 0;
-                $withoutVAT = false;
             ?>
             @foreach($products as $stKey=>$stationsArr)
                 {{--<tr align="center"><td colspan="6"><hr><b>Заказанные товары в депо {{$stKey}}</b><hr></td></tr>--}}
@@ -134,6 +133,8 @@
                     $sumInDepo = 0;
                     $totalSumInDepo = 0;
                     $totalVATInDepo = 0;
+                    $withoutVAT = false;
+                    $withoutVATArr = [];
                 ?>
                 @foreach($stationsArr as $key=>$item)
                     <tr>
@@ -150,6 +151,7 @@
                         } else {
                             $withoutVAT = false;
                         }
+                        $withoutVATArr[] = $item['product_nds'];
                         $totalSumInDepo += $sumInDepo;
                         $VAT_rate = $withoutVAT ? 0 : $item['product_nds'];
                         $totalVATInDepo += $sumInDepo/(100+$VAT_rate)*$VAT_rate;
@@ -169,7 +171,7 @@
             </tr>
             <tr>
                 <td class="text-right" colspan="5"><b>В том числе НДС:</b></td>
-                <td class="border text-right"><b>{{ $withoutVAT ? 'без НДС' : sprintf("%0.2f", $totalVAT) }}</b></td>
+                <td class="border text-right"><b>{{ \App\Models\Product::isWithoutVAT($withoutVATArr) ? 'без НДС' : sprintf("%0.2f", $totalVAT) }}</b></td>
             </tr>
             <tr>
                 <td class="text-right" colspan="5"><b>Всего к оплате:</b></td>
