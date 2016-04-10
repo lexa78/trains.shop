@@ -14,8 +14,8 @@ class Product extends Model {
     ];
 
     private static $VAT_calculation = [
-        1 => 0.18,
-        2 => 0.1,
+        1 => 18,
+        2 => 1,
         3 => 0,
         4 => -1
     ];
