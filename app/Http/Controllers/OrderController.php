@@ -311,33 +311,42 @@ class OrderController extends Controller {
         }
     }
 
-    public function changeStatus($statusId, $orderId)
+    public function changeStatus($statusId, $orderId, $is_service = 0)
     {
         $response = 0;
         try {
             DB::transaction(function()
-            use($statusId, $orderId, &$response) {
-                if($statusId == Order::CANCELED) {
-                    $order = Order::with('products_in_order.price')->where('id', $orderId)->first();
-                    foreach($order->products_in_order as $product) {
-                        $product->price->amount += $product->product_amount;
-                        $product->price->save();
-                    }
-                    $response = Order::CANCELED;
+            use($statusId, $orderId, &$response, $is_service) {
+                if($is_service) {
+                    $order = ServiceOrder::where('id', $orderId)->first();
+                    $order->service_status_id = $statusId;
+                    $order->save();
+                    $response = 1;
                 } else {
-                    $order = Order::where('id', $orderId)->first();
-                    if($statusId == Order::COMPLETED) {
-                        $response = Order::COMPLETED;
+                    if ($statusId == Order::CANCELED) {
+                        $order = Order::with('products_in_order.price')->where('id', $orderId)->first();
+                        foreach ($order->products_in_order as $product) {
+                            $product->price->amount += $product->product_amount;
+                            $product->price->save();
+                        }
+//                    $response = Order::CANCELED;
                     } else {
-                        $response = 1;
+                        $order = Order::where('id', $orderId)->first();
+//                    if($statusId == Order::COMPLETED) {
+//                        $response = Order::COMPLETED;
+//                    } else {
+//                        $response = 1;
+//                    }
                     }
+                    $order->status_id = $statusId;
+                    $order->save();
+                    $response = 1;
                 }
-                $order->status_id = $statusId;
-                $order->save();
             });
         } catch(Exception $e) {
             $response = 0;
         }
+        dd($response);
         echo $response;
     }
 

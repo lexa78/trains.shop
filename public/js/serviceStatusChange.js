@@ -15,7 +15,7 @@ $(function() {
 
 function sendAjax1(statusId, orderId) {
     $.ajax({
-        url: '/changeStatus/' + statusId + '/' + orderId,
+        url: '/changeStatus/' + statusId + '/' + orderId + '/1',
         type: 'POST',
         success: function (data) {
             if(data) {

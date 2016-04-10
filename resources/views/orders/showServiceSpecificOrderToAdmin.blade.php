@@ -151,6 +151,6 @@
 @stop
 
 @section('jsScripts')
-    <script src="{{ asset('/js/statusChange.js') }}"></script>
+    <script src="{{ asset('/js/serviceStatusChange.js') }}"></script>
     <script src="{{ asset('/js/checkboxesForSend.js') }}"></script>
 @stop
