@@ -28,7 +28,11 @@
                                 <tr>
                                     <td>{{  $key +1 }}</td>
                                     <td>
-                                        {{ $type.' № '. $document['orderNumber'] }}, от {{ $document['fileDate'] }}
+                                        @if($document['orderNumber'])
+                                            {{ $type.' № '. $document['orderNumber'] }}, от {{ $document['fileDate'] }}
+                                        @else
+                                            {{ $type.$document['tempNumber'] }}, от {{ $document['fileDate'] }}
+                                        @endif
                                     </td>
                                     <td>
                                         {!! Form::open(['route' => 'downloadDoc', 'role' => 'form', 'class'=>'inlineForm']) !!}

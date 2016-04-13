@@ -142,8 +142,8 @@
                                 <option value="{{ \App\Models\Order::INVOICE_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::INVOICE_TYPE, true) }}</option>
                                 <option value="{{ \App\Models\Order::INVOICE_ACCT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::INVOICE_ACCT_TYPE, true) }}</option>
                                 <option value="{{ \App\Models\Order::AUCTION_12_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::AUCTION_12_TYPE, true) }}</option>
-                                <option value="{{ \App\Models\Order::CONTRACT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::CONTRACT_TYPE, true) }}</option>
-                                <option value="{{ \App\Models\Order::SUPPLEMENTARY_AGREEMENT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::SUPPLEMENTARY_AGREEMENT_TYPE, true) }}</option>
+                                {{--<option value="{{ \App\Models\Order::CONTRACT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::CONTRACT_TYPE, true) }}</option>--}}
+                                {{--<option value="{{ \App\Models\Order::SUPPLEMENTARY_AGREEMENT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::SUPPLEMENTARY_AGREEMENT_TYPE, true) }}</option>--}}
                             </select>
                         </p>
 

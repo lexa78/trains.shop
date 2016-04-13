@@ -6,6 +6,8 @@ class Document extends Model {
 
     protected $guarded = ['id'];
 
+    const TEMPLATE_AGREEMENT_PATH = __DIR__.'/../../resources/views/documents/serviceAgreementTemplate.blade.php';
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');

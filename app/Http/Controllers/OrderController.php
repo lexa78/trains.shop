@@ -264,7 +264,7 @@ class OrderController extends Controller {
         }
 
         $documents = Document::where('order_id',$orderId)->orderBy('type')->get();
-        $documentTypes = [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5];
+        $documentTypes = [1 => 1, 2 => 2, 3 => 3/*, 4 => 4, 5 => 5*/];
 
         return view('orders.showSpecificOrderToAdmin',['order'=>$order, 'statuses'=>$statuses,
             'documents'=>$documents, 'documentTypes'=>$documentTypes]);
@@ -280,10 +280,12 @@ class OrderController extends Controller {
         }
 
         $documents = Document::where('service_order_id',$orderId)->orderBy('type')->get();
-        $documentTypes = [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5];
+        $documentTypes = [1 => 1, 2 => 2, 3 => 3/*, 4 => 4, 5 => 5*/];
 
+        $serviceAgreement = Document::where('type',Order::CONTRACT_TYPE)->where('user_id',$order->user_id)->first();
         return view('orders.showServiceSpecificOrderToAdmin',['order'=>$order, 'statuses'=>$statuses,
-            'documents'=>$documents, 'documentTypes'=>$documentTypes]);
+            'documents'=>$documents, 'documentTypes'=>$documentTypes,
+            'serviceAgreement'=>$serviceAgreement]);
     }
 
     public function showSpecificOrder($orderId, $userId, $orderType)

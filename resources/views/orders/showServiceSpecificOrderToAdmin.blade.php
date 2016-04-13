@@ -16,6 +16,28 @@
                     <div class="panel-heading">Подробное рассмотрение заказа № <b class="orderID">{{ $order->id }}</b></div>
                     <div class="panel-body">
                         <h3>Заказ № {{ $order->id }}</h3>
+                        @if($order->firm->has_service_agreement)
+                            <p>Договор заключен</p>
+                            {!! link_to_route('showServiceAgreementWithClient','Посмотреть договор',['id'=>$serviceAgreement->id],['class'=>'btn btn-warning', 'target'=>'_blank']) !!}
+                        @else
+                            <p>
+                                @if($serviceAgreement)
+                                    @if($serviceAgreement->sended)
+                                        Договор пока не заключен. Отправлен на подпись клиенту по email.  Ждем ответного письма. <span style="color: red">ВНИМАНИЕ!!! При повторном нажатии кнопки "Сгенерировать договор и отправить", прежний договор, отправленный клиенту, будет удален. Его место займет вновь сформированный договор.</span>
+                                        {!! link_to_route('showServiceAgreementWithClient','Посмотреть отправленный договор',['id'=>$serviceAgreement->id],['class'=>'btn btn-warning', 'target'=>'_blank']) !!}
+                                    @else
+                                        Договор не заключен и не отправлен на подпись клиенту.
+                                    @endif
+                                    {{--{{ $serviceAgreement->sended ? 'Договор пока не заключен. Отправлен на подпись клиенту по email.  Ждем ответного письма. ВНИМАНИЕ!!! При повторном нажатии кнопки ниже, прежний договор, отправленный клиенту, будет удален. Его место займет вновь сформированный договор.' : 'Договор не заключен и не отправлен на подпись клиенту.' }}--}}
+                                @else
+                                    Договор не заключен и не отправлен на подпись клиенту.
+                                @endif
+                                {!! Form::open(['route' => ['createServiceAgreementTemplateAndSend', $order->firm->id], 'role' => 'form', 'class'=>'inlineForm']) !!}
+                                {!! Form::submit('Сгенерировать договор и отправить', ['class'=>'btn btn-success']) !!}
+                                {!! Form::close() !!}
+                            </p>
+                        @endif
+                        <p></p>
                         <p>Дата и время оформления заказа: {{ \App\Models\Order::formatDate($order->created_at, true) }}</p>
                         <p>Заказчик: {{ $order->firm->organisation_name }}</p>
                         <div class="answerOnChange"></div>
@@ -128,8 +150,8 @@
                                 <option value="{{ \App\Models\Order::INVOICE_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::INVOICE_TYPE, true) }}</option>
                                 <option value="{{ \App\Models\Order::INVOICE_ACCT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::INVOICE_ACCT_TYPE, true) }}</option>
                                 <option value="{{ \App\Models\Order::AUCTION_12_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::AUCTION_12_TYPE, true) }}</option>
-                                <option value="{{ \App\Models\Order::CONTRACT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::CONTRACT_TYPE, true) }}</option>
-                                <option value="{{ \App\Models\Order::SUPPLEMENTARY_AGREEMENT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::SUPPLEMENTARY_AGREEMENT_TYPE, true) }}</option>
+                                {{--<option value="{{ \App\Models\Order::CONTRACT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::CONTRACT_TYPE, true) }}</option>--}}
+                                {{--<option value="{{ \App\Models\Order::SUPPLEMENTARY_AGREEMENT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::SUPPLEMENTARY_AGREEMENT_TYPE, true) }}</option>--}}
                             </select>
                         </p>
 

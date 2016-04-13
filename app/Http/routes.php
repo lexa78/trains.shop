@@ -100,3 +100,12 @@ Route::resource('contact_page_text', 'ContactPageController', ['only' => ['edit'
 Route::resource('for_provider_text', 'ProviderPageController', ['only' => ['edit', 'update']]);
 Route::resource('about_page_text', 'AboutPageController', ['only' => ['edit', 'update']]);
 Route::resource('main_page_text', 'MainPageController', ['only' => ['edit', 'update']]);
+
+Route::get('edit_service_agreement_template', ['as'=>'edit_service_agreement_template', 'uses'=>'CreateDocumentsController@editServiceAgreementTemplate']);
+Route::post('update_service_agreement_template', ['as'=>'update_service_agreement_template', 'uses'=>'CreateDocumentsController@updateServiceAgreementTemplate']);
+Route::post('create_service_agreement_template_and_send/{firm_id}', ['as'=>'createServiceAgreementTemplateAndSend', 'uses'=>'CreateDocumentsController@createServiceAgreementTemplateAndSend']);
+
+Route::get('show_service_agreement_by_clients', ['as'=>'showServiceAgreementByClients', 'uses'=>'CreateDocumentsController@showServiceAgreementByClients']);
+Route::post('create_service_agreement', ['as'=>'createServiceAgreement', 'uses'=>'CreateDocumentsController@createServiceAgreement']);
+Route::post('uploadServiceAgreementFromClient', ['as'=>'uploadServiceAgreementFromClient', 'uses'=>'CreateDocumentsController@uploadServiceAgreementFromClient']);
+Route::get('show_service_agreement_with_client/{id}', ['as'=>'showServiceAgreementWithClient', 'uses'=>'CreateDocumentsController@showServiceAgreementWithClient']);

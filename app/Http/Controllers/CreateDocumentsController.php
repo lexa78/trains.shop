@@ -2,11 +2,14 @@
 
 use App;
 use App\Commands\CreatePaymentDocs;
+use App\Commands\CreateServiceAgreement;
 use App\Commands\UploadDocument;
+use App\Commands\UploadServiceAgreement;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Document;
+use App\Models\Firm;
 use App\Models\Order;
 use App\Models\ServiceOrder;
 use App\Models\User;
@@ -18,6 +21,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Response;
 use Storage;
+use Validator;
 
 class CreateDocumentsController extends Controller {
 
@@ -28,8 +32,16 @@ class CreateDocumentsController extends Controller {
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except'=>['create', 'uploadDocument', 'uploadOfertaIndex', 'uploadOferta', 'showOferta']]);
-        $this->middleware('admin', ['only'=>['create', 'uploadDocument', 'uploadOfertaIndex', 'uploadOferta']]);
+        $this->middleware('auth', ['except'=>['create', 'uploadDocument', 'uploadOfertaIndex',
+                    'uploadOferta', 'showOferta', 'editServiceAgreementTemplate',
+                    'updateServiceAgreementTemplate', 'createServiceAgreementTemplateAndSend',
+                    'showServiceAgreementByClients', 'createServiceAgreement',
+                    'uploadServiceAgreementFromClient', 'showServiceAgreementWithClient']]);
+        $this->middleware('admin', ['only'=>['create', 'uploadDocument', 'uploadOfertaIndex',
+                    'uploadOferta', 'editServiceAgreementTemplate',
+                    'updateServiceAgreementTemplate', 'createServiceAgreementTemplateAndSend',
+                    'showServiceAgreementByClients', 'createServiceAgreement',
+                    'uploadServiceAgreementFromClient', 'showServiceAgreementWithClient']]);
         $this->middleware('general', ['only'=>['showOferta']]);
     }
 
@@ -76,24 +88,29 @@ class CreateDocumentsController extends Controller {
     {
         $docs = Document::where('user_id', Auth::user()->id)->get();
         $docsByTypesArr = [];
-        foreach($docs as $doc) {
-
+        foreach($docs as $q => $doc) {
             $shortFileName = explode(DIRECTORY_SEPARATOR, $doc->file_name);
             $shortFileName = end($shortFileName);
             $tempFileName = explode('_', $shortFileName);
             $tempFileName = explode('.', end($tempFileName));
             $fileDate = date('d.m.Y', $tempFileName[0]);
             $typeOfDoc = Order::getDocTypeName($doc->type, true);
-            $docId = $doc->service_order ? $doc->service_order->id : $doc->order->id;
+            if(( ! $doc->service_order_id) && ( ! $doc->order_id)) {
+                $docId = null;
+            } else {
+                $docId = $doc->service_order_id ? $doc->service_order_id : $doc->order_id;
+            }
             $extension = end($tempFileName);
             //$shownFileName = $typeOfDoc.' №'.$docId.'.'.$tempFileName[1];
-            $shownFileName = $typeOfDoc.' №'.$docId.'.'.$extension;
+            $temp  = $docId ? ' №'.$docId : ' по оказанию услуг';
+            $shownFileName = $typeOfDoc.$temp.'.'.$extension;
             $docsByTypesArr[$typeOfDoc][] = [
                                                 'shortFileName' => $shortFileName,
                                                 'shownFileName' => $shownFileName,
                                                 'extension' => $extension,
                                                 'fileDate' => $fileDate,
-                                                'orderNumber' => $doc->order_id ? $doc->order_id : $doc->service_order_id
+                                                'orderNumber' => $doc->order_id ? $doc->order_id : $doc->service_order_id,
+                                                'tempNumber'=>$temp
                                             ];
         }
 
@@ -159,4 +176,97 @@ class CreateDocumentsController extends Controller {
             'Content-Disposition' => 'inline; '.$shortFileName,
         ]);
     }
+
+    public function editServiceAgreementTemplate()
+    {
+        $template = file_get_contents(Document::TEMPLATE_AGREEMENT_PATH);
+        return view('documents.editServiceAgreementTemplate', ['template'=>$template]);
+    }
+
+    public function updateServiceAgreementTemplate(Request $request)
+    {
+        $validationRules = [
+            'template' => 'required',
+        ];
+
+        $v = Validator::make($request->all(), $validationRules);
+
+        if ($v->fails())
+        {
+            return redirect()->back()->withErrors($v->errors())->withInput();
+        }
+
+        $template = file_put_contents(Document::TEMPLATE_AGREEMENT_PATH,$request->template);
+        if($template !== false) {
+            return redirect()->back()->with('alert-success','Шаблон договора по дополнительным услугам изменен');
+        } else {
+            return redirect('pageTexts')->with('alert-danger','При изменении шаблона, возникли ошибки. Шаблон НЕ ИЗМЕНЕН');
+        }
+    }
+
+    public function createServiceAgreementTemplateAndSend($firm_id)
+    {
+        $firm = Firm::where('id',$firm_id)->with('user')->first();
+        if( ! $firm) {
+            abort(404);
+        }
+        Bus::dispatch(new CreateServiceAgreement($firm));
+        return redirect()->back()->with('alert-success','Договор сформирован и отправлен клиенту');
+    }
+
+    public function showServiceAgreementByClients(Request $request)
+    {
+        $firms = Firm::where('accountant_fio',null)->get();
+        if($request->firm_id) {
+            $users = User::with('firm', 'document')->where('firm_id',$request->firm_id)->get();
+        } else {
+            $users = User::with('firm', 'document')->get();
+        }
+        return view('orders.showServiceAgreementByClientsToAdmin',
+            ['users'=>$users, 'firms'=>$firms, 'firm_id'=>$request->firm_id]);
+    }
+
+    public function createServiceAgreement(Request $request)
+    {
+        $firm = Firm::where('id',$request->firmId)->first();
+        if( ! $firm) {
+            abort(404);
+        }
+        $firm->has_service_agreement = 1;
+        $firm->save();
+        return redirect()->back()->with('alert-success','Договор на оказание услуг с фирмой '.$firm->organisation_name.' заключен.');
+    }
+
+    public function uploadServiceAgreementFromClient(Document $document, Requests\UploadOferta $request) {
+        $file = $request->file('docFileName'); //Сам файл
+        $firm = Firm::with('user')->where('id',$request->firmId)->first();
+        if($pathToFile = Bus::dispatch(new UploadServiceAgreement($file, $firm))) {
+            return redirect()->back()->with('alert-success','Файл загружен.');
+        } else {
+            return redirect()->back()->withInput()->with('alert-danger','Ошибка загрузки файла. Файл не загружен.');
+        }
+    }
+
+    public function showServiceAgreementWithClient($id)
+    {
+        $serviceAgreement = Document::find($id);
+
+        $file = $serviceAgreement->file_name;
+        $extension = explode('.',$file);
+        $extension = strtolower(end($extension));
+
+        $contentType = 'application/pdf';
+        if($extension != 'pdf') {
+            $contentType = 'image/'.$extension;
+        }
+
+        $shortFileName = explode('/',$file);
+        $shortFileName = end($shortFileName);
+
+        return Response::make(file_get_contents($file), 200, [
+            'Content-Type' => $contentType,
+            'Content-Disposition' => 'inline; '.$shortFileName,
+        ]);
+    }
+
 }
