@@ -43,11 +43,13 @@
 				</ul>
 
 				<ul class="nav navbar-nav">
-					<li><a href="{{ url('edit_service_agreement_template') }}">Редактировать шаблон договора по прочим услугам</a></li>
-				</ul>
-
-				<ul class="nav navbar-nav">
-					<li><a href="{{ url('show_service_agreement_by_clients') }}">Клиенты и договоры по услугам</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Работа с договором по прочим услугам<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('edit_service_agreement_template') }}">Редактировать шаблон договора по прочим услугам</a></li>
+                            <li><a href="{{ url('show_service_agreement_by_clients') }}">Клиенты и договоры по услугам</a></li>
+						</ul>
+					</li>
 				</ul>
 
 				<ul class="nav navbar-nav">

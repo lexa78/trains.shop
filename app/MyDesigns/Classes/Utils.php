@@ -1,8 +1,28 @@
 <?php namespace App\MyDesigns\Classes;
 
+use SoapClient;
+use SoapHeader;
+
 class Utils {
 
     const STR_SUCCESS = 'success';
+
+    private static $words = [
+        'устав'=>'Устава',
+        'доверенность'=>'Доверенности',
+        'директор'=>'Директора',
+        'генеральный директор'=>'Генерального директора',
+    ];
+
+    public static function getGenitiveCase($key)
+    {
+        $smallKey = mb_strtolower(trim($key));
+        if(isset(self::$words[$smallKey])) {
+            return self::$words[$smallKey];
+        } else {
+            return $key;
+        }
+    }
 
     public static function mb_str_replace($search, $replace, $subject, &$count = 0)
     {
@@ -30,5 +50,4 @@ class Utils {
         $lat = array('A', 'B', 'V', 'G', 'D', 'E', 'E', 'Gh', 'Z', 'I', 'Y', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'H', 'C', 'Ch', 'Sh', 'Sch', 'Y', 'Y', 'Y', 'E', 'Yu', 'Ya', 'a', 'b', 'v', 'g', 'd', 'e', 'e', 'gh', 'z', 'i', 'y', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'f', 'h', 'c', 'ch', 'sh', 'sch', 'y', 'y', 'y', 'e', 'yu', 'ya');
         return self::mb_str_replace($rus, $lat, $str);
     }
-
 }

@@ -14,6 +14,7 @@ use App\Models\Order;
 use App\Models\ServiceOrder;
 use App\Models\User;
 use App\MyDesigns\Classes\Utils;
+use App\MyDesigns\Petrovich\Petrovich;
 use Auth;
 use Bus;
 use Config;
@@ -204,14 +205,37 @@ class CreateDocumentsController extends Controller {
         }
     }
 
-    public function createServiceAgreementTemplateAndSend($firm_id)
+    public function checkGenitiveCase($firm_id, $order_id)
+    {
+        $firm = Firm::find($firm_id);
+        if( ! $firm) {
+            abort(404);
+        }
+        list($lastName, $name, $secondName) = explode(' ',$firm->face_fio);
+
+        $petrovich = new Petrovich();
+
+        $petrovich->gender = $petrovich->detectGender($secondName);
+
+
+        $fio = $petrovich->lastname($lastName, Petrovich::CASE_GENITIVE).' '.$petrovich->firstname($name, Petrovich::CASE_GENITIVE).' '.$petrovich->middlename($secondName, Petrovich::CASE_GENITIVE);
+
+        return view('documents.showGenitiveCase', ['orderId'=>$order_id, 'fio'=>$fio,
+            'firm_id'=>$firm_id, 'document'=>Utils::getGenitiveCase($firm->base_document),
+            'position'=>Utils::getGenitiveCase($firm->face_position)]);
+    }
+
+    public function createServiceAgreementTemplateAndSend($firm_id, $order_id, Request $request)
     {
         $firm = Firm::where('id',$firm_id)->with('user')->first();
         if( ! $firm) {
             abort(404);
         }
+
+        $firm->update($request->all());
+
         Bus::dispatch(new CreateServiceAgreement($firm));
-        return redirect()->back()->with('alert-success','Договор сформирован и отправлен клиенту');
+        return redirect('showServiceSpecificOrderToAdmin/'.$order_id)->with('alert-success','Договор сформирован и отправлен клиенту');
     }
 
     public function showServiceAgreementByClients(Request $request)

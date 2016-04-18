@@ -32,7 +32,7 @@
                                 @else
                                     Договор не заключен и не отправлен на подпись клиенту.
                                 @endif
-                                {!! Form::open(['route' => ['createServiceAgreementTemplateAndSend', $order->firm->id], 'role' => 'form', 'class'=>'inlineForm']) !!}
+                                {!! Form::open(['route' => ['checkGenitiveCase', $order->firm->id, $order->id], 'role' => 'form', 'class'=>'inlineForm']) !!}
                                 {!! Form::submit('Сгенерировать договор и отправить', ['class'=>'btn btn-success']) !!}
                                 {!! Form::close() !!}
                             </p>
