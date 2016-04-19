@@ -53,11 +53,16 @@
                                                 {!! Form::open(['action' => 'CreateDocumentsController@uploadServiceAgreementFromClient',
                                                   'enctype' => 'multipart/form-data', 'role' => 'form']) !!}
                                                 {!! Form::hidden('firmId',$user->firm->id) !!}
-                                                {!! Form::file('docFileName', ['class'=>'form-control', 'required'=>true]) !!}
+                                                {{--{!! Form::file('docFileName', ['class'=>'form-control', 'required'=>true]) !!}--}}
+                                                <div class="fileform">
+                                                    <div id="fileformlabel"></div>
+                                                    <div class="selectbutton">Обзор</div>
+                                                    <input id="upload" type="file" name="docFileName"  onchange="getName(this.value);" />
+                                                </div>
                                                 @if($errors->has('docFileName'))
                                                     <div class="alert-danger alert">{!! $errors->first('docFileName') !!}</div>
                                                 @endif
-                                                {!! Form::submit('Загрузить договор', ['class'=>'btn btn-success']) !!}
+                                                {!! Form::submit('Загрузить договор', ['class'=>'btn btn-info']) !!}
 
                                                 {!! Form::close() !!}
                                             @endif
@@ -81,4 +86,20 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('jsScripts')
+    <script>
+        function getName (str){
+            if (str.lastIndexOf('\\')){
+                var i = str.lastIndexOf('\\')+1;
+            }
+            else{
+                var i = str.lastIndexOf('/')+1;
+            }
+            var filename = str.slice(i);
+            var uploaded = document.getElementById("fileformlabel");
+            uploaded.innerHTML = filename;
+        }
+    </script>
 @stop

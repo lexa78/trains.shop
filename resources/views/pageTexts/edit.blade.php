@@ -19,7 +19,12 @@
                             {!! Form::open(['action' => 'AboutPageController@uploadImage',
                             'enctype' => 'multipart/form-data', 'role' => 'form']) !!}
 
-                            {!! Form::file('imgFileName', ['class'=>'form-control', 'required'=>true]) !!}
+                            {{--{!! Form::file('imgFileName', ['class'=>'form-control', 'required'=>true]) !!}--}}
+                            <div class="fileform">
+                                <div id="fileformlabel"></div>
+                                <div class="selectbutton">Обзор</div>
+                                <input id="upload" type="file" name="imgFileName"  onchange="getName(this.value);" />
+                            </div>
                             @if($errors->has('imgFileName'))
                                 <div class="alert-danger alert">{!! $errors->first('imgFileName') !!}</div>
                             @endif
@@ -55,5 +60,19 @@
             plugins : ["advlist autolink lists link image charmap print preview anchor", "searchreplace visualblocks code fullscreen", "insertdatetime media table contextmenu paste"],
             toolbar : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
         });
+    </script>
+
+    <script>
+        function getName (str){
+            if (str.lastIndexOf('\\')){
+                var i = str.lastIndexOf('\\')+1;
+            }
+            else{
+                var i = str.lastIndexOf('/')+1;
+            }
+            var filename = str.slice(i);
+            var uploaded = document.getElementById("fileformlabel");
+            uploaded.innerHTML = filename;
+        }
     </script>
 @stop
