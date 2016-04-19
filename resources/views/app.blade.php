@@ -39,6 +39,10 @@
 				</ul>
 
 				<ul class="nav navbar-nav">
+					<li><a href="{{ url('edit_invoice_template') }}">Редактирование шаблона счета</a></li>
+				</ul>
+
+				<ul class="nav navbar-nav">
 					<li><a href="{{ url('uploadOferta') }}">Загрузить договор оферты</a></li>
 				</ul>
 

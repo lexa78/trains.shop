@@ -7,6 +7,7 @@ class Document extends Model {
     protected $guarded = ['id'];
 
     const TEMPLATE_AGREEMENT_PATH = __DIR__.'/../../resources/views/documents/serviceAgreementTemplate.blade.php';
+    const TEMPLATE_INVOICE_PATH = __DIR__.'/../../resources/views/documents/invoice.blade.php';
 
     public function user()
     {

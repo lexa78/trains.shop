@@ -67,9 +67,6 @@
 <body>
 <div class="container">
         <p><b>Внимание! Оплата данного счета  означает согласие с условиями поставки товара. Уведомление об оплате<br>обязательно, в противном случае не гарантируется наличие товара на складе. Товар отпускается по факту<br>прихода денег на р/с Поставщика.</b></p>
-        {{--<p><b>Счет действителен при выполнении следующих условий:</b></p>--}}
-        {{--<p class="offset1">- сумма платежа строго соответствует указанной в счете и составляет 0,00 руб.;</p>--}}
-        {{--<p class="offset1">- платеж произведен в течение 3-х банковских дней с даты его выставления.</p>--}}
         <p class="text-center"><b>Образец заполнения платежного поручения</b></p>
         <table class="pp border">
             <tr>
@@ -95,7 +92,7 @@
                 <td valign="top">{{ $selfFirm->ks }}</td>
             </tr>
         </table>
-        <h3>СЧЕТ № {{ $orderNumber.' - '.$depoId }} от {{ $orderDate }} г.</h3>
+        <h3>СЧЕТ  измененный № {{ $orderNumber.' - '.$depoId }} от {{ $orderDate }} г.</h3>
         <div style="height: 3px; background-color: black; width: 93%;"></div>
         <table>
             <tr>
@@ -128,7 +125,6 @@
                 $totalVAT = 0;
             ?>
             @foreach($products as $stKey=>$stationsArr)
-                {{--<tr align="center"><td colspan="6"><hr><b>Заказанные товары в депо {{$stKey}}</b><hr></td></tr>--}}
                 <?
                     $sumInDepo = 0;
                     $totalSumInDepo = 0;
@@ -158,7 +154,6 @@
                         $productCount++;
                     ?>
                 @endforeach
-                {{--<tr align="right"><td colspan="6"><b>Сумма по депо {{ $totalSumInDepo }} руб.</b></td></tr>--}}
                 <?
                     $totalSum += $totalSumInDepo;
                     $totalVAT += $totalVATInDepo;
@@ -180,10 +175,6 @@
         </table>
         Всего наименований {{ $productCount }}, на сумму {{ sprintf("%0.2f", $totalSum) }} руб.            <br>
         <b>{{ \App\Models\Order::num2str($totalSum) }}</b>
-        {{--<div class="signBlock">--}}
-            {{--<div class="signTitle">Руководитель предприятия</div> <div class="stamp">_______________</div> <div class="signTitle">({{ $selfFirm->face_fio }})</div>--}}
-            {{--<div class="clear"><div class="signTitle">Главный бухгалтер</div> <div class="signTitle">_______________</div> <div class="signTitle">({{ $selfFirm->face_fio }})</div></div>--}}
-        {{--</div>--}}
         <div class="signBlock">
             <div>Руководитель предприятия_______________({{ $selfFirm->face_fio }})</div>
             <div class="stamp qwe"></div>

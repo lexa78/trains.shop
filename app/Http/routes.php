@@ -111,3 +111,6 @@ Route::get('show_service_agreement_by_clients', ['as'=>'showServiceAgreementByCl
 Route::post('create_service_agreement', ['as'=>'createServiceAgreement', 'uses'=>'CreateDocumentsController@createServiceAgreement']);
 Route::post('uploadServiceAgreementFromClient', ['as'=>'uploadServiceAgreementFromClient', 'uses'=>'CreateDocumentsController@uploadServiceAgreementFromClient']);
 Route::get('show_service_agreement_with_client/{id}', ['as'=>'showServiceAgreementWithClient', 'uses'=>'CreateDocumentsController@showServiceAgreementWithClient']);
+
+Route::get('edit_invoice_template', ['as'=>'editInvoiceTemplate', 'uses'=>'CreateDocumentsController@editInvoiceTemplate']);
+Route::post('update_invoice_template', ['as'=>'updateInvoiceTemplate', 'uses'=>'CreateDocumentsController@updateInvoiceTemplate']);

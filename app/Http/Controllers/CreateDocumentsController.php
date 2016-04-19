@@ -293,4 +293,30 @@ class CreateDocumentsController extends Controller {
         ]);
     }
 
+    public function editInvoiceTemplate()
+    {
+        $template = file_get_contents(Document::TEMPLATE_INVOICE_PATH);
+        return view('documents.editInvoiceTemplate', ['template'=>$template]);
+    }
+
+    public function updateInvoiceTemplate (Request $request)
+    {
+        $validationRules = [
+            'template' => 'required',
+        ];
+
+        $v = Validator::make($request->all(), $validationRules);
+
+        if ($v->fails())
+        {
+            return redirect()->back()->withErrors($v->errors())->withInput();
+        }
+
+        $template = file_put_contents(Document::TEMPLATE_INVOICE_PATH,$request->template);
+        if($template !== false) {
+            return redirect()->back()->with('alert-success','Шаблон счета изменен');
+        } else {
+            return redirect('pageTexts')->with('alert-danger','При изменении шаблона, возникли ошибки. Шаблон НЕ ИЗМЕНЕН');
+        }
+    }
 }
