@@ -288,6 +288,7 @@
     </tr>
     </tbody>
 </table>
+<span class="page-break"></span>
 <p style="text-align: right;">Приложение № 3</p>
 <p style="text-align: right;">к Договору на оказание услуг № ______________</p>
 <p style="text-align: right;">от &laquo;______&raquo; ________ 2016 г.</p>
@@ -358,6 +359,7 @@
     </tr>
     </tbody>
 </table>
+<span class="page-break"></span>
 <p style="text-align: right;">Приложение № 4</p>
 <p style="text-align: right;">к Договору на оказание услуг № ______________</p>
 <p style="text-align: right;">от &laquo;______&raquo; ________ 2016 г.</p>
@@ -407,7 +409,7 @@
     </tr>
     </tbody>
 </table>
-
+<span class="page-break"></span>
 <p style="text-align: right;">Приложение № 5</p>
 <p style="text-align: right;">к Договору на оказание услуг № ______________</p>
 <p style="text-align: right;">от &laquo;______&raquo; ________ 2016 г.</p>
