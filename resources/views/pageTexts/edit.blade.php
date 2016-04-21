@@ -13,10 +13,10 @@
                         @endforeach
                     </div>
 
-                    @if($page == 'О компании')
-                        <div class="panel-heading">Добавление изображений на страницу "О компании"</div>
+                    @if($page == 'Контакты')
+                        <div class="panel-heading">Добавление изображений на страницу "Контакты"</div>
                         <div class="panel-body">
-                            {!! Form::open(['action' => 'AboutPageController@uploadImage',
+                            {!! Form::open(['action' => 'ContactPageController@uploadImage',
                             'enctype' => 'multipart/form-data', 'role' => 'form']) !!}
 
                             {{--{!! Form::file('imgFileName', ['class'=>'form-control', 'required'=>true]) !!}--}}

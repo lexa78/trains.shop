@@ -13,3 +13,14 @@
         </div>
     </section>
 @stop
+
+@section('jsScripts')
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+            $("a[rel^='prettyPhoto']").prettyPhoto({
+                showTitle: false,
+                allowresize: true,
+            });
+        });
+    </script>
+@stop

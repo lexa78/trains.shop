@@ -2,6 +2,8 @@
 namespace App\MyDesigns\Petrovich;
 
 
+use Exception;
+
 class Petrovich
 {
     private $rules; //Правила
@@ -16,6 +18,8 @@ class Petrovich
     const GENDER_ANDROGYNOUS = 0; // Пол не определен
     const GENDER_MALE = 1; // Мужской
     const GENDER_FEMALE = 2; // Женский
+
+    const FAIL_MIDDLEWARE = 'failMiddleware';
 
     public $gender = Petrovich::GENDER_ANDROGYNOUS; //Пол male/мужской female/женский
 
@@ -48,8 +52,10 @@ class Petrovich
      */
     public function detectGender($middlename)
     {
-        if(empty($middlename))
-            throw new Exception('Middlename cannot be empty.');
+        if(empty($middlename)) {
+            //throw new Exception('Отчество должно присутствовать.');
+            return self::FAIL_MIDDLEWARE;
+        }
 
         switch ( mb_substr( mb_strtolower($middlename) , -2))
         {

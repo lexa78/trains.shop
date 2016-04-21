@@ -63,4 +63,19 @@ class ContactPageController extends Controller {
 		return redirect('pageTexts')->with('alert-success','Текст на странице Контакты изменен');
 	}
 
+    public function uploadImage(Request $request)
+    {
+        $file = $request->file('imgFileName')->getClientOriginalName();
+        $explFile = explode('.', $file);
+        $ext = end($explFile);
+        $extendes = ['gif','jpeg','jpg','png','bmp'];
+        if(in_array(strtolower($ext), $extendes)) {
+            $request->file('imgFileName')->move(public_path('images/aboutImages'), $request->file('imgFileName')->getClientOriginalName());
+            return redirect()->back()->with('alert-success','Файл загружен');
+        } else {
+            return redirect()->back()->withErrors(['imgFileName'=>'Файл может быть только картинкой.']);
+        }
+    }
+
+
 }

@@ -16,6 +16,22 @@
         .container {
             padding: 1cm 1cm 1cm 2cm;
         }
+        .signBlock {
+            height: 50px;
+            position: relative;
+        }
+        .stamp {
+            background-image: url("{{ asset('/invoices/stamp.png') }}");
+            height: 105px;
+            width: 150px;
+            float: left;
+            display: inline-block;
+        }
+        .qwe {
+            position: absolute;
+            top: -30px;
+            left: 20px;
+        }
     </style>
 </head>
 <body lang="ru-RU">
@@ -171,7 +187,12 @@
 <td align="center" width="50%">От заказчика:</td>
 </tr>
 <tr>
-<td align="left" width="50%">__________________ /Г.С. Тягунова /</td>
+<td align="left" width="50%">
+    <div class="signBlock">
+        <div>__________________ /Г.С. Тягунова /</div>
+        <div class="stamp qwe"></div>
+    </div>
+</td>
 <td align="right" width="50%">_________________/_____________/</td>
 </tr>
 <tr>
@@ -283,7 +304,12 @@
         <td align="center" width="50%">ЗАКАЗЧИК:</td>
     </tr>
     <tr>
-        <td align="left" width="50%">__________________ /Г.С. Тягунова /</td>
+        <td align="left" width="50%">
+            <div class="signBlock">
+                <div>__________________ /Г.С. Тягунова /</div>
+                <div class="stamp qwe"></div>
+            </div>
+        </td>
         <td align="right" width="50%">_________________/_____________/</td>
     </tr>
     </tbody>
@@ -354,7 +380,12 @@
         <td align="center" width="50%">ЗАКАЗЧИК:</td>
     </tr>
     <tr>
-        <td align="left" width="50%">__________________ /Г.С. Тягунова /</td>
+        <td align="left" width="50%">
+            <div class="signBlock">
+                <div>__________________ /Г.С. Тягунова /</div>
+                <div class="stamp qwe"></div>
+            </div>
+        </td>
         <td align="right" width="50%">_________________/_____________/</td>
     </tr>
     </tbody>
@@ -404,7 +435,12 @@
         <td align="center" width="50%">ЗАКАЗЧИК:</td>
     </tr>
     <tr>
-        <td align="left" width="50%">__________________ /Г.С. Тягунова /</td>
+        <td align="left" width="50%">
+            <div class="signBlock">
+                <div>__________________ /Г.С. Тягунова /</div>
+                <div class="stamp qwe"></div>
+            </div>
+        </td>
         <td align="right" width="50%">_________________/_____________/</td>
     </tr>
     </tbody>
@@ -489,7 +525,12 @@
         <td align="center" width="50%">ЗАКАЗЧИК:</td>
     </tr>
     <tr>
-        <td align="left" width="50%">__________________ /Г.С. Тягунова /</td>
+        <td align="left" width="50%">
+            <div class="signBlock">
+                <div>__________________ /Г.С. Тягунова /</div>
+                <div class="stamp qwe"></div>
+            </div>
+        </td>
         <td align="right" width="50%">_________________/_____________/</td>
     </tr>
     </tbody>

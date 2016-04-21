@@ -100,7 +100,7 @@ Route::resource('contact_page_text', 'ContactPageController', ['only' => ['edit'
 Route::resource('for_provider_text', 'ProviderPageController', ['only' => ['edit', 'update']]);
 Route::resource('about_page_text', 'AboutPageController', ['only' => ['edit', 'update']]);
 Route::resource('main_page_text', 'MainPageController', ['only' => ['edit', 'update']]);
-Route::post('upload_about_image', ['as'=>'uploadAboutImage', 'uses'=>'AboutPageController@uploadImage']);
+Route::post('upload_contact_image', ['as'=>'uploadAboutImage', 'uses'=>'ContactPageController@uploadImage']);
 
 Route::get('edit_service_agreement_template', ['as'=>'edit_service_agreement_template', 'uses'=>'CreateDocumentsController@editServiceAgreementTemplate']);
 Route::post('update_service_agreement_template', ['as'=>'update_service_agreement_template', 'uses'=>'CreateDocumentsController@updateServiceAgreementTemplate']);

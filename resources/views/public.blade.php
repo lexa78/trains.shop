@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('/css/slider.css') }}">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('/css/custom.css') }}">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700,300' rel='stylesheet' type='text/css'>
-    @if($p == 'about')
+    @if($p == 'contacts')
         <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('/css/prettyPhoto.css') }}">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
         <script src="{{ asset('/js/jquery.prettyPhoto.js') }}"></script>
@@ -87,7 +87,7 @@
     <!--==============================footer=================================-->
 </div>
 <footer>
- &copy; Общество с ограниченной ответственностью «Гатис».  Телефон/факс: 8 (495) 542-94-38. Электронная почта: info@transgatis.com
+ &copy; Общество с ограниченной ответственностью «ГАТИС».  Телефон/факс: 8 (495) 542-94-38. Электронная почта: info@transgatis.com
 </footer>
     @yield('jsScripts')
 </body>

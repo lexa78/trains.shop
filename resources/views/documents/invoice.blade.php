@@ -44,16 +44,16 @@
             top: -50px;
         }
         .stamp {
-            background-image: url("{{ asset('/invoices/stamp.jpg') }}");
-            height: 100px;
-            width: 100px;
+            background-image: url("{{ asset('/invoices/stamp.png') }}");
+            height: 105px;
+            width: 150px;
             float: left;
             display: inline-block;
         }
         .qwe {
             position: absolute;
-            top: -20px;
-            left: 180px;
+            top: -30px;
+            left: 250px;
         }
         .text-right {
             text-align: right;

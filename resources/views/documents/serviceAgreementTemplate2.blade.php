@@ -8,6 +8,22 @@
         body {
             font-size: 14px;
         }
+        .signBlock {
+            height: 50px;
+            position: relative;
+        }
+        .stamp {
+            background-image: url("{{ asset('/invoices/stamp.png') }}");
+            height: 105px;
+            width: 150px;
+            float: left;
+            display: inline-block;
+        }
+        .qwe {
+            position: absolute;
+            top: -30px;
+            left: 20px;
+        }
     </style>
 </head>
 <body lang="ru-RU">
@@ -154,7 +170,12 @@
         <td><strong>Заказчик:</strong></td>
     </tr>
     <tr>
-        <td>______________/Г.С. Тягунова/</td>
+        <td>
+            <div class="signBlock">
+                <div>__________________ /Г.С. Тягунова /</div>
+                <div class="stamp qwe"></div>
+            </div>
+        </td>
         <td>______________/________________/</td>
     </tr>
 </table>

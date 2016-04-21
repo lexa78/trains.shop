@@ -211,14 +211,21 @@ class CreateDocumentsController extends Controller {
         if( ! $firm) {
             abort(404);
         }
-        list($lastName, $name, $secondName) = explode(' ',$firm->face_fio);
+
+        $faceFioArr = explode(' ',$firm->face_fio);
+        $lastName = isset($faceFioArr[0]) ? $faceFioArr[0] : '';
+        $name = isset($faceFioArr[1]) ? $faceFioArr[1] : '';
+        $secondName = isset($faceFioArr[2]) ? $faceFioArr[2] : '';
 
         $petrovich = new Petrovich();
 
         $petrovich->gender = $petrovich->detectGender($secondName);
 
-
-        $fio = $petrovich->lastname($lastName, Petrovich::CASE_GENITIVE).' '.$petrovich->firstname($name, Petrovich::CASE_GENITIVE).' '.$petrovich->middlename($secondName, Petrovich::CASE_GENITIVE);
+        if($petrovich->gender == Petrovich::FAIL_MIDDLEWARE) {
+            $fio = $firm->face_fio;
+        } else {
+            $fio = $petrovich->lastname($lastName, Petrovich::CASE_GENITIVE).' '.$petrovich->firstname($name, Petrovich::CASE_GENITIVE).' '.$petrovich->middlename($secondName, Petrovich::CASE_GENITIVE);
+        }
 
         return view('documents.showGenitiveCase', ['orderId'=>$order_id, 'fio'=>$fio,
             'firm_id'=>$firm_id, 'document'=>Utils::getGenitiveCase($firm->base_document),
