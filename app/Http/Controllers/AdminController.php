@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Category;
 use App\Models\Condition;
-use App\Models\Factory;
 use App\Models\Firm;
 use App\Models\Order;
 use App\Models\Product;
@@ -18,8 +17,6 @@ use App\Models\Status;
 use App\Models\TrainRoad;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Year;
-
 class AdminController extends Controller {
 
 	/**

@@ -64,7 +64,12 @@ class CreateDocumentsController extends Controller {
 
     public function download(Request $request)
     {
-        $file = Document::where('file_name','like','%'.$request->input('shortFileName'))->where('user_id',Auth::user()->id)->first();
+        if($request->input('admin')) {
+            $file = Document::where('file_name','like','%'.$request->input('shortFileName'))->first();
+        } else {
+            $file = Document::where('file_name','like','%'.$request->input('shortFileName'))->where('user_id',Auth::user()->id)->first();
+        }
+
         if(! $file) {
             return redirect('fatal_error')->with('alert-danger', 'Произошла ошибка в работе сайта. Мы уже исправляем эту проблему. Попробуйте через некоторое время.');
         }

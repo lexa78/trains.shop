@@ -1,3 +1,6 @@
+@if( ! isset($p))
+   <?$p=''?>
+@endif
 <!DOCTYPE html>
 <html lang="en">
 <head>

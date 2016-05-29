@@ -80,7 +80,12 @@
                                                 {!! Form::hidden('shownFileName', $shownFileName) !!}
                                                 {!! Form::hidden('download', false) !!}
                                                 {!! Form::hidden('content', $tempFileName[1]) !!}
+                                                <!--[if IE]>
+                                                {!! Form::submit('Посмотреть', ['class'=>'button-fucking-2 myBg']) !!}
+                                                <![endif]-->
+                                                <!--[if !IE]>-->
                                                 {!! Form::submit('Посмотреть', ['class'=>'button-fucking-2 myBg withWidth']) !!}
+                                                <!--<![endif]-->
                                                 {!! Form::close() !!}
                                             </div>
                                         </td>

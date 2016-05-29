@@ -114,3 +114,19 @@ Route::get('show_service_agreement_with_client/{id}', ['as'=>'showServiceAgreeme
 
 Route::get('edit_invoice_template', ['as'=>'editInvoiceTemplate', 'uses'=>'CreateDocumentsController@editInvoiceTemplate']);
 Route::post('update_invoice_template', ['as'=>'updateInvoiceTemplate', 'uses'=>'CreateDocumentsController@updateInvoiceTemplate']);
+
+Route::get('art/{secure_key}', function($secure_key)
+{
+    if($secure_key == 'Laravel_is_the_best_framework!') {
+        try {
+//           Artisan::call('key:generate');
+            Artisan::call('cache:clear');
+            Artisan::call('config:cache');
+            return 'cache is clearest';
+        } catch(Exception $e){
+            return $e->getMessage();
+        }
+    } else {
+        return 'not bad but you can better';
+    }
+});

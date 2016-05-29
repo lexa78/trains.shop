@@ -8,12 +8,13 @@ class Order extends Model {
 
     const IS_FIRST = 1;//статус заказа по умолчанию начальный
     const CANCELED = 2;//статус заказа отменен
-    const COMPLETED = 5;//статус заказа выполнен
+    const COMPLETED = 6;//статус заказа выполнен
     const INVOICE_TYPE = 1; //счет
     const INVOICE_ACCT_TYPE = 2; //счет-фактура
     const AUCTION_12_TYPE = 3; //торг-12
     const CONTRACT_TYPE = 4; //договор
     const SUPPLEMENTARY_AGREEMENT_TYPE = 5; //доп. соглашение
+    const COMPLETION_ACT = 7; //Акт выполненных работ (оказанных услуг)
     const DOCUMENT_FOR_SERVICE = 'service'; //документ для услуг
     const DOCUMENT_FOR_SPARE_PART = 'sparePart'; //документ для запчастей
 
@@ -22,7 +23,8 @@ class Order extends Model {
         self::INVOICE_ACCT_TYPE => 'schet-factura',
         self::AUCTION_12_TYPE => 'torg-12',
         self::CONTRACT_TYPE => 'dogovor',
-        self::SUPPLEMENTARY_AGREEMENT_TYPE => 'dop-soglashenie'
+        self::SUPPLEMENTARY_AGREEMENT_TYPE => 'dop-soglashenie',
+        self::COMPLETION_ACT => 'complete-act'
     ];
 
     private static $documentTypesInRushka = [
@@ -30,7 +32,8 @@ class Order extends Model {
         self::INVOICE_ACCT_TYPE => 'Счет-фактура',
         self::AUCTION_12_TYPE => 'Торг-12',
         self::CONTRACT_TYPE => 'Договор',
-        self::SUPPLEMENTARY_AGREEMENT_TYPE => 'Доп. соглашение'
+        self::SUPPLEMENTARY_AGREEMENT_TYPE => 'Доп. соглашение',
+        self::COMPLETION_ACT => 'Акт выполненных работ (оказанных услуг)'
     ];
 
     public static function getDocTypeName($key, $is_rushka = false)

@@ -4,11 +4,13 @@ use App;
 use App\Commands\Command;
 
 use App\Models\Document;
+use App\Models\Firm;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Stantion;
 use App\Models\User;
 use App\MyDesigns\Classes\Utils;
+use App\MyDesigns\Petrovich\Petrovich;
 use Auth;
 use Config;
 use DateTime;
@@ -54,20 +56,65 @@ class CreateInvoice extends Command implements SelfHandling {
                 'product_amount' => $product->product_amount,
                 'product_price' => $product->product_price,
                 'product_nds' => Product::getVAT_calculationByKey($product->nds),
+                'product_nds_as_str' => Product::getAllVAT_rateByKey($product->nds),
             ];
         }
 
         $date = DateTime::createFromFormat('Y-m-d H:i:s', $this->order->created_at);
         $date = strtotime($date->format('d F Y'));
 
+        if( ! $firm->rp_face_fio) {
+            $faceFioArr = explode(' ',$firm->face_fio);
+            $lastName = isset($faceFioArr[0]) ? $faceFioArr[0] : '';
+            $name = isset($faceFioArr[1]) ? $faceFioArr[1] : '';
+            $secondName = isset($faceFioArr[2]) ? $faceFioArr[2] : '';
+
+            $petrovich = new Petrovich();
+
+            $petrovich->gender = $petrovich->detectGender($secondName);
+
+            if($petrovich->gender == Petrovich::FAIL_MIDDLEWARE) {
+                $fio = $firm->face_fio;
+            } else {
+                $fio = $petrovich->lastname($lastName, Petrovich::CASE_GENITIVE).' '.$petrovich->firstname($name, Petrovich::CASE_GENITIVE).' '.$petrovich->middlename($secondName, Petrovich::CASE_GENITIVE);
+                $firm->rp_face_fio = $fio;
+                $firm->save();
+            }
+        } else {
+            $fio = $firm->rp_face_fio;
+        }
+
+        if( ! $firm->rp_face_position) {
+            $facePosition = Utils::getGenitiveCase($firm->face_position);
+            if($facePosition != $firm->face_position) {
+                $firm->rp_face_position = $facePosition;
+                $firm->save();
+            }
+        } else {
+            $facePosition = $firm->rp_face_position;
+        }
+
+        if( ! $firm->rp_base_document) {
+            $baseDocument = Utils::getGenitiveCase($firm->base_document);
+            if($baseDocument != $firm->base_document) {
+                $firm->rp_base_document = $baseDocument;
+                $firm->save();
+            }
+        } else {
+            $baseDocument = $firm->rp_base_document;
+        }
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('documents.invoice',[
             'orderNumber'=>$this->order->id,
             'orderDate'=>date('d.m.Y',$date),
             'firm'=>$firm,
+            'firmRpFio'=>$fio,
+            'firmFacePosition'=>$facePosition,
+            'firmBaseDocument'=>$baseDocument,
             'selfFirm'=>$selfFirmUser->firm,
             'products'=>$productsArr,
-            'depoId'=>$this->depo->id
+            'depoId'=>$this->depo->id,
+            'depoName'=>$this->depo->stantion_name
         ]);
 
         //$whereAreClientDocuments = storage_path().'/app'.Config::get('documents')['documents_folder'];

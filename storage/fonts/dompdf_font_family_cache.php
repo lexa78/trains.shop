@@ -92,7 +92,7 @@
     'italic' => DOMPDF_DIR . '/lib/fonts/DejaVuSerifCondensed-Italic',
     'normal' => DOMPDF_DIR . '/lib/fonts/DejaVuSerifCondensed',
   ),
-  'arial' => array(
+  'Arial' => array(
     'normal' => DOMPDF_DIR . '/lib/fonts/arial',
     'bold' => DOMPDF_DIR . '/lib/fonts/arialbd',
     'italic' => DOMPDF_DIR . '/lib/fonts/ariali',

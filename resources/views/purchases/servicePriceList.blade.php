@@ -53,7 +53,13 @@
                                     @include('purchases._modal')
                                     @if($userID)
                                         {!! Form::open(['action' => ['OrderController@confirmServiceOrder', $service->id], 'role' => 'form']) !!}
-
+                                    <!--[if IE]>
+                                    <style type="text/css">
+                                        .button-4 {
+                                            width: 100px;
+                                        }
+                                    </style>
+                                    <![endif]-->
                                         {!! Form::submit('Заказать', ['class'=>'button-4']) !!}
 
                                         {!! Form::close() !!}

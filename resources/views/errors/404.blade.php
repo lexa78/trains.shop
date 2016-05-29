@@ -53,7 +53,7 @@
                     </li>
                 @else
                     <li>
-                        <a href="#">Личный кабинет<br>{{ Auth::user()->firm->organisation_name }}</a>
+                        <a href="#">Личный кабинет</a>
                         <ul>
                             <li><a href="{{ route('firm.edit') }}">Редактировать информацию о фирме</a></li>
                             <li><a href="{{ route('showMyOrders') }}">Мои заказы</a></li>
@@ -67,11 +67,15 @@
             <div class="clear"></div>
         </nav>
     </header>
+    @if (Auth::user())
+        <div class="ave">Добро пожаловать, {{ Auth::user()->name }}</div>
+    @endif
+
     @if (session('successRegister'))
         <div class="alert alert-success">
             {{ session('successRegister') }}
         </div>
-        @endif
+    @endif
 
                 <!--==============================content================================-->
         <section id="content"><div class="ic"></div>

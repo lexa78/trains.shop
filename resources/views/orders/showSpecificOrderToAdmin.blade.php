@@ -96,6 +96,7 @@
                                         {!! Form::hidden('shortFileName', $shortFileName) !!}
                                         {!! Form::hidden('shownFileName', $shownFileName) !!}
                                         {!! Form::hidden('download', true) !!}
+                                        {!! Form::hidden('admin', true) !!}
                                         {!! Form::submit('Скачать', ['class'=>'btn btn-success']) !!}
                                         {!! Form::close() !!}
                                         &nbsp;
@@ -103,6 +104,7 @@
                                         {!! Form::hidden('shortFileName', $shortFileName) !!}
                                         {!! Form::hidden('shownFileName', $shownFileName) !!}
                                         {!! Form::hidden('download', false) !!}
+                                        {!! Form::hidden('admin', true) !!}
                                         {!! Form::hidden('content', $tempFileName[1]) !!}
                                         {!! Form::submit('Посмотреть', ['class'=>'btn btn-success']) !!}
                                         {!! Form::close() !!}
@@ -142,6 +144,7 @@
                                 <option value="{{ \App\Models\Order::INVOICE_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::INVOICE_TYPE, true) }}</option>
                                 <option value="{{ \App\Models\Order::INVOICE_ACCT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::INVOICE_ACCT_TYPE, true) }}</option>
                                 <option value="{{ \App\Models\Order::AUCTION_12_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::AUCTION_12_TYPE, true) }}</option>
+                                <option value="{{ \App\Models\Order::COMPLETION_ACT }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::COMPLETION_ACT, true) }}</option>
                                 {{--<option value="{{ \App\Models\Order::CONTRACT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::CONTRACT_TYPE, true) }}</option>--}}
                                 {{--<option value="{{ \App\Models\Order::SUPPLEMENTARY_AGREEMENT_TYPE }}">{{ \App\Models\Order::getDocTypeName(\App\Models\Order::SUPPLEMENTARY_AGREEMENT_TYPE, true) }}</option>--}}
                             </select>

@@ -30,6 +30,7 @@ use DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Auth;
+use Mail;
 use PhpSpec\Exception\Exception;
 use Redirect;
 use Route;
@@ -264,7 +265,7 @@ class OrderController extends Controller {
         }
 
         $documents = Document::where('order_id',$orderId)->orderBy('type')->get();
-        $documentTypes = [1 => 1, 2 => 2, 3 => 3/*, 4 => 4, 5 => 5*/];
+        $documentTypes = [1 => 1, 2 => 2, 3 => 3/*, 4 => 4, 5 => 5*/, 7 => 7];
 
         return view('orders.showSpecificOrderToAdmin',['order'=>$order, 'statuses'=>$statuses,
             'documents'=>$documents, 'documentTypes'=>$documentTypes]);
@@ -319,36 +320,54 @@ class OrderController extends Controller {
         try {
             DB::transaction(function()
             use($statusId, $orderId, &$response, $is_service) {
+                $messageData = [];
+                $email = '';
                 if($is_service) {
-                    $order = ServiceOrder::where('id', $orderId)->first();
+                    $order = ServiceOrder::with('user', 'service_status')->where('id', $orderId)->first();
+                    $messageData['status_was'] = $order->service_status->status;
                     $order->service_status_id = $statusId;
                     $order->save();
                     $response = 1;
+                    $email = $order->user->email;
+                    $messageData['user'] = $order->user->name;
+                    $messageData['type'] = 'прочие услуги';
+                    $messageData['order_number'] = $order->id;
+                    $messageData['status_now'] = ServiceStatus::find($statusId)->status;
                 } else {
                     if ($statusId == Order::CANCELED) {
-                        $order = Order::with('products_in_order.price')->where('id', $orderId)->first();
+                        $order = Order::with('products_in_order.price', 'user', 'status')->where('id', $orderId)->first();
                         foreach ($order->products_in_order as $product) {
                             $product->price->amount += $product->product_amount;
                             $product->price->save();
                         }
 //                    $response = Order::CANCELED;
                     } else {
-                        $order = Order::where('id', $orderId)->first();
+                        $order = Order::with('user', 'status')->where('id', $orderId)->first();
 //                    if($statusId == Order::COMPLETED) {
 //                        $response = Order::COMPLETED;
 //                    } else {
 //                        $response = 1;
 //                    }
                     }
+                    $messageData['status_was'] = $order->status->status;
                     $order->status_id = $statusId;
                     $order->save();
                     $response = 1;
+                    $email = $order->user->email;
+                    $messageData['user'] = $order->user->name;
+                    $messageData['type'] = 'запчасти грузовых вагонов';
+                    $messageData['order_number'] = $order->id;
+                    $messageData['status_now'] = Status::find($statusId)->status;
                 }
+                Mail::send('emails.statusDone', $messageData, function($message) use ($email)
+                {
+                    $message->to($email)->subject('Смена статуса заказа');
+                });
             });
         } catch(Exception $e) {
             $response = 0;
         }
-        dd($response);
+ //       dd($response);
         echo $response;
     }
 
